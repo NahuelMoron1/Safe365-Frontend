@@ -1,0 +1,72 @@
+<sky-navbar>
+  <sky-navbar-item>
+    <a routerLink="/" routerLinkActive="sky-navbar-item-active"> Inicio </a>
+  </sky-navbar-item>
+  <sky-navbar-item>
+    <sky-dropdown>
+      <sky-dropdown-button> Turnos </sky-dropdown-button>
+      <sky-dropdown-menu>
+        <sky-dropdown-item>
+          <a routerLink="/" (click)="onDropdownItemClick('Item 1')">
+            Sacar turno
+          </a>
+        </sky-dropdown-item>
+        <sky-dropdown-item *ngIf="user.role === 'attendant'">
+          <a routerLink="/" (click)="onDropdownItemClick('Item 2')">
+            Cancelar turno
+          </a>
+        </sky-dropdown-item>
+        <sky-dropdown-item *ngIf="user.role === 'attendant'">
+          <a routerLink="/" (click)="onDropdownItemClick('Item 3')">
+            Completar turno
+          </a>
+        </sky-dropdown-item>
+      </sky-dropdown-menu>
+    </sky-dropdown>
+  </sky-navbar-item>
+
+  <sky-navbar-item>
+    <sky-dropdown>
+      <sky-dropdown-button> Médicos </sky-dropdown-button>
+      <sky-dropdown-menu>
+        <sky-dropdown-item>
+          <a routerLink="/" (click)="onDropdownItemClick('Item 1')">
+            Ver todos los médicos
+          </a>
+        </sky-dropdown-item>
+        <sky-dropdown-item>
+          <a routerLink="/" (click)="onDropdownItemClick('Item 2')">
+            Buscar médico
+          </a>
+        </sky-dropdown-item>
+        <sky-dropdown-item>
+          <a routerLink="/" (click)="onDropdownItemClick('Item 3')">
+            Completar turno
+          </a>
+        </sky-dropdown-item>
+      </sky-dropdown-menu>
+    </sky-dropdown>
+  </sky-navbar-item>
+
+  <sky-navbar-item>
+    <a routerLink="/" routerLinkActive="sky-navbar-item-active">
+      Ver disponibilidad
+    </a>
+  </sky-navbar-item>
+
+  <sky-navbar-item>
+    <a routerLink="/" routerLinkActive="sky-navbar-item-active"> Contacto </a>
+  </sky-navbar-item>
+
+  <sky-navbar-item *ngIf="!user.id">
+    <a routerLink="/" routerLinkActive="sky-navbar-item-active">
+      Iniciar Sesión
+    </a>
+  </sky-navbar-item>
+
+  <sky-navbar-item *ngIf="user.id">
+    <a routerLink="/" routerLinkActive="sky-navbar-item-active">
+      Cerrar sesión
+    </a>
+  </sky-navbar-item>
+</sky-navbar>

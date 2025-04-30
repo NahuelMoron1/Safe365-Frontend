@@ -1,0 +1,274 @@
+import { HttpClient } from '@angular/common/http';
+import { inject, Injectable } from '@angular/core';
+import { environment } from '../environments/environment';
+import { CookieService } from './cookie.service';
+import { Turn } from '../models/Turn';
+import { Observable, of } from 'rxjs';
+
+@Injectable({
+  providedIn: 'root',
+})
+export class TurnService {
+  private myAppUrl: string;
+  private myApiUrl: string;
+  cookieService = inject(CookieService);
+  constructor(private http: HttpClient) {
+    this.myAppUrl = environment.endpoint;
+    this.myApiUrl = 'api/users/';
+  }
+
+  /*This is user's functionality*/
+
+  ///GET ALL USER TURNS
+
+  async getAllUserTurnsTC() {
+    try {
+      const data = await this.getAllUserTurns().toPromise();
+      if (data) {
+        const userTurns: Turn[] = data;
+        return userTurns;
+      }
+      return undefined;
+    } catch (error) {
+      if (error instanceof Error) {
+        console.error('Error obteniendo datos:', error.message);
+      }
+      throw error; // Puedes manejar el error de acuerdo a tus necesidades
+    }
+  }
+
+  getAllUserTurns(): Observable<Turn[]> {
+    return this.http.get<Turn[]>(this.myAppUrl + this.myApiUrl + 'user', {
+      withCredentials: true,
+    });
+  }
+
+  ///GET SCHEDULED USER TURNS
+
+  async getScheduledUserTurnsTC() {
+    try {
+      const data = await this.getScheduledUserTurns().toPromise();
+      if (data) {
+        const userTurns: Turn[] = data;
+        return userTurns;
+      }
+      return undefined;
+    } catch (error) {
+      if (error instanceof Error) {
+        console.error('Error obteniendo datos:', error.message);
+      }
+      throw error; // Puedes manejar el error de acuerdo a tus necesidades
+    }
+  }
+
+  getScheduledUserTurns(): Observable<Turn[]> {
+    return this.http.get<Turn[]>(
+      this.myAppUrl + this.myApiUrl + 'user/scheduled',
+      {
+        withCredentials: true,
+      }
+    );
+  }
+
+  ///GET COMPLETED USER TURNS
+
+  async getCompletedUserTurnsTC() {
+    try {
+      const data = await this.getCompletedUserTurns().toPromise();
+      if (data) {
+        const userTurns: Turn[] = data;
+        return userTurns;
+      }
+      return undefined;
+    } catch (error) {
+      if (error instanceof Error) {
+        console.error('Error obteniendo datos:', error.message);
+      }
+      throw error; // Puedes manejar el error de acuerdo a tus necesidades
+    }
+  }
+
+  getCompletedUserTurns(): Observable<Turn[]> {
+    return this.http.get<Turn[]>(
+      this.myAppUrl + this.myApiUrl + 'user/completed',
+      {
+        withCredentials: true,
+      }
+    );
+  }
+
+  ///GET CANCELED USER TURNS
+
+  async getCanceledUserTurnsTC() {
+    try {
+      const data = await this.getCanceledUserTurns().toPromise();
+      if (data) {
+        const userTurns: Turn[] = data;
+        return userTurns;
+      }
+      return undefined;
+    } catch (error) {
+      if (error instanceof Error) {
+        console.error('Error obteniendo datos:', error.message);
+      }
+      throw error; // Puedes manejar el error de acuerdo a tus necesidades
+    }
+  }
+
+  getCanceledUserTurns(): Observable<Turn[]> {
+    return this.http.get<Turn[]>(
+      this.myAppUrl + this.myApiUrl + 'user/canceled',
+      {
+        withCredentials: true,
+      }
+    );
+  }
+
+  ///GET NOT SCHEDULED USER TURNS
+
+  async getNotScheduledUserTurnsTC() {
+    try {
+      const data = await this.getNotScheduledUserTurns().toPromise();
+      if (data) {
+        const userTurns: Turn[] = data;
+        return userTurns;
+      }
+      return undefined;
+    } catch (error) {
+      if (error instanceof Error) {
+        console.error('Error obteniendo datos:', error.message);
+      }
+      throw error; // Puedes manejar el error de acuerdo a tus necesidades
+    }
+  }
+
+  getNotScheduledUserTurns(): Observable<Turn[]> {
+    return this.http.get<Turn[]>(
+      this.myAppUrl + this.myApiUrl + 'user/notScheduled',
+      {
+        withCredentials: true,
+      }
+    );
+  }
+
+  ///CREATE A NEW TURN
+
+  createTurn(newTurn: Turn): Observable<void> {
+    const body = {
+      attendantID: newTurn.attendantID,
+      date: newTurn.date,
+      place: newTurn.place,
+    };
+    if (this.cookieService.isLogged) {
+      return this.http.post<void>(
+        `${this.myAppUrl}${this.myApiUrl}user/create`,
+        body,
+        {
+          withCredentials: true,
+        }
+      );
+    }
+    return of(undefined);
+  }
+
+  /*This is attendant's | admin's functionality*/
+
+  ///GET ALL ATTENDANT TURNS
+
+  async getAllAttendantTurnsTC() {
+    try {
+      const data = await this.getAllAttendantTurns().toPromise();
+      if (data) {
+        const attendantTurns: Turn[] = data;
+        return attendantTurns;
+      }
+      return undefined;
+    } catch (error) {
+      if (error instanceof Error) {
+        console.error('Error obteniendo datos:', error.message);
+      }
+      throw error; // Puedes manejar el error de acuerdo a tus necesidades
+    }
+  }
+
+  getAllAttendantTurns(): Observable<Turn[]> {
+    return this.http.get<Turn[]>(this.myAppUrl + this.myApiUrl + 'attendant', {
+      withCredentials: true,
+    });
+  }
+
+  ///GET SCHEDULED ATTENDANT TURNS
+
+  async getScheduledAttendantTurnsTC() {
+    try {
+      const data = await this.getScheduledAttendantTurns().toPromise();
+      if (data) {
+        const attendantTurns: Turn[] = data;
+        return attendantTurns;
+      }
+      return undefined;
+    } catch (error) {
+      if (error instanceof Error) {
+        console.error('Error obteniendo datos:', error.message);
+      }
+      throw error; // Puedes manejar el error de acuerdo a tus necesidades
+    }
+  }
+
+  getScheduledAttendantTurns(): Observable<Turn[]> {
+    return this.http.get<Turn[]>(
+      this.myAppUrl + this.myApiUrl + 'attendant/scheduled',
+      {
+        withCredentials: true,
+      }
+    );
+  }
+
+  ///CREATE A NEW TURN (ATTENDANT ONLY)
+
+  attendantCreateTurn(newTurn: Turn): Observable<void> {
+    const body = {
+      userID: newTurn.attendantID,
+      date: newTurn.date,
+      place: newTurn.place,
+    };
+    if (this.cookieService.isLogged) {
+      return this.http.post<void>(
+        `${this.myAppUrl}${this.myApiUrl}attendant/create`,
+        body,
+        {
+          withCredentials: true,
+        }
+      );
+    }
+    return of(undefined);
+  }
+
+  ///CANCEL AN EXISTING TURN (ATTENDANT ONLY)
+
+  cancelTurn(turnID: string): Observable<void> {
+    if (this.cookieService.isLogged) {
+      return this.http.post<void>(
+        `${this.myAppUrl}${this.myApiUrl}attendant/cancel/${turnID}`,
+        {
+          withCredentials: true,
+        }
+      );
+    }
+    return of(undefined);
+  }
+
+  ///COMPLETE AN EXISTING TURN (ATTENDANT ONLY)
+
+  completeTurn(turnID: string): Observable<void> {
+    if (this.cookieService.isLogged) {
+      return this.http.post<void>(
+        `${this.myAppUrl}${this.myApiUrl}attendant/complete/${turnID}`,
+        {
+          withCredentials: true,
+        }
+      );
+    }
+    return of(undefined);
+  }
+}

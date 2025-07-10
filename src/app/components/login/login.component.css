@@ -1,0 +1,15 @@
+.sky-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 80vh;
+}
+
+.sky-panel {
+  width: 100%;
+  max-width: 400px;
+}
+
+.sky-form-group {
+  margin-bottom: 1rem;
+}

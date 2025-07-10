@@ -1,0 +1,85 @@
+<div class="register-container">
+  <h2 class="form-title">Registro de Usuario</h2>
+  <form class="form-grid">
+    <div class="form-group">
+      <label for="fullNameInp">Nombre completo</label>
+      <input id="fullNameInp" type="text" class="form-control" />
+    </div>
+
+    <div class="form-group">
+      <label for="emailInp">Email</label>
+      <input id="emailInp" type="email" class="form-control" />
+    </div>
+
+    <div class="form-group">
+      <label for="phoneInp">Teléfono</label>
+      <input id="phoneInp" type="text" class="form-control" />
+    </div>
+
+    <div class="form-group">
+      <label for="userIDInp">ID de Usuario</label>
+      <input id="userIDInp" type="text" class="form-control" />
+    </div>
+
+    <div class="form-group">
+      <label for="passwordInp">Contraseña</label>
+      <input id="passwordInp" type="password" class="form-control" />
+    </div>
+
+    <div class="form-group">
+      <label for="socialworkSelect">Obra social</label>
+      <select
+        id="socialworkSelect"
+        (change)="changeSocialwork($event)"
+        class="form-control"
+      >
+        <option
+          *ngFor="let sw of socialWorks"
+          [selected]="sw.name === socialwork"
+        >
+          {{ sw.name }}
+        </option>
+      </select>
+    </div>
+
+    <ng-container *ngIf="isAdmin()">
+      <div class="form-group">
+        <label for="userRoleInp">Rol</label>
+        <select
+          id="userRoleInp"
+          class="form-control"
+          (change)="changeRole($event)"
+        >
+          <option value="{{ undefined }}">Seleccionar rol</option>
+          <option value="admin">Administrador</option>
+          <option value="attendant">Médico</option>
+          <option value="client">Cliente</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label for="specialityInp">Especialidad</label>
+        <input
+          id="specialityInp"
+          type="text"
+          class="form-control"
+          [disabled]="selectedRole !== 'attendant'"
+        />
+      </div>
+
+      <div class="form-group">
+        <label for="statusInp">Estado</label>
+        <select id="statusInp" class="form-control">
+          <option value="{{ undefined }}">Activo (por defecto)</option>
+          <option value="inactive">Inactivo</option>
+        </select>
+      </div>
+    </ng-container>
+  </form>
+
+  <div class="button-container">
+    <button type="button" (click)="registerUser()" class="btn-primary">
+      Registrar
+    </button>
+  </div>
+</div>

@@ -4,27 +4,20 @@ import { UserStatus } from '../../models/enums/UserStatus';
 import { User } from '../../models/User';
 import { UserService } from '../../services/user.service';
 import { SkyToastService, SkyToastType } from '@skyux/toast';
+import { UtilsService } from '../../services/utils.service';
+import { NavBarComponent } from '../nav-bar/nav-bar.component';
 
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [],
+  imports: [NavBarComponent],
   templateUrl: './login.component.html',
   styleUrl: './login.component.css',
 })
 export class LoginComponent {
   userService = inject(UserService);
   toastSvc = inject(SkyToastService);
-  user: User = new User(
-    '',
-    '',
-    '',
-    '',
-    '',
-    UserRole.CLIENT,
-    UserStatus.ACTIVE,
-    ''
-  );
+  user: User = new User('', '', '', '', '', UserRole.CLIENT);
 
   async login() {
     let emailInp = document.getElementById('emailInp') as HTMLInputElement;
@@ -42,10 +35,23 @@ export class LoginComponent {
           .toPromise();
         if (access) {
           window.location.href = '';
-        } else {
-          toastsvc;
         }
-      } catch (error) {}
+      } catch (error: any) {
+        if (error.status === 404) {
+          UtilsService.openToast(
+            this.toastSvc,
+            'No se pudo iniciar sesión, datos incorrectos',
+            SkyToastType.Danger
+          );
+
+          return;
+        }
+        UtilsService.openToast(
+          this.toastSvc,
+          'Ocurrió un error, pongase en contacto con gente de la empresa.',
+          SkyToastType.Danger
+        );
+      }
     }
   }
 }

@@ -1,1 +1,39 @@
-<p>login works!</p>
+<app-nav-bar></app-nav-bar>
+
+<div class="sky-container">
+  <div class="sky-margin-top-xxl sky-margin-horizontal-xl">
+    <div class="sky-panel">
+      <div class="sky-panel-header">
+        <h2>Iniciar sesión</h2>
+      </div>
+      <div class="sky-panel-body">
+        <div class="sky-form-group">
+          <label for="emailInp">Correo electrónico</label>
+          <input
+            id="emailInp"
+            type="email"
+            class="sky-form-control"
+            placeholder="Ingrese su correo"
+          />
+        </div>
+
+        <div class="sky-form-group">
+          <label for="passwordInp">Contraseña</label>
+          <input
+            id="passwordInp"
+            type="password"
+            class="sky-form-control"
+            placeholder="Ingrese su contraseña"
+          />
+        </div>
+
+        <button
+          class="sky-btn sky-btn-primary sky-margin-top-md"
+          (click)="login()"
+        >
+          Entrar
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

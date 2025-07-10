@@ -1,72 +1,78 @@
-<sky-navbar>
-  <sky-navbar-item>
-    <a routerLink="/" routerLinkActive="sky-navbar-item-active"> Inicio </a>
-  </sky-navbar-item>
-  <sky-navbar-item>
-    <sky-dropdown>
-      <sky-dropdown-button> Turnos </sky-dropdown-button>
-      <sky-dropdown-menu>
-        <sky-dropdown-item>
-          <a routerLink="/" (click)="onDropdownItemClick('Item 1')">
-            Sacar turno
-          </a>
-        </sky-dropdown-item>
-        <sky-dropdown-item *ngIf="user.role === 'attendant'">
-          <a routerLink="/" (click)="onDropdownItemClick('Item 2')">
-            Cancelar turno
-          </a>
-        </sky-dropdown-item>
-        <sky-dropdown-item *ngIf="user.role === 'attendant'">
-          <a routerLink="/" (click)="onDropdownItemClick('Item 3')">
-            Completar turno
-          </a>
-        </sky-dropdown-item>
-      </sky-dropdown-menu>
-    </sky-dropdown>
-  </sky-navbar-item>
-
-  <sky-navbar-item>
-    <sky-dropdown>
-      <sky-dropdown-button> Médicos </sky-dropdown-button>
-      <sky-dropdown-menu>
-        <sky-dropdown-item>
-          <a routerLink="/" (click)="onDropdownItemClick('Item 1')">
-            Ver todos los médicos
-          </a>
-        </sky-dropdown-item>
-        <sky-dropdown-item>
-          <a routerLink="/" (click)="onDropdownItemClick('Item 2')">
-            Buscar médico
-          </a>
-        </sky-dropdown-item>
-        <sky-dropdown-item>
-          <a routerLink="/" (click)="onDropdownItemClick('Item 3')">
-            Completar turno
-          </a>
-        </sky-dropdown-item>
-      </sky-dropdown-menu>
-    </sky-dropdown>
-  </sky-navbar-item>
-
-  <sky-navbar-item>
-    <a routerLink="/" routerLinkActive="sky-navbar-item-active">
-      Ver disponibilidad
+<sky-navbar class="custom-navbar">
+  <div class="navbar-container">
+    <!-- Logo -->
+    <a routerLink="/" class="navbar-logo-link">
+      <img
+        src="https://i.pinimg.com/736x/75/3b/e7/753be7feea7a423828946d886992e078.jpg"
+        alt="Logo de la empresa"
+        class="navbar-logo"
+      />
     </a>
-  </sky-navbar-item>
 
-  <sky-navbar-item>
-    <a routerLink="/" routerLinkActive="sky-navbar-item-active"> Contacto </a>
-  </sky-navbar-item>
+    <!-- Items -->
+    <div class="navbar-links">
+      <sky-navbar-item><a routerLink="/">Inicio</a></sky-navbar-item>
 
-  <sky-navbar-item *ngIf="!user.id">
-    <a routerLink="/" routerLinkActive="sky-navbar-item-active">
-      Iniciar Sesión
-    </a>
-  </sky-navbar-item>
+      <sky-navbar-item>
+        <sky-dropdown>
+          <sky-dropdown-button>Turnos</sky-dropdown-button>
+          <sky-dropdown-menu>
+            <sky-dropdown-item>
+              <a routerLink="/" (click)="onDropdownItemClick('Item 1')"
+                >Sacar turno</a
+              >
+            </sky-dropdown-item>
+            <sky-dropdown-item *ngIf="user.role === 'attendant'">
+              <a routerLink="/" (click)="onDropdownItemClick('Item 2')"
+                >Cancelar turno</a
+              >
+            </sky-dropdown-item>
+            <sky-dropdown-item *ngIf="user.role === 'attendant'">
+              <a routerLink="/" (click)="onDropdownItemClick('Item 3')"
+                >Completar turno</a
+              >
+            </sky-dropdown-item>
+          </sky-dropdown-menu>
+        </sky-dropdown>
+      </sky-navbar-item>
 
-  <sky-navbar-item *ngIf="user.id">
-    <a routerLink="/" routerLinkActive="sky-navbar-item-active">
-      Cerrar sesión
-    </a>
-  </sky-navbar-item>
+      <sky-navbar-item>
+        <sky-dropdown>
+          <sky-dropdown-button>Médicos</sky-dropdown-button>
+          <sky-dropdown-menu>
+            <sky-dropdown-item>
+              <a routerLink="/all/attendants">Ver todos los médicos</a>
+            </sky-dropdown-item>
+            <sky-dropdown-item>
+              <a routerLink="/" (click)="onDropdownItemClick('Item 2')"
+                >Buscar médico</a
+              >
+            </sky-dropdown-item>
+            <sky-dropdown-item *ngIf="isAdmin()">
+              <a routerLink="/register/doctor">Registrar nuevo médico</a>
+            </sky-dropdown-item>
+            <sky-dropdown-item>
+              <a routerLink="/" (click)="onDropdownItemClick('Item 3')"
+                >Completar turno</a
+              >
+            </sky-dropdown-item>
+          </sky-dropdown-menu>
+        </sky-dropdown>
+      </sky-navbar-item>
+
+      <sky-navbar-item
+        ><a routerLink="/">Ver disponibilidad</a></sky-navbar-item
+      >
+      <sky-navbar-item><a routerLink="/">Contacto</a></sky-navbar-item>
+
+      <sky-navbar-item *ngIf="!user.id">
+        <a routerLink="/login" routerLinkActive="sky-navbar-item-active"
+          >Iniciar Sesión</a
+        >
+      </sky-navbar-item>
+      <sky-navbar-item *ngIf="user.id">
+        <a routerLink="/" (click)="logout()">Cerrar sesión</a>
+      </sky-navbar-item>
+    </div>
+  </div>
 </sky-navbar>

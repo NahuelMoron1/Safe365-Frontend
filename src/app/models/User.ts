@@ -1,27 +1,33 @@
+import { AttendantXSocialwork } from './AttendantXSocialwork';
 import { UserRole } from './enums/UserRole';
 import { UserStatus } from './enums/UserStatus';
 
 export class User {
-  id: string;
   fullName: string;
   email: string;
-  password?: string;
   phone: string;
   userID: string;
-  role: UserRole;
-  status: UserStatus;
+  socialworkID: string;
+  id?: string;
+  password?: string;
+  role?: UserRole;
+  status?: UserStatus;
   speciality?: string;
   profileImage?: string;
+  Socialwork?: string;
+  AttendantXSocialworks?: AttendantXSocialwork[];
 
   constructor(
-    id: string,
     fullName: string,
     email: string,
     phone: string,
     userID: string,
-    role: UserRole,
-    status: UserStatus,
-    password?: string
+    socialworkID: string,
+    password?: string,
+    role?: UserRole,
+    id?: string,
+    speciality?: string,
+    status?: UserStatus
   ) {
     this.id = id;
     this.fullName = fullName;
@@ -31,5 +37,7 @@ export class User {
     this.userID = userID;
     this.role = role;
     this.status = status;
+    this.speciality = speciality;
+    this.socialworkID = socialworkID;
   }
 }

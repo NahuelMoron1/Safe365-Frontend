@@ -13,7 +13,7 @@ import { Observable } from 'rxjs';
 export class UserService {
   private myAppUrl: string;
   private myApiUrl: string;
-  user: User = new User('', '', '', '', '', UserRole.CLIENT, UserStatus.ACTIVE);
+  user: User = new User('', '', '', '', '', UserRole.CLIENT);
   cookieService = inject(CookieService);
   constructor(private http: HttpClient) {
     this.myAppUrl = environment.endpoint;
@@ -36,12 +36,14 @@ export class UserService {
       const data = await this.getUser(id).toPromise();
       if (data) {
         const user = new User(
-          data.id,
           data.fullName,
           data.email,
           data.phone,
           data.userID,
+          data.password || '',
+          data.socialworkID,
           data.role,
+          data.id,
           data.status
         );
         return user;
@@ -115,6 +117,62 @@ export class UserService {
     );
   }
 
+  ///GET ALL ATTENDANTS
+
+  ///GET ACTIVE ATTENDANTS
+
+  async getAttendantsBySocialworkTC(socialworkID: string) {
+    try {
+      const data = await this.getAttendantsBySocialwork(
+        socialworkID
+      ).toPromise();
+      if (data) {
+        const activeAttendants: User[] = data;
+        return activeAttendants;
+      }
+      return undefined;
+    } catch (error) {
+      if (error instanceof Error) {
+        console.error('Error obteniendo datos:', error.message);
+      }
+      throw error; // Puedes manejar el error de acuerdo a tus necesidades
+    }
+  }
+
+  getAttendantsBySocialwork(socialworkID: string): Observable<User[]> {
+    return this.http.get<User[]>(
+      this.myAppUrl + this.myApiUrl + `attendants/socialworks/${socialworkID}`,
+      {
+        withCredentials: true,
+      }
+    );
+  }
+
+  async getAllAttendantsTC() {
+    try {
+      const data = await this.getAllAttendants().toPromise();
+      if (data) {
+        const allAttendants: User[] = data;
+        return allAttendants;
+      }
+      return undefined;
+    } catch (error) {
+      if (error instanceof Error) {
+        console.error('Error obteniendo datos:', error.message);
+      }
+      throw error; // Puedes manejar el error de acuerdo a tus necesidades
+    }
+  }
+
+  getAllAttendants(): Observable<User[]> {
+    return this.http.get<User[]>(
+      this.myAppUrl + this.myApiUrl + 'attendants/all',
+      {
+        withCredentials: true,
+      }
+    );
+  }
+
   ///SET ATTENDANT TO ACTIVE
 
   setActiveAttendant(attendantID: string): Observable<string> {
@@ -141,15 +199,17 @@ export class UserService {
 
   async getUserByNameTC(name: string) {
     try {
-      const data = await this.getUser(name).toPromise();
+      const data = await this.getUserByName(name).toPromise();
       if (data) {
         const user = new User(
-          data.id,
           data.fullName,
           data.email,
           data.phone,
           data.userID,
+          data.password || '',
+          data.socialworkID,
           data.role,
+          data.id,
           data.status
         );
         return user;

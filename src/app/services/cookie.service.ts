@@ -12,7 +12,7 @@ import { environment } from '../environments/environment';
 export class CookieService {
   private myAppUrl: string;
   private myApiUrl: string;
-  user: User = new User('', '', '', '', '', UserRole.CLIENT, UserStatus.ACTIVE);
+  user: User = new User('', '', '', '', '', UserRole.CLIENT);
   _user: BehaviorSubject<User> = new BehaviorSubject<User>(this.user);
   isLogged: boolean = false;
   _islogged: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(

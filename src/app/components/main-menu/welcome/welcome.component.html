@@ -1,3 +1,82 @@
-<div id="container">
-  <sky-dropdown>AAA</sky-dropdown>
-</div>
+<sky-box>
+  <sky-box-header>
+    <h2>Bienvenido al sistema de gestión de turnos</h2>
+  </sky-box-header>
+
+  <sky-box-content>
+    <!-- Mensaje de bienvenida -->
+    <div class="welcome-message">
+      <p>
+        ¡Bienvenido al Sistema de Gestión de Turnos! Este sistema ha sido
+        diseñado para facilitar la administración de citas médicas, asegurando
+        una experiencia fluida tanto para los profesionales de salud como para
+        los pacientes. Aquí podrás gestionar turnos, visualizar la
+        disponibilidad de los profesionales, y mantener un registro de todas tus
+        citas pasadas y futuras.
+      </p>
+      <p>
+        Dependiendo de tu rol, podrás acceder a diferentes funcionalidades. Si
+        eres un administrador, tendrás la capacidad de gestionar turnos,
+        pacientes y calendarios de los profesionales. Si eres un cliente, podrás
+        ver tus turnos, consultar la disponibilidad de los profesionales y
+        gestionar tu información personal.
+      </p>
+      <p>
+        Por favor, selecciona las opciones correspondientes a tu perfil para
+        comenzar a explorar el sistema.
+      </p>
+    </div>
+
+    <div style="display: flex; flex-wrap: wrap; gap: 1rem">
+      <!-- Sección para Administradores -->
+      <div class="tile">
+        <h3>Administración de Turnos</h3>
+        <p>
+          Como administrador, puedes gestionar todos los turnos y asignar citas
+          a los pacientes según la disponibilidad de los profesionales.
+        </p>
+      </div>
+
+      <div class="tile">
+        <h3>Gestión de Pacientes</h3>
+        <p>
+          Los administradores pueden ver y actualizar los datos médicos de los
+          pacientes, así como llevar un registro de su historial de citas.
+        </p>
+      </div>
+
+      <div class="tile">
+        <h3>Gestión de Calendario</h3>
+        <p>
+          Ver la disponibilidad de los profesionales de salud y asignar turnos
+          de acuerdo con las fechas y horas disponibles.
+        </p>
+      </div>
+
+      <!-- Sección para Clientes -->
+      <div class="tile">
+        <h3>Mis Turnos</h3>
+        <p>
+          Como cliente, puedes ver tus turnos próximos, los detalles de tus
+          citas pasadas y la opción de gestionar cualquier cambio.
+        </p>
+      </div>
+
+      <div class="tile">
+        <h3>Mis Datos</h3>
+        <p>
+          Accede a tu información personal, como nombre, dirección y otros
+          detalles que están asociados a tu perfil.
+        </p>
+      </div>
+
+      <div class="tile">
+        <h3>Ver Calendario</h3>
+        <p>
+          Consulta la disponibilidad de los profesionales y verifica las fechas
+          en las que puedes agendar un nuevo turno.
+        </p>
+      </div>
+    </div>
+  </sky-box-content>
+</sky-box>

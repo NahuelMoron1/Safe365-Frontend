@@ -8,6 +8,20 @@ export class Turn {
   attendantID: string;
   status: TurnStatus = TurnStatus.SCHEDULED;
 
+  User?: {
+    fullName: string;
+    userID: string;
+    Socialwork?: {
+      name: string;
+    };
+  };
+
+  Attendant?: {
+    fullName: string;
+    userID: string;
+    // Podés agregar `Socialwork` también si lo incluís del médico
+  };
+
   constructor(
     id: string,
     date: Date,

@@ -4,6 +4,8 @@ import { LoginComponent } from './components/login/login.component';
 import { DoctorsComponent } from './components/doctors/doctors.component';
 import { loggedGuard } from './guards/logged.guard';
 import { RegisterDoctorComponent } from './components/doctors/register-doctor/register-doctor.component';
+import { adminGuard } from './guards/admin.guard';
+import { TurnsComponent } from './components/turns/turns.component';
 
 export const routes: Routes = [
   {
@@ -26,5 +28,15 @@ export const routes: Routes = [
   {
     path: 'register/doctor',
     component: DoctorsComponent,
+    canActivate: [adminGuard],
+  },
+  {
+    path: 'register',
+    component: DoctorsComponent,
+    canActivate: [loggedGuard],
+  },
+  {
+    path: 'turns',
+    component: TurnsComponent,
   },
 ];

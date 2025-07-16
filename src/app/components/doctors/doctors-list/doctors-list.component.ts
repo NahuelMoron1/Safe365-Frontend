@@ -48,8 +48,6 @@ export class DoctorsListComponent implements OnInit {
     } else {
       this.activeAttendants = await this.userService.getActiveAttendantsTC();
     }
-    if (this.activeAttendants && this.activeAttendants[2].AttendantXSocialworks)
-      console.log(this.activeAttendants[2].AttendantXSocialworks[0].Socialwork);
   }
 
   async changeSocialwork(event: Event | string) {

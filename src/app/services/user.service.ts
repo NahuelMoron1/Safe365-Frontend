@@ -13,7 +13,7 @@ import { Observable } from 'rxjs';
 export class UserService {
   private myAppUrl: string;
   private myApiUrl: string;
-  user: User = new User('', '', '', '', '', UserRole.CLIENT);
+  public user?: User;
   cookieService = inject(CookieService);
   constructor(private http: HttpClient) {
     this.myAppUrl = environment.endpoint;
@@ -236,7 +236,13 @@ export class UserService {
   ///CREATE NEW USER
 
   saveUser(newUser: User): Observable<void> {
-    return this.http.post<void>(`${this.myAppUrl}${this.myApiUrl}`, newUser, {
+    const formData = new FormData();
+    formData.append('body', JSON.stringify(newUser));
+
+    if (newUser.temporaryFile) {
+      formData.append('file', newUser.temporaryFile);
+    }
+    return this.http.post<void>(`${this.myAppUrl}${this.myApiUrl}`, formData, {
       withCredentials: true,
     });
   }

@@ -33,10 +33,16 @@ export class DoctorsComponent implements OnInit {
   constructor(private router: Router) {}
 
   ngOnInit(): void {
+    this.checkRoutes();
+  }
+
+  checkRoutes() {
     if (this.router.url.includes('search')) {
       this.isSearchPage = true;
+      this.isRegister = false;
     } else if (this.router.url.includes('register')) {
       this.isRegister = true;
+      this.isSearchPage = false;
     } else {
       this.isSearchPage = false;
       this.isRegister = false;
@@ -45,6 +51,11 @@ export class DoctorsComponent implements OnInit {
 
   handleUser(user: any) {
     this.user = user;
+  }
+  isLogged() {
+    if (this.user) {
+    }
+    return true;
   }
   isAdmin() {
     if (this.user?.role === UserRole.ADMIN) {

@@ -22,12 +22,12 @@
                 >Sacar turno</a
               >
             </sky-dropdown-item>
-            <sky-dropdown-item *ngIf="user.role === 'attendant'">
+            <sky-dropdown-item *ngIf="user?.role === 'attendant'">
               <a routerLink="/" (click)="onDropdownItemClick('Item 2')"
                 >Cancelar turno</a
               >
             </sky-dropdown-item>
-            <sky-dropdown-item *ngIf="user.role === 'attendant'">
+            <sky-dropdown-item *ngIf="user?.role === 'attendant'">
               <a routerLink="/" (click)="onDropdownItemClick('Item 3')"
                 >Completar turno</a
               >
@@ -65,12 +65,12 @@
       >
       <sky-navbar-item><a routerLink="/">Contacto</a></sky-navbar-item>
 
-      <sky-navbar-item *ngIf="!user.id">
+      <sky-navbar-item *ngIf="!user?.id">
         <a routerLink="/login" routerLinkActive="sky-navbar-item-active"
           >Iniciar Sesión</a
         >
       </sky-navbar-item>
-      <sky-navbar-item *ngIf="user.id">
+      <sky-navbar-item *ngIf="user?.id">
         <a routerLink="/" (click)="logout()">Cerrar sesión</a>
       </sky-navbar-item>
     </div>

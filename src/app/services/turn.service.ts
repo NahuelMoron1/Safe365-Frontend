@@ -14,7 +14,7 @@ export class TurnService {
   cookieService = inject(CookieService);
   constructor(private http: HttpClient) {
     this.myAppUrl = environment.endpoint;
-    this.myApiUrl = 'api/users/';
+    this.myApiUrl = 'api/turns/';
   }
 
   /*This is user's functionality*/
@@ -138,7 +138,7 @@ export class TurnService {
       if (error instanceof Error) {
         console.error('Error obteniendo datos:', error.message);
       }
-      throw error; // Puedes manejar el error de acuerdo a tus necesidades
+      throw error;
     }
   }
 
@@ -218,6 +218,133 @@ export class TurnService {
   getScheduledAttendantTurns(): Observable<Turn[]> {
     return this.http.get<Turn[]>(
       this.myAppUrl + this.myApiUrl + 'attendant/scheduled',
+      {
+        withCredentials: true,
+      }
+    );
+  }
+
+  async getCompletedAttendantTurnsTC() {
+    try {
+      const data = await this.getCompletedAttendantTurns().toPromise();
+      if (data) {
+        const attendantTurns: Turn[] = data;
+        return attendantTurns;
+      }
+      return undefined;
+    } catch (error) {
+      if (error instanceof Error) {
+        console.error('Error obteniendo datos:', error.message);
+      }
+      throw error; // Puedes manejar el error de acuerdo a tus necesidades
+    }
+  }
+
+  getCompletedAttendantTurns(): Observable<Turn[]> {
+    return this.http.get<Turn[]>(
+      this.myAppUrl + this.myApiUrl + 'attendant/completed',
+      {
+        withCredentials: true,
+      }
+    );
+  }
+
+  async getCanceledAttendantTurnsTC() {
+    try {
+      const data = await this.getCanceledAttendantTurns().toPromise();
+      if (data) {
+        const attendantTurns: Turn[] = data;
+        return attendantTurns;
+      }
+      return undefined;
+    } catch (error) {
+      if (error instanceof Error) {
+        console.error('Error obteniendo datos:', error.message);
+      }
+      throw error; // Puedes manejar el error de acuerdo a tus necesidades
+    }
+  }
+
+  getCanceledAttendantTurns(): Observable<Turn[]> {
+    return this.http.get<Turn[]>(
+      this.myAppUrl + this.myApiUrl + 'attendant/canceled',
+      {
+        withCredentials: true,
+      }
+    );
+  }
+
+  ///GET SCHEDULED ADMIN TURNS
+
+  async getScheduledAdminTurnsTC() {
+    try {
+      const data = await this.getScheduledAdminTurns().toPromise();
+      if (data) {
+        const adminTurns: Turn[] = data;
+        return adminTurns;
+      }
+      return undefined;
+    } catch (error) {
+      if (error instanceof Error) {
+        console.error('Error obteniendo datos:', error.message);
+      }
+      throw error; // Puedes manejar el error de acuerdo a tus necesidades
+    }
+  }
+
+  getScheduledAdminTurns(): Observable<Turn[]> {
+    return this.http.get<Turn[]>(
+      this.myAppUrl + this.myApiUrl + 'admin/scheduled',
+      {
+        withCredentials: true,
+      }
+    );
+  }
+
+  async getCompletedAdminTurnsTC() {
+    try {
+      const data = await this.getCompletedAdminTurns().toPromise();
+      if (data) {
+        const adminTurns: Turn[] = data;
+        return adminTurns;
+      }
+      return undefined;
+    } catch (error) {
+      if (error instanceof Error) {
+        console.error('Error obteniendo datos:', error.message);
+      }
+      throw error; // Puedes manejar el error de acuerdo a tus necesidades
+    }
+  }
+
+  getCompletedAdminTurns(): Observable<Turn[]> {
+    return this.http.get<Turn[]>(
+      this.myAppUrl + this.myApiUrl + 'admin/completed',
+      {
+        withCredentials: true,
+      }
+    );
+  }
+
+  async getCanceledAdminTurnsTC() {
+    try {
+      const data = await this.getCanceledAdminTurns().toPromise();
+      if (data) {
+        const adminTurns: Turn[] = data;
+        return adminTurns;
+      }
+      return undefined;
+    } catch (error) {
+      if (error instanceof Error) {
+        console.error('Error obteniendo datos:', error.message);
+      }
+      throw error; // Puedes manejar el error de acuerdo a tus necesidades
+    }
+  }
+
+  getCanceledAdminTurns(): Observable<Turn[]> {
+    return this.http.get<Turn[]>(
+      this.myAppUrl + this.myApiUrl + 'admin/canceled',
       {
         withCredentials: true,
       }

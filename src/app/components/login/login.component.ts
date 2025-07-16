@@ -6,6 +6,7 @@ import { UserService } from '../../services/user.service';
 import { SkyToastService, SkyToastType } from '@skyux/toast';
 import { UtilsService } from '../../services/utils.service';
 import { NavBarComponent } from '../nav-bar/nav-bar.component';
+import { ErrorService } from '../../services/error.service';
 
 @Component({
   selector: 'app-login',
@@ -17,6 +18,7 @@ import { NavBarComponent } from '../nav-bar/nav-bar.component';
 export class LoginComponent {
   userService = inject(UserService);
   toastSvc = inject(SkyToastService);
+  errorService = inject(ErrorService);
   user: User = new User('', '', '', '', '', UserRole.CLIENT);
 
   async login() {
@@ -37,20 +39,7 @@ export class LoginComponent {
           window.location.href = '';
         }
       } catch (error: any) {
-        if (error.status === 404) {
-          UtilsService.openToast(
-            this.toastSvc,
-            'No se pudo iniciar sesión, datos incorrectos',
-            SkyToastType.Danger
-          );
-
-          return;
-        }
-        UtilsService.openToast(
-          this.toastSvc,
-          'Ocurrió un error, pongase en contacto con gente de la empresa.',
-          SkyToastType.Danger
-        );
+        this.errorService.handleError(error, 'No se pudo iniciar sesión');
       }
     }
   }

@@ -1,4 +1,12 @@
-import { Component, inject, Input, OnChanges, OnInit } from '@angular/core';
+import {
+  Component,
+  ElementRef,
+  inject,
+  Input,
+  OnChanges,
+  OnInit,
+  ViewChild,
+} from '@angular/core';
 import { User } from '../../../models/User';
 import { UserRole } from '../../../models/enums/UserRole';
 import { Socialwork } from '../../../models/Socialwork';
@@ -10,6 +18,8 @@ import { NgFor, NgIf } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { UtilsService } from '../../../services/utils.service';
 import { SkyToastService, SkyToastType } from '@skyux/toast';
+import { UserService } from '../../../services/user.service';
+import { ErrorService } from '../../../services/error.service';
 
 @Component({
   selector: 'app-register-doctor',
@@ -21,33 +31,22 @@ export class RegisterDoctorComponent implements OnInit {
   @Input()
   public user?: User;
 
+  @ViewChild('fileInput') fileInput!: ElementRef<HTMLInputElement>;
+
   private socialworkService = inject(SocialworksService);
-  public toastSvc = inject(SkyToastService);
+  private userService = inject(UserService);
+  private toastSvc = inject(SkyToastService);
+  private errorService = inject(ErrorService);
 
   public socialWorks?: Socialwork[];
   public socialwork?: string;
   public socialworkCompleted?: Socialwork;
   public selectedRole?: string;
+  public imagePreview?: string | null;
+  public selectedFile: File | null = null;
 
   async ngOnInit() {
     await this.getSocialworks();
-  }
-
-  changeRole(event: Event | string) {
-    const selectedValue =
-      typeof event === 'string'
-        ? event
-        : (event.target as HTMLSelectElement).value;
-
-    this.selectedRole = selectedValue;
-    if (this.selectedRole !== 'attendant') {
-      const specInput = document.getElementById(
-        'specialityInp'
-      ) as HTMLInputElement;
-      if (specInput) {
-        specInput.value = '';
-      }
-    }
   }
 
   async getSocialworks() {
@@ -67,14 +66,29 @@ export class RegisterDoctorComponent implements OnInit {
   }
 
   async registerUser() {
-    if (!this.isAdmin()) {
-      return;
+    if (this.user && !this.isAdmin()) {
+      return this.errorService.handleError(
+        undefined,
+        'No tiene los permisos para registrar un nuevo usuario'
+      );
     }
     const user = this.getAllUserData();
     if (!user) {
       return;
     }
-    //await this.userService.saveUser(user).toPromise();
+    try {
+      await this.userService.saveUser(user).toPromise();
+      UtilsService.openToast(
+        this.toastSvc,
+        'Registro correcto, inicie sesión con sus credenciales',
+        SkyToastType.Success
+      );
+    } catch (error: any) {
+      return this.errorService.handleError(
+        error,
+        'No se pudo registrar nuevo usuario'
+      );
+    }
   }
 
   getAllUserData() {
@@ -87,9 +101,7 @@ export class RegisterDoctorComponent implements OnInit {
     const status = this.getString('statusInp');
     const password = this.getString('passwordInp');
 
-    if (
-      !this.validateUserdata(fullName, email, phone, userID, userRole, password)
-    ) {
+    if (!this.validateUserdata(fullName, email, phone, userID, password)) {
       return undefined;
     }
 
@@ -101,6 +113,10 @@ export class RegisterDoctorComponent implements OnInit {
       this.socialworkCompleted?.id || '',
       password
     );
+
+    if (this.selectedFile) {
+      userdata.temporaryFile = this.selectedFile;
+    }
 
     if (!userRole) {
       return userdata;
@@ -138,10 +154,16 @@ export class RegisterDoctorComponent implements OnInit {
     email: string,
     phone: string,
     userID: string,
-    userRole: string,
     password: string
   ) {
-    if (!fullName || !email || !phone || !userID || !userRole || !password) {
+    if (
+      !fullName ||
+      !email ||
+      !phone ||
+      !userID ||
+      !password ||
+      this.socialworkCompleted?.id === '0'
+    ) {
       UtilsService.openToast(
         this.toastSvc,
         'No todos los campos contienen un valor',
@@ -176,6 +198,7 @@ export class RegisterDoctorComponent implements OnInit {
     }
     return false;
   }
+
   async changeSocialwork(event: Event | string) {
     const selectedValue =
       typeof event === 'string'
@@ -187,6 +210,44 @@ export class RegisterDoctorComponent implements OnInit {
     if (selectedSocialwork) {
       this.socialwork = selectedSocialwork.name;
       this.socialworkCompleted = selectedSocialwork;
+    }
+  }
+
+  changeRole(event: Event | string) {
+    const selectedValue =
+      typeof event === 'string'
+        ? event
+        : (event.target as HTMLSelectElement).value;
+
+    this.selectedRole = selectedValue;
+    if (this.selectedRole !== 'attendant') {
+      const specInput = document.getElementById(
+        'specialityInp'
+      ) as HTMLInputElement;
+      if (specInput) {
+        specInput.value = '';
+      }
+    }
+  }
+  triggerFileInput(): void {
+    this.fileInput.nativeElement.click();
+  }
+  onFileSelected(event: Event): void {
+    const input = event.target as HTMLInputElement;
+
+    if (input.files && input.files.length > 0) {
+      this.selectedFile = input.files[0];
+
+      if (!this.selectedFile.type.startsWith('image/')) {
+        alert('Por favor, selecciona un archivo de imagen válido.');
+        return;
+      }
+
+      const reader = new FileReader();
+      reader.onload = () => {
+        this.imagePreview = reader.result as string;
+      };
+      reader.readAsDataURL(this.selectedFile);
     }
   }
 }

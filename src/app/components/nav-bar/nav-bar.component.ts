@@ -25,7 +25,7 @@ import { RouterModule } from '@angular/router';
 export class NavBarComponent implements OnInit {
   userService = inject(UserService);
   @Output() userOutput = new EventEmitter<User>(); // Emitimos el valor 'user'
-  user: User = new User('', '', '', '', '', UserRole.CLIENT);
+  user?: User;
 
   async ngOnInit() {
     this.user = await this.userService.getUserLogged();
@@ -39,7 +39,7 @@ export class NavBarComponent implements OnInit {
     location.reload();
   }
   isAdmin() {
-    if (this.user.role === UserRole.ADMIN) {
+    if (this.user?.role === UserRole.ADMIN) {
       return true;
     }
     return false;

@@ -1,1 +1,26 @@
 /* You can add global styles to this file, and also import other style files */
+.sky-modal-host-backdrop {
+  position: fixed !important;
+  top: 0 !important;
+  left: 0 !important;
+  width: 100vw !important;
+  height: 100vh !important;
+  background-color: rgba(0, 0, 0, 0.5) !important; /* capa oscura */
+  z-index: 1040 !important;
+  pointer-events: auto !important;
+}
+
+.sky-modal {
+  position: fixed !important;
+  top: 50% !important;
+  left: 50% !important;
+  transform: translate(-50%, -50%) !important;
+  z-index: 1050 !important; /* mayor que el backdrop */
+  pointer-events: auto !important;
+  background-color: white !important;
+  border-radius: 12px !important;
+  padding: 24px !important;
+  max-width: 600px !important;
+  width: 90vw !important;
+  box-shadow: 0 4px 12px rgba(248, 224, 224, 0.1) !important;
+}

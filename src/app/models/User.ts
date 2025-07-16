@@ -16,6 +16,7 @@ export class User {
   profileImage?: string;
   Socialwork?: string;
   AttendantXSocialworks?: AttendantXSocialwork[];
+  temporaryFile: File | null = null;
 
   constructor(
     fullName: string,

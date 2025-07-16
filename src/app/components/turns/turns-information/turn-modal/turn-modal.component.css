@@ -1,0 +1,58 @@
+.sky-modal-body {
+  padding: 24px;
+  background-color: #ffffff;
+  border-radius: 12px;
+  max-width: 600px;
+  margin: 0 auto;
+  box-shadow: 0 4px 12px rgba(248, 224, 224, 0.1);
+}
+h3 {
+  margin-top: 0;
+  margin-bottom: 20px;
+  font-size: 1.5rem;
+  color: #333;
+}
+
+p {
+  margin: 8px 0;
+  font-size: 1rem;
+  color: #444;
+}
+
+p strong {
+  color: #000;
+}
+
+button.sky-btn {
+  margin-top: 20px;
+  display: inline-block;
+  padding: 10px 20px;
+  font-weight: bold;
+  font-size: 0.95rem;
+  border-radius: 6px;
+}
+
+.sky-btn-primary {
+  background-color: #1976d2;
+  color: white;
+  border: none;
+}
+
+.sky-btn-primary:hover {
+  background-color: #1565c0;
+  cursor: pointer;
+}
+
+/* Asegura que el overlay esté debajo del modal */
+.sky-modal-overlay {
+  z-index: 1060 !important;
+}
+
+.sky-modal {
+  z-index: 1060 !important; /* mayor que el overlay */
+  position: relative; /* o fixed, según SkyUX */
+}
+.sky-modal-host-backdrop {
+  display: none !important;
+  pointer-events: none !important; /* para que no bloquee clicks */
+}

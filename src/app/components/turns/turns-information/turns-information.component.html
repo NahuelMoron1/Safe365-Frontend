@@ -1,21 +1,9 @@
 <div class="turns-container">
   <div class="turn-column">
-    <h3>Completados</h3>
-    <div class="turn-card completed" *ngFor="let turn of completedTurns">
-      <p><strong>Fecha:</strong> {{ turn.date | date : "short" }}</p>
-      <p><strong>Lugar:</strong> {{ turn.place }}</p>
-      <p><strong>Paciente:</strong> {{ turn.User?.fullName }}</p>
-      <p>
-        <strong>Obra social del paciente:</strong>
-        {{ turn.User?.Socialwork?.name }}
-      </p>
-      <p><strong>Médico:</strong> {{ turn.Attendant?.fullName }}</p>
-      <p>Click sobre el turno para ver opciones</p>
-    </div>
-  </div>
-
-  <div class="turn-column">
     <h3>Programados</h3>
+    <div *ngIf="scheduledTurns?.length === 0">
+      <p><strong>No hay turnos programados.</strong></p>
+    </div>
     <div
       (click)="openTurnModal(turn)"
       class="turn-card scheduled"
@@ -34,8 +22,37 @@
   </div>
 
   <div class="turn-column">
+    <h3>Completados</h3>
+    <div *ngIf="completedTurns?.length === 0">
+      <p><strong>No hay turnos completados.</strong></p>
+    </div>
+    <div
+      (click)="openTurnModal(turn)"
+      class="turn-card completed"
+      *ngFor="let turn of completedTurns"
+    >
+      <p><strong>Fecha:</strong> {{ turn.date | date : "short" }}</p>
+      <p><strong>Lugar:</strong> {{ turn.place }}</p>
+      <p><strong>Paciente:</strong> {{ turn.User?.fullName }}</p>
+      <p>
+        <strong>Obra social del paciente:</strong>
+        {{ turn.User?.Socialwork?.name }}
+      </p>
+      <p><strong>Médico:</strong> {{ turn.Attendant?.fullName }}</p>
+      <p>Click sobre el turno para ver opciones</p>
+    </div>
+  </div>
+
+  <div class="turn-column">
     <h3>Cancelados</h3>
-    <div class="turn-card canceled" *ngFor="let turn of canceledTurns">
+    <div *ngIf="canceledTurns?.length === 0">
+      <p><strong>No hay turnos cancelados.</strong></p>
+    </div>
+    <div
+      (click)="openTurnModal(turn)"
+      class="turn-card canceled"
+      *ngFor="let turn of canceledTurns"
+    >
       <p><strong>Fecha:</strong> {{ turn.date | date : "short" }}</p>
       <p><strong>Lugar:</strong> {{ turn.place }}</p>
       <p><strong>Paciente:</strong> {{ turn.User?.fullName }}</p>

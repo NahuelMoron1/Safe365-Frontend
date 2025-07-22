@@ -1,0 +1,134 @@
+<div class="settings-container">
+  <h2>Modificar datos del usuario</h2>
+
+  <form class="form-grid" (submit)="modifyUserdata(); $event.preventDefault()">
+    <div class="form-group">
+      <label for="fullNameInp">Nombre completo</label>
+      <input
+        id="fullNameInp"
+        type="text"
+        [value]="user?.fullName"
+        class="sky-form-control"
+      />
+    </div>
+
+    <div class="form-group">
+      <label for="emailInp">Email</label>
+      <input
+        id="emailInp"
+        type="email"
+        [value]="user?.email"
+        [disabled]="true"
+        class="sky-form-control"
+      />
+    </div>
+
+    <div class="form-group">
+      <label for="phoneInp">Teléfono</label>
+      <input
+        id="phoneInp"
+        type="text"
+        [value]="user?.phone"
+        class="sky-form-control"
+      />
+    </div>
+
+    <div class="form-group">
+      <label for="userIDInp">ID</label>
+      <input
+        id="userIDInp"
+        type="text"
+        [value]="user?.id"
+        class="sky-form-control"
+        disabled
+      />
+    </div>
+
+    <ng-container *ngIf="user && isAdmin()">
+      <div class="form-group">
+        <label for="userRoleInp">Rol</label>
+        <select
+          id="userRoleInp"
+          class="form-control"
+          [(ngModel)]="user.role"
+          name="role"
+          (change)="changeRole(user.role!)"
+        >
+          <option [ngValue]="undefined">Seleccionar rol</option>
+          <option value="admin">Administrador</option>
+          <option value="attendant">Médico</option>
+          <option value="client">Cliente</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label for="specialityInp">Especialidad</label>
+        <input
+          id="specialityInp"
+          type="text"
+          class="form-control"
+          [disabled]="selectedRole !== 'attendant'"
+        />
+      </div>
+
+      <div class="form-group">
+        <label for="statusInp">Estado</label>
+        <select id="statusInp" class="form-control">
+          <option value="{{ undefined }}">Activo (por defecto)</option>
+          <option value="inactive">Inactivo</option>
+        </select>
+      </div>
+    </ng-container>
+
+    <div class="form-group">
+      <label for="passwordInp">Contraseña</label>
+      <input
+        id="passwordInp"
+        type="password"
+        placeholder="********"
+        class="sky-form-control"
+      />
+    </div>
+
+    <div class="form-group">
+      <label for="socialworkSelect">Obra social</label>
+      <select
+        id="socialworkSelect"
+        (change)="changeSocialwork($event)"
+        class="form-control"
+      >
+        <option
+          *ngFor="let sw of socialWorks"
+          [selected]="sw.name === socialwork"
+        >
+          {{ sw.name }}
+        </option>
+      </select>
+    </div>
+
+    <div class="form-group">
+      <label for="image">Foto de perfil *</label>
+      <div class="image-preview-container" (click)="triggerFileInput()">
+        <img
+          *ngIf="imagePreview; else placeholder"
+          [src]="imagePreview"
+          alt="Vista previa de la imagen"
+        />
+        <ng-template #placeholder>
+          <div class="image-placeholder">Haz clic para cargar una imagen</div>
+        </ng-template>
+        <input
+          type="file"
+          #fileInput
+          accept="image/*"
+          (change)="onFileSelected($event)"
+          hidden
+        />
+      </div>
+    </div>
+
+    <div class="form-actions">
+      <button type="submit" class="sky-btn sky-btn-primary">Guardar</button>
+    </div>
+  </form>
+</div>

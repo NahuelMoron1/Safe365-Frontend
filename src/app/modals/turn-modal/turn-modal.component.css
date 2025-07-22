@@ -36,6 +36,7 @@ button.sky-btn {
   background-color: #1976d2;
   color: white;
   border: none;
+  align-self: flex-start;
 }
 
 .sky-btn-primary:hover {
@@ -43,16 +44,35 @@ button.sky-btn {
   cursor: pointer;
 }
 
-/* Asegura que el overlay esté debajo del modal */
-.sky-modal-overlay {
-  z-index: 1060 !important;
-}
-
-.sky-modal {
-  z-index: 1060 !important; /* mayor que el overlay */
-  position: relative; /* o fixed, según SkyUX */
-}
 .sky-modal-host-backdrop {
   display: none !important;
   pointer-events: none !important; /* para que no bloquee clicks */
+}
+
+.buttons {
+  display: flex;
+  justify-content: space-between;
+}
+.gestion {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  column-gap: 10px;
+}
+.complete {
+  background-color: #4caf50;
+}
+.complete:hover {
+  background-color: #3f9242;
+}
+.cancel {
+  background-color: #f44336;
+}
+.cancel:hover {
+  background-color: #d6392e;
+}
+.comment {
+  background-color: #1976d2;
+}
+.comment:hover {
+  background-color: #1767b7;
 }

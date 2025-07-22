@@ -1,0 +1,23 @@
+<sky-modal>
+  <sky-modal-header>Agregar comentario</sky-modal-header>
+
+  <sky-modal-content>
+    <label for="comment">Escribí tu comentario:</label>
+    <textarea
+      id="comment"
+      [(ngModel)]="existingComments"
+      rows="5"
+      style="width: 100%; margin-top: 8px"
+      placeholder="Escribí algo..."
+    ></textarea>
+  </sky-modal-content>
+
+  <sky-modal-footer>
+    <button type="button" class="sky-btn sky-btn-default" (click)="cancel()">
+      Cancelar
+    </button>
+    <button type="button" class="sky-btn sky-btn-primary" (click)="save()">
+      Guardar
+    </button>
+  </sky-modal-footer>
+</sky-modal>

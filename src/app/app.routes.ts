@@ -6,6 +6,7 @@ import { loggedGuard } from './guards/logged.guard';
 import { RegisterDoctorComponent } from './components/doctors/register-doctor/register-doctor.component';
 import { adminGuard } from './guards/admin.guard';
 import { TurnsComponent } from './components/turns/turns.component';
+import { AccountComponent } from './components/account/account.component';
 
 export const routes: Routes = [
   {
@@ -38,5 +39,9 @@ export const routes: Routes = [
   {
     path: 'turns',
     component: TurnsComponent,
+  },
+  {
+    path: 'account',
+    component: AccountComponent,
   },
 ];

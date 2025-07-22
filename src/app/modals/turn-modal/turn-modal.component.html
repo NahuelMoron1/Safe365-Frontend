@@ -1,0 +1,47 @@
+<div class="sky-modal">
+  <h3>Detalle del turno</h3>
+  <p><strong>Fecha:</strong> {{ turn?.date | date : "short" }}</p>
+  <p><strong>Lugar:</strong> {{ turn?.place }}</p>
+  <p><strong>Paciente:</strong> {{ turn?.User?.fullName }}</p>
+  <p><strong>DNI:</strong> {{ turn?.User?.userID }}</p>
+  <p><strong>Obra social:</strong> {{ turn?.User?.Socialwork?.name }}</p>
+  <p><strong>Médico:</strong> {{ turn?.Attendant?.fullName }}</p>
+  <p *ngIf="turn?.comments">
+    <strong>Comentarios:</strong> {{ turn?.comments }}
+  </p>
+
+  <div class="buttons">
+    <div class="gestion" *ngIf="user?.role !== 'client'">
+      <button
+        *ngIf="turn?.status === 'scheduled'"
+        class="sky-btn sky-btn-primary complete"
+        (click)="openCompleteConfirmModal()"
+      >
+        Completar turno
+      </button>
+      <button
+        *ngIf="turn?.status === 'scheduled'"
+        class="sky-btn sky-btn-primary cancel"
+        (click)="openCancelConfirmModal()"
+      >
+        Cancelar turno
+      </button>
+      <button
+        *ngIf="!turn?.comments"
+        class="sky-btn sky-btn-primary comment"
+        (click)="addOrModifyComment()"
+      >
+        Agregar comentarios
+      </button>
+
+      <button
+        *ngIf="turn?.comments"
+        class="sky-btn sky-btn-primary comment"
+        (click)="addOrModifyComment()"
+      >
+        Modificar comentarios
+      </button>
+    </div>
+    <button class="sky-btn sky-btn-primary" (click)="close()">Cerrar</button>
+  </div>
+</div>

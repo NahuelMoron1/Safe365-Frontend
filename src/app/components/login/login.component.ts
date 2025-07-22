@@ -36,6 +36,7 @@ export class LoginComponent {
           .login(email, password)
           .toPromise();
         if (access) {
+          debugger;
           window.location.href = '';
         }
       } catch (error: any) {

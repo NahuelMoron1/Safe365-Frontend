@@ -7,6 +7,7 @@ export class Turn {
   userID: string;
   attendantID: string;
   status: TurnStatus = TurnStatus.SCHEDULED;
+  comments?: string;
 
   User?: {
     fullName: string;
@@ -27,12 +28,14 @@ export class Turn {
     date: Date,
     place: string,
     userID: string,
-    attendantID: string
+    attendantID: string,
+    comments?: string
   ) {
     this.id = id;
     this.date = date;
     this.place = place;
     this.userID = userID;
     this.attendantID = attendantID;
+    this.comments = comments;
   }
 }

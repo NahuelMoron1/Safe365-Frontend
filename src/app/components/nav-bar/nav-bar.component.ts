@@ -30,6 +30,7 @@ export class NavBarComponent implements OnInit {
   async ngOnInit() {
     this.user = await this.userService.getUserLogged();
     this.userOutput.emit(this.user);
+    console.log(this.user);
   }
   protected onDropdownItemClick(buttonText: string): void {
     alert(buttonText + ' button clicked!');

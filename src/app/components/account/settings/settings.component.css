@@ -1,0 +1,67 @@
+.settings-container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 2rem;
+  background-color: #f9f9f9;
+  border-radius: 1rem;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.form-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.5rem;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+}
+
+.form-group label {
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+}
+
+.sky-form-control {
+  padding: 0.5rem;
+  font-size: 1rem;
+  border-radius: 0.5rem;
+  border: 1px solid #ccc;
+}
+
+.image-preview {
+  margin-top: 0.5rem;
+  max-width: 100px;
+  border-radius: 0.5rem;
+}
+
+.form-actions {
+  grid-column: span 2;
+  text-align: right;
+  margin-top: 2rem;
+}
+.image-preview-container {
+  width: 200px; /* Tamaño del contenedor de la imagen */
+  height: 200px;
+  border: 1px dashed #ccc;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  cursor: pointer; /* Cambia el cursor al estilo "pointer" */
+  overflow: hidden; /* Oculta contenido que exceda los límites */
+  background-color: #f9f9f9;
+}
+
+.image-preview-container img {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain; /* Mantiene la proporción de la imagen */
+}
+
+.image-placeholder {
+  color: #999;
+  font-size: 14px;
+  text-align: center;
+}

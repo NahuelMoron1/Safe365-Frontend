@@ -151,6 +151,21 @@ export class TurnService {
     );
   }
 
+  ///ADD COMMENTS TO A TURN
+
+  addCommentsAdmin(turnID: string, comments: string): Observable<void> {
+    if (this.cookieService.isLogged) {
+      return this.http.post<void>(
+        `${this.myAppUrl}${this.myApiUrl}turns/comments/${turnID}`,
+        { comments },
+        {
+          withCredentials: true,
+        }
+      );
+    }
+    return of(undefined);
+  }
+
   ///CREATE A NEW TURN
 
   createTurn(newTurn: Turn): Observable<void> {
@@ -375,7 +390,7 @@ export class TurnService {
 
   cancelTurn(turnID: string): Observable<void> {
     if (this.cookieService.isLogged) {
-      return this.http.post<void>(
+      return this.http.get<void>(
         `${this.myAppUrl}${this.myApiUrl}attendant/cancel/${turnID}`,
         {
           withCredentials: true,
@@ -389,7 +404,7 @@ export class TurnService {
 
   completeTurn(turnID: string): Observable<void> {
     if (this.cookieService.isLogged) {
-      return this.http.post<void>(
+      return this.http.get<void>(
         `${this.myAppUrl}${this.myApiUrl}attendant/complete/${turnID}`,
         {
           withCredentials: true,

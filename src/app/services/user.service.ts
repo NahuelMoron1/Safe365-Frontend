@@ -247,6 +247,22 @@ export class UserService {
     });
   }
 
+  modifyUser(newUser: User): Observable<void> {
+    const formData = new FormData();
+    formData.append('body', JSON.stringify(newUser));
+
+    if (newUser.temporaryFile) {
+      formData.append('file', newUser.temporaryFile);
+    }
+    return this.http.post<void>(
+      `${this.myAppUrl}${this.myApiUrl}/modify`,
+      formData,
+      {
+        withCredentials: true,
+      }
+    );
+  }
+
   ///LOGIN
 
   async readLogin(email: string, password: string) {

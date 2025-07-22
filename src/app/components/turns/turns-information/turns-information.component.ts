@@ -4,15 +4,16 @@ import { Turn } from '../../../models/Turn';
 import { User } from '../../../models/User';
 import { UserRole } from '../../../models/enums/UserRole';
 import { SkyModalService } from '@skyux/modals';
-import { DatePipe, NgFor } from '@angular/common';
-import { TurnModalComponent } from './turn-modal/turn-modal.component';
+import { DatePipe, NgFor, NgIf } from '@angular/common';
+import { TurnModalComponent } from '../../../modals/turn-modal/turn-modal.component';
 
 import { InjectionToken } from '@angular/core';
 export const TURN_MODAL_DATA = new InjectionToken<Turn>('TURN_MODAL_DATA');
+export const USER_MODAL_DATA = new InjectionToken<User>('TURN_MODAL_DATA');
 
 @Component({
   selector: 'app-turns-information',
-  imports: [NgFor, DatePipe],
+  imports: [NgFor, DatePipe, NgIf],
   templateUrl: './turns-information.component.html',
   styleUrl: './turns-information.component.css',
 })
@@ -21,7 +22,7 @@ export class TurnsInformationComponent implements OnInit {
   public user?: User;
 
   private turnsService = inject(TurnService);
-  modalService = inject(SkyModalService);
+  private modalService = inject(SkyModalService);
 
   public scheduledTurns?: Turn[];
   public completedTurns?: Turn[];
@@ -47,9 +48,12 @@ export class TurnsInformationComponent implements OnInit {
     }
   }
 
-  openTurnModal(turn: any) {
+  openTurnModal(turn: Turn) {
     this.modalService.open(TurnModalComponent, {
-      providers: [{ provide: TURN_MODAL_DATA, useValue: turn }],
+      providers: [
+        { provide: TURN_MODAL_DATA, useValue: turn },
+        { provide: USER_MODAL_DATA, useValue: this.user },
+      ],
     });
   }
 

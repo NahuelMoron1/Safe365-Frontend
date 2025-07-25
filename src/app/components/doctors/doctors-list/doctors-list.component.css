@@ -16,19 +16,6 @@
   text-align: center;
 }
 
-/* Título principal */
-.title {
-  font-size: 2.5rem;
-  margin-bottom: 1rem;
-}
-
-/* Descripción debajo del título */
-.description {
-  font-size: 1.2rem;
-  margin-bottom: 2rem;
-  color: #555;
-}
-
 /* Grid de doctores */
 .attendants-grid {
   display: grid;
@@ -50,21 +37,6 @@
     width: 100px;
   }
 }
-.appointment-button {
-  background-color: #007bff;
-  color: white;
-  border: none;
-  padding: 0.75rem 1.5rem;
-  border-radius: 6px;
-  font-size: 1rem;
-  cursor: pointer;
-  transition: background-color 0.2s ease, transform 0.1s ease;
-  margin-top: 1rem;
-}
-
-.appointment-button:hover {
-  background-color: #0056b3;
-}
 
 .attendant-card h2 {
   font-size: 1.3rem;
@@ -73,19 +45,4 @@
 
 .attendant-card p {
   margin: 0.3rem 0;
-}
-
-/* Mensaje si no hay doctores */
-.no-attendants {
-  font-size: 1.2rem;
-  color: #999;
-  margin-top: 2rem;
-}
-#medical {
-  display: flex;
-  column-gap: 5px;
-}
-#information {
-  display: flex;
-  flex-direction: column;
 }

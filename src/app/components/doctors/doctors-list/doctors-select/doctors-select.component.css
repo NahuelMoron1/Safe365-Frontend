@@ -1,0 +1,10 @@
+.selects {
+  display: flex;
+  justify-content: space-evenly;
+  margin-bottom: 15px;
+}
+.selectDiv {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}

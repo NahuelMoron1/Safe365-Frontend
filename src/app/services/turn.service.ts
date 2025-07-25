@@ -4,6 +4,7 @@ import { environment } from '../environments/environment';
 import { CookieService } from './cookie.service';
 import { Turn } from '../models/Turn';
 import { Observable, of } from 'rxjs';
+import { AttendantHours } from '../models/AttendantHours';
 
 @Injectable({
   providedIn: 'root',
@@ -169,11 +170,15 @@ export class TurnService {
   ///CREATE A NEW TURN
 
   createTurn(newTurn: Turn): Observable<void> {
+    const dateFormatted = this.modifyDateForTurn(newTurn.date);
+    console.log(dateFormatted);
+
     const body = {
       attendantID: newTurn.attendantID,
-      date: newTurn.date,
+      date: dateFormatted,
       place: newTurn.place,
     };
+
     if (this.cookieService.isLogged) {
       return this.http.post<void>(
         `${this.myAppUrl}${this.myApiUrl}user/create`,
@@ -184,6 +189,18 @@ export class TurnService {
       );
     }
     return of(undefined);
+  }
+
+  modifyDateForTurn(date: Date) {
+    const year = date.getFullYear();
+    const month = String(date.getMonth() + 1).padStart(2, '0');
+    const day = String(date.getDate()).padStart(2, '0');
+    const hours = String(date.getHours()).padStart(2, '0');
+    const minutes = String(date.getMinutes()).padStart(2, '0');
+
+    // 🔹 Fijate: usamos espacio en vez de T
+    const formatted = `${year}-${month}-${day} ${hours}:${minutes}`;
+    return formatted;
   }
 
   /*This is attendant's | admin's functionality*/
@@ -360,6 +377,21 @@ export class TurnService {
   getCanceledAdminTurns(): Observable<Turn[]> {
     return this.http.get<Turn[]>(
       this.myAppUrl + this.myApiUrl + 'admin/canceled',
+      {
+        withCredentials: true,
+      }
+    );
+  }
+
+  validateAttendantTurnsByDate(
+    attendantID: string,
+    startHour: number,
+    endHour: number,
+    date: Date
+  ): Observable<AttendantHours> {
+    return this.http.post<AttendantHours>(
+      this.myAppUrl + this.myApiUrl + `turns/attendant/${attendantID}`,
+      { startHour, endHour, date },
       {
         withCredentials: true,
       }

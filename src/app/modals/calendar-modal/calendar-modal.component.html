@@ -1,0 +1,38 @@
+<sky-modal class="custom-modal">
+  <sky-modal-content>
+    <button class="close-button" (click)="closeModal()">×</button>
+    <sky-alert
+      class="sky-alert"
+      *ngIf="showSuccessAlert"
+      alertType="success"
+      (closed)="closeAlert()"
+    >
+      Turno registrado correctamente. Será redirigido a la pagina de turnos en
+      {{ redirectCountdown }}
+      segundos
+    </sky-alert>
+
+    <div class="calendar-header">
+      <button (click)="goToPreviousMonth()">&lt;</button>
+      <span>{{ viewDate | date : "MMMM yyyy" }}</span>
+      <button (click)="goToNextMonth()">&gt;</button>
+    </div>
+
+    <mwl-calendar-month-view
+      [viewDate]="viewDate"
+      [events]="events!"
+      (dayClicked)="onDayClick($event)"
+    ></mwl-calendar-month-view>
+
+    <br />
+    <sky-alert
+      class="sky-alert"
+      *ngIf="!showSuccessAlert"
+      alertType="warning"
+      (closed)="closeAlert()"
+    >
+      Seleccione un dia del mes para sacar turno con el doctor
+      {{ attendant.fullName }}.
+    </sky-alert>
+  </sky-modal-content>
+</sky-modal>

@@ -1,6 +1,7 @@
 import { AttendantXSocialwork } from './AttendantXSocialwork';
 import { UserRole } from './enums/UserRole';
 import { UserStatus } from './enums/UserStatus';
+import { Socialwork } from './Socialwork';
 
 export class User {
   fullName: string;
@@ -8,13 +9,14 @@ export class User {
   phone: string;
   userID: string;
   socialworkID: string;
+  directions: string;
   id?: string;
   password?: string;
   role?: UserRole;
   status?: UserStatus;
   speciality?: string;
   profileImage?: string;
-  Socialwork?: string;
+  Socialwork?: Socialwork;
   AttendantXSocialworks?: AttendantXSocialwork[];
   temporaryFile: File | null = null;
 
@@ -24,6 +26,7 @@ export class User {
     phone: string,
     userID: string,
     socialworkID: string,
+    directions: string,
     password?: string,
     role?: UserRole,
     id?: string,
@@ -40,5 +43,6 @@ export class User {
     this.status = status;
     this.speciality = speciality;
     this.socialworkID = socialworkID;
+    this.directions = directions;
   }
 }

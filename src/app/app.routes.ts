@@ -7,6 +7,7 @@ import { RegisterDoctorComponent } from './components/doctors/register-doctor/re
 import { adminGuard } from './guards/admin.guard';
 import { TurnsComponent } from './components/turns/turns.component';
 import { AccountComponent } from './components/account/account.component';
+import { CalendarModalComponent } from './modals/calendar-modal/calendar-modal.component';
 
 export const routes: Routes = [
   {
@@ -43,5 +44,9 @@ export const routes: Routes = [
   {
     path: 'account',
     component: AccountComponent,
+  },
+  {
+    path: 'calendar',
+    component: CalendarModalComponent,
   },
 ];

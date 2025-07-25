@@ -5,7 +5,7 @@ import { environment } from '../environments/environment';
 import { UserRole } from '../models/enums/UserRole';
 import { UserStatus } from '../models/enums/UserStatus';
 import { User } from '../models/User';
-import { Observable } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -14,6 +14,10 @@ export class UserService {
   private myAppUrl: string;
   private myApiUrl: string;
   public user?: User;
+  public activeAttendants?: User[];
+  public _activeAttendants: BehaviorSubject<User[]> = new BehaviorSubject<
+    User[]
+  >([]);
   cookieService = inject(CookieService);
   constructor(private http: HttpClient) {
     this.myAppUrl = environment.endpoint;
@@ -40,6 +44,7 @@ export class UserService {
           data.email,
           data.phone,
           data.userID,
+          data.directions,
           data.password || '',
           data.socialworkID,
           data.role,
@@ -69,10 +74,10 @@ export class UserService {
     try {
       const data = await this.getActiveAttendants().toPromise();
       if (data) {
-        const activeAttendants: User[] = data;
-        return activeAttendants;
+        this.activeAttendants = data;
+        this._activeAttendants.next(this.activeAttendants);
       }
-      return undefined;
+      return;
     } catch (error) {
       if (error instanceof Error) {
         console.error('Error obteniendo datos:', error.message);
@@ -96,10 +101,10 @@ export class UserService {
     try {
       const data = await this.getinActiveAttendants().toPromise();
       if (data) {
-        const inactiveAttendants: User[] = data;
-        return inactiveAttendants;
+        this.activeAttendants = data;
+        this._activeAttendants.next(this.activeAttendants);
       }
-      return undefined;
+      return;
     } catch (error) {
       if (error instanceof Error) {
         console.error('Error obteniendo datos:', error.message);
@@ -127,10 +132,10 @@ export class UserService {
         socialworkID
       ).toPromise();
       if (data) {
-        const activeAttendants: User[] = data;
-        return activeAttendants;
+        this.activeAttendants = data;
+        this._activeAttendants.next(this.activeAttendants);
       }
-      return undefined;
+      return;
     } catch (error) {
       if (error instanceof Error) {
         console.error('Error obteniendo datos:', error.message);
@@ -148,14 +153,88 @@ export class UserService {
     );
   }
 
+  getBehaviorSubject() {
+    return this._activeAttendants.asObservable();
+  }
+
+  async getUsersSocialworkByAdminTC(
+    socialworkID: string,
+    userRole: string,
+    userStatus?: string
+  ) {
+    try {
+      const data = await this.getUsersSocialwork(
+        socialworkID,
+        userRole,
+        userStatus
+      ).toPromise();
+      if (data) {
+        this.activeAttendants = data;
+        this._activeAttendants.next(this.activeAttendants);
+      }
+      return;
+    } catch (error) {
+      if (error instanceof Error) {
+        console.error('Error obteniendo datos:', error.message);
+      }
+      throw error; // Puedes manejar el error de acuerdo a tus necesidades
+    }
+  }
+
+  getUsersSocialwork(
+    socialworkID: string,
+    userRole: string,
+    userStatus?: string
+  ): Observable<User[]> {
+    return this.http.get<User[]>(
+      this.myAppUrl +
+        this.myApiUrl +
+        `admin/users/${socialworkID}/${userRole}/${userStatus}`,
+      {
+        withCredentials: true,
+      }
+    );
+  }
+
+  async getUsersListByAdminTC(userRole: string, userStatus?: string) {
+    try {
+      const data = await this.getUsersListByAdmin(
+        userRole,
+        userStatus
+      ).toPromise();
+      if (data) {
+        this.activeAttendants = data;
+        this._activeAttendants.next(this.activeAttendants);
+      }
+      return;
+    } catch (error) {
+      if (error instanceof Error) {
+        console.error('Error obteniendo datos:', error.message);
+      }
+      throw error; // Puedes manejar el error de acuerdo a tus necesidades
+    }
+  }
+
+  getUsersListByAdmin(
+    userRole: string,
+    userStatus?: string
+  ): Observable<User[]> {
+    return this.http.get<User[]>(
+      this.myAppUrl + this.myApiUrl + `admin/list/${userRole}/${userStatus}`,
+      {
+        withCredentials: true,
+      }
+    );
+  }
+
   async getAllAttendantsTC() {
     try {
       const data = await this.getAllAttendants().toPromise();
       if (data) {
-        const allAttendants: User[] = data;
-        return allAttendants;
+        this.activeAttendants = data;
+        this._activeAttendants.next(this.activeAttendants);
       }
-      return undefined;
+      return;
     } catch (error) {
       if (error instanceof Error) {
         console.error('Error obteniendo datos:', error.message);
@@ -206,6 +285,7 @@ export class UserService {
           data.email,
           data.phone,
           data.userID,
+          data.directions,
           data.password || '',
           data.socialworkID,
           data.role,
@@ -256,6 +336,19 @@ export class UserService {
     }
     return this.http.post<void>(
       `${this.myAppUrl}${this.myApiUrl}/modify`,
+      formData,
+      {
+        withCredentials: true,
+      }
+    );
+  }
+
+  modifyUserByAdmin(newUser: User): Observable<void> {
+    const formData = new FormData();
+    formData.append('body', JSON.stringify(newUser));
+
+    return this.http.post<void>(
+      `${this.myAppUrl}${this.myApiUrl}/admin/modify`,
       formData,
       {
         withCredentials: true,

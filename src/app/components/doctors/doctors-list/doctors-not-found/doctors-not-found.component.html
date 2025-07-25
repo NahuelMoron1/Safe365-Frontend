@@ -1,0 +1,6 @@
+<p *ngIf="user?.role !== 'admin'" class="no-attendants">
+  No hay doctores activos en este momento.
+</p>
+<p *ngIf="user?.role === 'admin'" class="no-attendants">
+  No hay usuarios con esa busqueda en este momento.
+</p>

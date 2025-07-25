@@ -1,0 +1,14 @@
+<h1 class="title" *ngIf="user?.role !== 'admin'">
+  Lista de Médicos Disponibles
+</h1>
+<h1 class="title" *ngIf="user?.role === 'admin'">Lista de Usuarios</h1>
+
+<p class="description" *ngIf="user?.role !== 'admin'">
+  A continuación se muestra la lista de doctores disponibles actualmente para
+  atención.
+</p>
+
+<p class="description" *ngIf="user?.role === 'admin'">
+  A continuación se muestra la lista de usuarios que forman parte de este sitio
+  web.
+</p>

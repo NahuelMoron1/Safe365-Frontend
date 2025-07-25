@@ -1,0 +1,23 @@
+<sky-alert
+  class="sky-alert alert"
+  *ngIf="showModifiedAlert"
+  alertType="success"
+>
+  Personal modificado correctamente
+</sky-alert>
+<div class="buttons">
+  <button
+    *ngIf="user?.role === 'admin'"
+    class="appointment-button gestion"
+    (click)="openManageAttendantModal(attendant!)"
+  >
+    Gestionar usuario
+  </button>
+  <button
+    *ngIf="attendant?.role === 'attendant'"
+    class="appointment-button"
+    (click)="openCalendarModal(attendant!)"
+  >
+    Sacar turno
+  </button>
+</div>

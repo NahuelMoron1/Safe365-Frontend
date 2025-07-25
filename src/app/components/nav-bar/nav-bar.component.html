@@ -18,19 +18,7 @@
           <sky-dropdown-button>Turnos</sky-dropdown-button>
           <sky-dropdown-menu>
             <sky-dropdown-item>
-              <a routerLink="/" (click)="onDropdownItemClick('Item 1')"
-                >Sacar turno</a
-              >
-            </sky-dropdown-item>
-            <sky-dropdown-item *ngIf="user?.role === 'attendant'">
-              <a routerLink="/" (click)="onDropdownItemClick('Item 2')"
-                >Cancelar turno</a
-              >
-            </sky-dropdown-item>
-            <sky-dropdown-item *ngIf="user?.role === 'attendant'">
-              <a routerLink="/" (click)="onDropdownItemClick('Item 3')"
-                >Completar turno</a
-              >
+              <a routerLink="/turns">Mis turnos</a>
             </sky-dropdown-item>
           </sky-dropdown-menu>
         </sky-dropdown>

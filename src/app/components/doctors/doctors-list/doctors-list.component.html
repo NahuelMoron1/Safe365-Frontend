@@ -1,53 +1,32 @@
 <div class="doctors-container">
-  <h1 class="title">Lista de Médicos Disponibles</h1>
-  <p class="description">
-    A continuación se muestra la lista de doctores disponibles actualmente para
-    atención.
-  </p>
+  <app-doctors-headers [user]="user"></app-doctors-headers>
 
-  <div>
-    <label for="socialwork">Obra social</label>
-    <select
-      name="socialwork"
-      class="productInfo"
-      [(ngModel)]="socialwork"
-      id="socialworkSelect"
-      (change)="changeSocialwork($event)"
-    >
-      <option
-        *ngFor="let socialworkAux of socialWorks"
-        [value]="socialworkAux.name"
-      >
-        {{ socialworkAux.name }}
-      </option>
-    </select>
-  </div>
+  <app-doctors-select
+    *ngIf="socialWorks"
+    [user]="user"
+    [socialWorks]="socialWorks"
+    [socialwork]="socialwork"
+  ></app-doctors-select>
+
   <ng-container
     *ngIf="activeAttendants && activeAttendants.length > 0; else noAttendants"
   >
     <div class="attendants-grid">
       <div class="attendant-card" *ngFor="let attendant of activeAttendants">
-        <div id="information">
-          <img src="{{ attendant.profileImage }}" alt="" />
-          <h2>{{ attendant.fullName }}</h2>
-          <p><strong>Especialidad:</strong> {{ attendant.speciality }}</p>
-          <p><strong>Teléfono de contacto:</strong> {{ attendant.phone }}</p>
-          <p *ngIf="user?.role === 'admin'">
-            <strong>Estado actual:</strong> {{ attendant.status }}
-          </p>
-          <div id="medical" *ngIf="attendant.AttendantXSocialworks?.length">
-            <p><strong>Coberturas médicas: </strong></p>
-            <div *ngFor="let socialwork of attendant.AttendantXSocialworks">
-              <p>{{ socialwork.Socialwork.name }} |</p>
-            </div>
-          </div>
-        </div>
-        <button class="appointment-button">Sacar turno</button>
+        <app-doctors-info
+          [user]="user"
+          [attendant]="attendant"
+        ></app-doctors-info>
+
+        <app-doctors-buttons
+          [user]="user"
+          [attendant]="attendant"
+        ></app-doctors-buttons>
       </div>
     </div>
   </ng-container>
 
   <ng-template #noAttendants>
-    <p class="no-attendants">No hay doctores activos en este momento.</p>
+    <app-doctors-not-found [user]="user"></app-doctors-not-found>
   </ng-template>
 </div>

@@ -1,0 +1,93 @@
+.modal-container {
+  padding: 20px;
+  max-width: 400px;
+  font-family: Arial, sans-serif;
+}
+
+h2 {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.attendant-info {
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  padding: 15px;
+  margin-bottom: 20px;
+  background-color: #f9f9f9;
+}
+
+.attendant-info p {
+  margin: 8px 0;
+  font-size: 14px;
+}
+
+.profile-image img {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  object-fit: cover;
+  display: block;
+  margin-bottom: 15px;
+}
+
+.no-image {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  background-color: #ddd;
+  color: #666;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+  margin-bottom: 15px;
+}
+
+.status-change {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+select {
+  padding: 6px;
+  font-size: 14px;
+  border-radius: 4px;
+  border: 1px solid #999;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.specialityDiv {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  margin-top: 10px;
+  input {
+    height: 33px;
+    border: 1px solid rgb(146, 146, 146);
+    border-radius: 5px;
+    padding-left: 5px;
+  }
+}
+
+.saveButton {
+  background-color: #1976d2;
+  color: white;
+  border: none;
+  padding: 8px 14px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 1rem;
+  transition: background-color 0.3s ease;
+}
+
+.saveButton:hover {
+  background-color: #1259a7;
+}
+.buttons {
+  display: flex;
+  gap: 10px;
+  margin-top: 10px;
+}

@@ -1,0 +1,12 @@
+/* Título principal */
+.title {
+  font-size: 2.5rem;
+  margin-bottom: 1rem;
+}
+
+/* Descripción debajo del título */
+.description {
+  font-size: 1.2rem;
+  margin-bottom: 2rem;
+  color: #555;
+}

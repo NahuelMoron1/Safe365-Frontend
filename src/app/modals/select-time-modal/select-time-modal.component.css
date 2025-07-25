@@ -1,0 +1,38 @@
+.time-selector {
+  margin-top: 1rem;
+  padding: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+}
+
+.time-options {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.time-options button {
+  padding: 6px 12px;
+  border: 1px solid #1976d2;
+  background-color: white;
+  color: #1976d2;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.time-options button.selected,
+.time-options button:hover {
+  background-color: #1976d2;
+  color: white;
+}
+
+.hovButton {
+  transition: transform 1s ease, background-color 0.7s ease, color 0.7s ease;
+}
+
+.hovButton:hover {
+  transform: scale(1.07);
+  color: white;
+  background-color: #1976d2;
+}

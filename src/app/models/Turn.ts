@@ -24,14 +24,14 @@ export class Turn {
   };
 
   constructor(
-    id: string,
+    id: string | undefined,
     date: Date,
     place: string,
     userID: string,
     attendantID: string,
     comments?: string
   ) {
-    this.id = id;
+    this.id = id || '';
     this.date = date;
     this.place = place;
     this.userID = userID;

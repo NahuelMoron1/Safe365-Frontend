@@ -1,0 +1,30 @@
+#medical {
+  display: flex;
+  column-gap: 5px;
+}
+#information {
+  display: flex;
+  flex-direction: column;
+}
+.attendant-card {
+  background-color: white;
+  padding: 1.5rem;
+  border-radius: 8px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+  text-align: left;
+  display: flex;
+  justify-content: space-between;
+  align-items: end;
+  img {
+    width: 100px;
+  }
+}
+
+.attendant-card h2 {
+  font-size: 1.3rem;
+  margin-bottom: 0.5rem;
+}
+
+.attendant-card p {
+  margin: 0.3rem 0;
+}

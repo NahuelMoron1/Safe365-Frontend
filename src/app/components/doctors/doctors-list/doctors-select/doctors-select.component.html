@@ -1,0 +1,49 @@
+<div class="selects">
+  <div class="selectDiv">
+    <label for="socialwork">Obra social</label>
+    <select
+      name="socialwork"
+      class="selectInfo"
+      [(ngModel)]="socialwork"
+      id="socialworkSelect"
+      (change)="changeSocialwork($event)"
+    >
+      <option
+        *ngFor="let socialworkAux of socialWorks"
+        [value]="socialworkAux.name"
+      >
+        {{ socialworkAux.name }}
+      </option>
+    </select>
+  </div>
+
+  <div class="selectDiv">
+    <label for="status">Estado</label>
+    <select
+      name="status"
+      class="selectInfo"
+      [(ngModel)]="selectedStatus"
+      id="statusSelect"
+      (change)="changeSelectedList()"
+    >
+      <option value="Todos">Todos</option>
+      <option value="active">Activos</option>
+      <option value="inactive">Inactivos</option>
+    </select>
+  </div>
+
+  <div *ngIf="user?.role === 'admin'" class="selectDiv">
+    <label for="socialwork">Ver</label>
+    <select
+      name="selectedList"
+      class="selectInfo"
+      [(ngModel)]="selectedList"
+      id="socialworkSelect"
+      (change)="changeSelectedList()"
+    >
+      <option value="attendant">Médicos</option>
+      <option value="admin">Administradores</option>
+      <option value="client">Clientes</option>
+    </select>
+  </div>
+</div>

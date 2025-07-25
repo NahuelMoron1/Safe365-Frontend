@@ -1,0 +1,70 @@
+<sky-modal *ngIf="user.role === 'admin'">
+  <sky-modal-content>
+    <div class="modal-container">
+      <h2>Detalles del personal</h2>
+
+      <div class="attendant-info">
+        <div class="profile-image" *ngIf="attendant.profileImage; else noImage">
+          <img [src]="attendant.profileImage" alt="Imagen de perfil" />
+        </div>
+        <ng-template #noImage>
+          <div class="no-image">Sin imagen</div>
+        </ng-template>
+
+        <p><strong>Nombre:</strong> {{ attendant.fullName }}</p>
+        <p><strong>Teléfono:</strong> {{ attendant.phone }}</p>
+        <p><strong>Dirección:</strong> {{ attendant.directions }}</p>
+        <p *ngIf="attendant.role === 'attendant'">
+          <strong>Especialidad:</strong> {{ attendant.speciality || "N/A" }}
+        </p>
+        <p><strong>Estado:</strong> {{ attendant.status }}</p>
+      </div>
+
+      <div class="status-change">
+        <label for="statusSelect"><strong>Cambiar estado:</strong></label>
+        <select
+          id="statusSelect"
+          [(ngModel)]="attendant.status"
+          aria-label="Estado del asistente"
+        >
+          <option [ngValue]="'active'">Activo</option>
+          <option [ngValue]="'inactive'">Inactivo</option>
+        </select>
+      </div>
+
+      <br />
+
+      <div class="role-change">
+        <label for="roleSelect"><strong>Cambiar rol:</strong></label>
+        <select
+          id="roleSelect"
+          [(ngModel)]="attendant.role"
+          aria-label="Rol del usuario"
+        >
+          <option [ngValue]="'client'">Cliente</option>
+          <option [ngValue]="'attendant'">Médico</option>
+          <option [ngValue]="'admin'">Administrador</option>
+        </select>
+      </div>
+
+      <div *ngIf="attendant.role === 'attendant'" class="specialityDiv">
+        <label for="speciality"><strong>Especialidad:</strong></label>
+        <input
+          type="text"
+          name="speciality"
+          id="specialityInp"
+          [(ngModel)]="attendant.speciality"
+        />
+      </div>
+
+      <div class="buttons">
+        <button class="sky-btn saveButton" (click)="modifyAttendant()">
+          Guardar
+        </button>
+        <button class="sky-btn cancelButton" (click)="closeModal()">
+          Cancelar
+        </button>
+      </div>
+    </div>
+  </sky-modal-content>
+</sky-modal>

@@ -1,0 +1,34 @@
+<sky-modal>
+  <sky-modal-header> Confirmá el turno </sky-modal-header>
+  <sky-modal-content>
+    <div class="time-selector">
+      <h3>Seleccioná un horario para {{ selectedDate | date : "fullDate" }}</h3>
+      <div class="time-options">
+        <button
+          *ngFor="let time of timeSlots"
+          (click)="selectTime(time)"
+          [class.selected]="time === selectedTime"
+        >
+          {{ time }}
+        </button>
+      </div>
+    </div>
+    <!-- Acá podés agregar un formulario para más detalles -->
+  </sky-modal-content>
+  <sky-modal-footer>
+    <button
+      type="button"
+      class="sky-btn sky-btn-default hovButton"
+      (click)="cancel()"
+    >
+      Cancelar
+    </button>
+    <button
+      type="button"
+      class="sky-btn sky-btn-default hovButton"
+      (click)="save()"
+    >
+      Guardar
+    </button>
+  </sky-modal-footer>
+</sky-modal>

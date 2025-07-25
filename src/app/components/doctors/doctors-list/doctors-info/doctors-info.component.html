@@ -1,0 +1,21 @@
+<div class="attendant-card">
+  <div id="information">
+    <img src="{{ attendant?.profileImage }}" alt="" />
+    <h2>{{ attendant?.fullName }}</h2>
+    <p><strong>Especialidad:</strong> {{ attendant?.speciality }}</p>
+    <p><strong>Teléfono de contacto:</strong> {{ attendant?.phone }}</p>
+    <p *ngIf="attendant?.role !== 'attendant'">
+      <strong>Cobertura médica:</strong>
+      {{ attendant?.Socialwork?.name }}
+    </p>
+    <p *ngIf="user?.role === 'admin'">
+      <strong>Estado actual:</strong> {{ attendant?.status }}
+    </p>
+    <div id="medical" *ngIf="attendant?.AttendantXSocialworks?.length">
+      <p><strong>Coberturas médicas: </strong></p>
+      <div *ngFor="let socialwork of attendant?.AttendantXSocialworks">
+        <p>{{ socialwork.Socialwork.name }} |</p>
+      </div>
+    </div>
+  </div>
+</div>

@@ -9,11 +9,29 @@ import { FormsModule } from '@angular/forms';
 import { Socialwork } from '../../../models/Socialwork';
 import { SocialworksService } from '../../../services/socialworks.service';
 import { environment } from '../../../environments/environment';
+import { SkyAlertModule } from '@skyux/indicators';
+import { DoctorsHeadersComponent } from './doctors-headers/doctors-headers.component';
+import { DoctorsSelectComponent } from './doctors-select/doctors-select.component';
+import { DoctorsNotFoundComponent } from './doctors-not-found/doctors-not-found.component';
+import { DoctorsButtonsComponent } from './doctors-buttons/doctors-buttons.component';
+import { DoctorsInfoComponent } from './doctors-info/doctors-info.component';
 
 @Component({
   selector: 'app-doctors-list',
   standalone: true,
-  imports: [SkyCardModule, SkyFluidGridModule, NgIf, NgFor, FormsModule],
+  imports: [
+    SkyCardModule,
+    SkyFluidGridModule,
+    NgIf,
+    NgFor,
+    FormsModule,
+    SkyAlertModule,
+    DoctorsHeadersComponent,
+    DoctorsSelectComponent,
+    DoctorsNotFoundComponent,
+    DoctorsButtonsComponent,
+    DoctorsInfoComponent,
+  ],
   templateUrl: './doctors-list.component.html',
   styleUrl: './doctors-list.component.css',
 })
@@ -21,16 +39,24 @@ export class DoctorsListComponent implements OnInit {
   @Input()
   public user?: User;
 
-  public socialWorks?: Socialwork[];
   private socialworkService = inject(SocialworksService);
   private userService = inject(UserService);
+
+  public socialWorks?: Socialwork[];
   public activeAttendants?: User[];
+
   public socialwork?: string;
   public bffurl: string = environment.endpoint;
 
   async ngOnInit() {
-    await this.searchAttendants();
     await this.getSocialworks();
+    await this.searchAttendants();
+  }
+
+  OnChanges() {
+    this.userService.getBehaviorSubject().subscribe((users) => {
+      this.activeAttendants = users;
+    });
   }
 
   async getSocialworks() {
@@ -44,30 +70,10 @@ export class DoctorsListComponent implements OnInit {
 
   async searchAttendants() {
     if (this.user?.role === UserRole.ADMIN) {
-      this.activeAttendants = await this.userService.getAllAttendantsTC();
+      await this.userService.getAllAttendantsTC();
     } else {
-      this.activeAttendants = await this.userService.getActiveAttendantsTC();
+      await this.userService.getActiveAttendantsTC();
     }
-  }
-
-  async changeSocialwork(event: Event | string) {
-    const selectedValue =
-      typeof event === 'string'
-        ? event
-        : (event.target as HTMLSelectElement).value;
-    const selectedSocialwork = this.socialWorks?.find(
-      (sw) => sw.name === selectedValue
-    );
-    if (selectedSocialwork) {
-      this.socialwork = selectedSocialwork.name;
-      if (selectedSocialwork.id === '0') {
-        this.activeAttendants = await this.userService.getActiveAttendantsTC();
-        return;
-      }
-      this.activeAttendants =
-        await this.userService.getAttendantsBySocialworkTC(
-          selectedSocialwork.id
-        );
-    }
+    this.OnChanges();
   }
 }

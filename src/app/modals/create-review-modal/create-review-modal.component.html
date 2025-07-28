@@ -1,5 +1,7 @@
 <sky-modal>
   <sky-modal-content>
+    <button class="close-button" (click)="closeModal()">×</button>
+
     <div class="review-modal-container">
       <div
         style="
@@ -36,12 +38,14 @@
         <button *ngIf="!review" class="submit-btn" (click)="addReview()">
           Enviar reseña
         </button>
-        <button *ngIf="review" class="submit-btn" (click)="modifyReview()">
-          Guardar reseña
-        </button>
-        <button *ngIf="review" class="submit-btn" (click)="deleteReview()">
-          Eliminar reseña
-        </button>
+        <div *ngIf="review" class="reviewButtons">
+          <button class="submit-btn" (click)="modifyReview()">
+            Guardar reseña
+          </button>
+          <button class="submit-btn" (click)="deleteReview()">
+            Eliminar reseña
+          </button>
+        </div>
       </div>
     </div>
   </sky-modal-content>

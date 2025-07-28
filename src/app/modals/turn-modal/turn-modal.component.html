@@ -42,8 +42,19 @@
         Modificar comentarios
       </button>
     </div>
-    <button class="sky-btn sky-btn-primary comment" (click)="addReview()">
+    <button
+      *ngIf="!review"
+      class="sky-btn sky-btn-primary comment"
+      (click)="addReview()"
+    >
       Agregar reseña
+    </button>
+    <button
+      *ngIf="review"
+      class="sky-btn sky-btn-primary comment"
+      (click)="addReview()"
+    >
+      Ver mi reseña
     </button>
     <button class="sky-btn sky-btn-primary" (click)="close()">Cerrar</button>
   </div>

@@ -44,6 +44,65 @@ export class ReviewService {
     );
   }
 
+  ///GET USER REVIEWS
+
+  async getUserReviewsTC(userID: string) {
+    try {
+      const data = await this.getUserReviews(userID).toPromise();
+      if (data) {
+        const userReviews: Review[] = data;
+        return userReviews;
+      }
+      return [];
+    } catch (error) {
+      if (error instanceof Error) {
+        console.error('Error obteniendo datos:', error.message);
+      }
+      return [];
+    }
+  }
+
+  getUserReviews(userID: string): Observable<Review[]> {
+    return this.http.get<Review[]>(
+      this.myAppUrl + this.myApiUrl + 'user/' + userID,
+      {
+        withCredentials: true,
+      }
+    );
+  }
+
+  ///GET USER REVIEW
+
+  async getUserReviewTC(userID: string, attendantID: string) {
+    try {
+      const data = await this.getUserReview(userID, attendantID).toPromise();
+      if (data) {
+        const userReview: Review = data;
+        return userReview;
+      }
+      return undefined;
+    } catch (error) {
+      if (error instanceof Error) {
+        console.error('Error obteniendo datos:', error.message);
+      }
+      return undefined;
+    }
+  }
+
+  getUserReview(userID: string, attendantID: string): Observable<Review> {
+    return this.http.get<Review>(
+      this.myAppUrl +
+        this.myApiUrl +
+        'user/attendant/' +
+        attendantID +
+        '/' +
+        userID,
+      {
+        withCredentials: true,
+      }
+    );
+  }
+
   ///CREATE A NEW REVIEW FOR AN ATTENDANT
 
   setAttendantReview(body: any): Observable<void> {

@@ -76,3 +76,30 @@ h2 {
 .submit-btn:hover {
   background-color: #125ea5;
 }
+
+.reviewButtons {
+  display: flex;
+  gap: 20px;
+}
+
+.close-button {
+  position: absolute;
+  top: 15px;
+  right: 20px;
+  background-color: #ccc;
+  border: none;
+  border-radius: 50%;
+  font-size: 1.2rem;
+  width: 32px;
+  height: 32px;
+  cursor: pointer;
+  line-height: 1;
+  text-align: center;
+  padding: 0;
+  z-index: 10;
+  transition: background-color 0.2s;
+}
+
+.close-button:hover {
+  background-color: #999;
+}

@@ -1,5 +1,5 @@
 import { DatePipe, NgIf } from '@angular/common';
-import { Component, inject } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import {
   SkyConfirmModule,
   SkyModalInstance,
@@ -17,7 +17,10 @@ import { TurnCommentsModalComponent } from '../turn-comments-modal/turn-comments
 import { UtilsService } from '../../services/utils.service';
 import { SkyToastService, SkyToastType } from '@skyux/toast';
 import { CreateReviewModalComponent } from '../create-review-modal/create-review-modal.component';
-import { UserService } from '../../services/user.service';
+import { UserRole } from '../../models/enums/UserRole';
+import { TurnStatus } from '../../models/enums/TurnStatus';
+import { ReviewService } from '../../services/review.service';
+import { Review } from '../../models/Review';
 
 @Component({
   selector: 'app-turn-modal',
@@ -25,16 +28,24 @@ import { UserService } from '../../services/user.service';
   templateUrl: './turn-modal.component.html',
   styleUrl: './turn-modal.component.css',
 })
-export class TurnModalComponent {
+export class TurnModalComponent implements OnInit {
   private modal = inject(SkyModalInstance);
   private turnService = inject(TurnService);
   private instance = inject(SkyModalService);
   private errorService = inject(ErrorService);
   private toastSvc = inject(SkyToastService);
-  private userService = inject(UserService);
+  private reviewService = inject(ReviewService);
 
   public turn?: Turn = inject(TURN_MODAL_DATA);
   public user?: User = inject(USER_MODAL_DATA);
+  public review?: Review;
+
+  async ngOnInit() {
+    this.review = await this.reviewService.getUserReviewTC(
+      this.user?.id!,
+      this.turn?.Attendant?.id!
+    );
+  }
 
   close() {
     this.modal.close();
@@ -114,7 +125,26 @@ export class TurnModalComponent {
       this.modal.close();
     }
   }
+
   async addReview() {
+    if (
+      !this.user?.id ||
+      !this.turn?.Attendant?.id ||
+      (this.user && this.user.role !== UserRole.CLIENT)
+    ) {
+      return this.errorService.handleError(
+        undefined,
+        'No tiene los permisos para agregar una review'
+      );
+    }
+
+    if (this.turn?.status !== TurnStatus.SCHEDULED) {
+      return this.errorService.handleError(
+        undefined,
+        'Debe tener el turno completado con este médico para agregar una review.'
+      );
+    }
+
     const modalRef = this.instance.open(CreateReviewModalComponent, {
       providers: [
         {
@@ -127,12 +157,16 @@ export class TurnModalComponent {
         },
         {
           provide: 'REVIEW',
-          useValue: undefined,
+          useValue: this.review,
         },
       ],
     });
 
     const result = await modalRef.closed.toPromise();
+
+    if (result?.data === 'close') {
+      return;
+    }
 
     if (!result || !result.data || result.data !== 'ok') {
       return this.errorService.handleError(

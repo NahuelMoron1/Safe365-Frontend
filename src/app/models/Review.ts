@@ -1,18 +1,23 @@
 export class Review {
-  id: string;
+  id?: string;
   userID: string;
   attendantID: string;
   rating: number;
-  comment: string;
+  comment?: string;
   dateCreated: Date;
 
+  User?: {
+    fullName: string;
+    profileImage: string;
+  };
+
   constructor(
-    id: string,
     userID: string,
     attendantID: string,
     rating: number,
-    comment: string,
-    dateCreated: Date
+    dateCreated: Date,
+    comment?: string,
+    id?: string
   ) {
     this.id = id;
     this.userID = userID;

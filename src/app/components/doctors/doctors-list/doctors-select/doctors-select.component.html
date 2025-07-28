@@ -17,7 +17,7 @@
     </select>
   </div>
 
-  <div class="selectDiv">
+  <div class="selectDiv" *ngIf="user?.role === 'admin'">
     <label for="status">Estado</label>
     <select
       name="status"
@@ -32,7 +32,7 @@
     </select>
   </div>
 
-  <div *ngIf="user?.role === 'admin'" class="selectDiv">
+  <div class="selectDiv" *ngIf="user?.role === 'admin'">
     <label for="socialwork">Ver</label>
     <select
       name="selectedList"

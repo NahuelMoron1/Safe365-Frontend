@@ -35,7 +35,6 @@ export class DoctorsSelectComponent {
     this.userService.getBehaviorSubject().subscribe((users) => {
       this.activeAttendants = users;
     });
-    console.log('ON CHANGES: ', this.activeAttendants);
   }
 
   async changeSocialwork(event: Event | string) {

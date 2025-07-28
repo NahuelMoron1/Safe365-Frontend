@@ -239,8 +239,19 @@ export class RegisterDoctorComponent implements OnInit {
       this.selectedFile = input.files[0];
 
       if (!this.selectedFile.type.startsWith('image/')) {
-        alert('Por favor, selecciona un archivo de imagen válido.');
-        return;
+        return this.errorService.handleError(
+          undefined,
+          'Por favor, selecciona un archivo de imagen válido.'
+        );
+      }
+
+      // Validar tamaño máximo: 1MB (1,048,576 bytes)
+      const maxSizeInBytes = 1048576;
+      if (this.selectedFile.size > maxSizeInBytes) {
+        return this.errorService.handleError(
+          undefined,
+          'La imagen no puede pesar más de 1MB.'
+        );
       }
 
       const reader = new FileReader();

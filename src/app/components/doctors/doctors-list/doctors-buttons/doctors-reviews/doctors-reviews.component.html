@@ -1,0 +1,35 @@
+<!-- Mostrar si hay reviews -->
+<div
+  (click)="openReviewsModal()"
+  *ngIf="reviews?.length! > 0; else noReviews"
+  class="rating-container"
+>
+  <div class="rating-info">
+    <span class="rating-number">{{ averageRating() | number : "1.1-1" }}</span>
+    <div class="stars">
+      <ng-container *ngFor="let star of [1, 2, 3, 4, 5]; let i = index">
+        <i
+          class="fa fa-star"
+          [ngStyle]="{
+            color:
+              averageRating() >= star
+                ? '#FFD700'
+                : averageRating() >= star - 0.5
+                ? '#FFD700AA'
+                : '#e0e0e0'
+          }"
+        ></i>
+      </ng-container>
+    </div>
+  </div>
+  <div class="rating-count" (click)="openReviewsModal()">
+    Basado en {{ reviews?.length }} calificación{{
+      reviews?.length === 1 ? "" : "es"
+    }}
+  </div>
+</div>
+
+<!-- Si no hay reviews -->
+<ng-template #noReviews>
+  <div class="no-reviews">Sin calificaciones</div>
+</ng-template>

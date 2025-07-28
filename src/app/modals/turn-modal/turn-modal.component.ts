@@ -16,6 +16,8 @@ import { ErrorService } from '../../services/error.service';
 import { TurnCommentsModalComponent } from '../turn-comments-modal/turn-comments-modal.component';
 import { UtilsService } from '../../services/utils.service';
 import { SkyToastService, SkyToastType } from '@skyux/toast';
+import { CreateReviewModalComponent } from '../create-review-modal/create-review-modal.component';
+import { UserService } from '../../services/user.service';
 
 @Component({
   selector: 'app-turn-modal',
@@ -29,6 +31,7 @@ export class TurnModalComponent {
   private instance = inject(SkyModalService);
   private errorService = inject(ErrorService);
   private toastSvc = inject(SkyToastService);
+  private userService = inject(UserService);
 
   public turn?: Turn = inject(TURN_MODAL_DATA);
   public user?: User = inject(USER_MODAL_DATA);
@@ -110,5 +113,37 @@ export class TurnModalComponent {
       this.errorService.handleError(error, 'Error agregando comentarios');
       this.modal.close();
     }
+  }
+  async addReview() {
+    const modalRef = this.instance.open(CreateReviewModalComponent, {
+      providers: [
+        {
+          provide: 'USER',
+          useValue: this.user,
+        },
+        {
+          provide: 'ATTENDANT',
+          useValue: this.turn?.Attendant,
+        },
+        {
+          provide: 'REVIEW',
+          useValue: undefined,
+        },
+      ],
+    });
+
+    const result = await modalRef.closed.toPromise();
+
+    if (!result || !result.data || result.data !== 'ok') {
+      return this.errorService.handleError(
+        result?.data,
+        'Error creando reseña'
+      );
+    }
+    return UtilsService.openToast(
+      this.toastSvc,
+      'Reseñada agregada correctamente',
+      SkyToastType.Success
+    );
   }
 }

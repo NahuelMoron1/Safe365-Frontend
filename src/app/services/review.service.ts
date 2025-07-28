@@ -26,12 +26,12 @@ export class ReviewService {
         const AttendantReviews: Review[] = data;
         return AttendantReviews;
       }
-      return undefined;
+      return [];
     } catch (error) {
       if (error instanceof Error) {
         console.error('Error obteniendo datos:', error.message);
       }
-      throw error; // Puedes manejar el error de acuerdo a tus necesidades
+      return [];
     }
   }
 
@@ -46,12 +46,17 @@ export class ReviewService {
 
   ///CREATE A NEW REVIEW FOR AN ATTENDANT
 
-  setAttendantReview(review: Review): Observable<void> {
+  setAttendantReview(body: any): Observable<void> {
+    if (!body.attendantID || !body.rating) {
+      return of(undefined);
+    }
+
     if (this.cookieService.isLogged) {
-      return this.http.post<void>(`${this.myAppUrl}${this.myApiUrl}`, review, {
+      return this.http.post<void>(`${this.myAppUrl}${this.myApiUrl}`, body, {
         withCredentials: true,
       });
     }
+
     return of(undefined);
   }
 

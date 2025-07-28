@@ -26,3 +26,50 @@
 .alert {
   max-width: min-content;
 }
+.rating-container {
+  display: inline-block;
+  text-align: center;
+  font-family: sans-serif;
+}
+
+.rating-value {
+  font-size: 1.5rem;
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+.stars-outer {
+  position: relative;
+  display: inline-block;
+  width: 120px;
+  height: 24px;
+  background: url('data:image/svg+xml;utf8,<svg fill="%23ccc" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>')
+    repeat-x;
+  background-size: 24px;
+}
+
+.stars-inner {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 24px;
+  background: url('data:image/svg+xml;utf8,<svg fill="%23FFD700" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>')
+    repeat-x;
+  background-size: 24px;
+  width: 0%;
+  overflow: hidden;
+}
+
+.rating-count {
+  font-size: 0.85rem;
+  color: #555;
+  margin-top: 4px;
+}
+
+.containsAll {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  height: 32vh;
+}

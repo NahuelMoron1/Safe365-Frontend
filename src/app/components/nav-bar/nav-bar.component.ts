@@ -30,7 +30,6 @@ export class NavBarComponent implements OnInit {
   async ngOnInit() {
     this.user = await this.userService.getUserLogged();
     this.userOutput.emit(this.user);
-    console.log(this.user);
   }
   protected onDropdownItemClick(buttonText: string): void {
     alert(buttonText + ' button clicked!');
@@ -41,6 +40,12 @@ export class NavBarComponent implements OnInit {
   }
   isAdmin() {
     if (this.user?.role === UserRole.ADMIN) {
+      return true;
+    }
+    return false;
+  }
+  openRegister() {
+    if (!this.user || (this.user && this.isAdmin())) {
       return true;
     }
     return false;

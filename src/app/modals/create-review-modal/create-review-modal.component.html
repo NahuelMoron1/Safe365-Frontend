@@ -1,0 +1,48 @@
+<sky-modal>
+  <sky-modal-content>
+    <div class="review-modal-container">
+      <div
+        style="
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+          align-items: center;
+        "
+      >
+        <h5 style="display: flex; justify-content: center">
+          Tu opinión nos importa!
+        </h5>
+        <img style="width: 20%" src="{{ attendant?.profileImage }}" alt="" />
+      </div>
+      <h2>Dejar una reseña a {{ attendant?.fullName }}</h2>
+
+      <div class="stars-container">
+        <label *ngFor="let star of [1, 2, 3, 4, 5]">
+          <input type="radio" name="stars" [value]="star" [(ngModel)]="stars" />
+          <span class="star" [class.selected]="stars && star <= stars">★</span>
+        </label>
+      </div>
+
+      <div class="comment-container">
+        <label for="comment">Comentario:</label>
+        <textarea
+          id="comment"
+          [(ngModel)]="comments"
+          placeholder="Escriba su opinión aquí..."
+        ></textarea>
+      </div>
+
+      <div class="buttons">
+        <button *ngIf="!review" class="submit-btn" (click)="addReview()">
+          Enviar reseña
+        </button>
+        <button *ngIf="review" class="submit-btn" (click)="modifyReview()">
+          Guardar reseña
+        </button>
+        <button *ngIf="review" class="submit-btn" (click)="deleteReview()">
+          Eliminar reseña
+        </button>
+      </div>
+    </div>
+  </sky-modal-content>
+</sky-modal>

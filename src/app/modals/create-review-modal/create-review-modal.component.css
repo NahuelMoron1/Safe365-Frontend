@@ -1,0 +1,78 @@
+.review-modal-container {
+  padding: 20px;
+  font-family: Arial, sans-serif;
+  max-width: 500px;
+  margin: auto;
+  background-color: #ffffff;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+h2 {
+  text-align: center;
+  margin-bottom: 20px;
+  font-size: 1.5rem;
+  color: #333;
+}
+
+.stars-container {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+  margin-bottom: 20px;
+}
+
+.stars-container input {
+  display: none;
+}
+
+.star {
+  font-size: 30px;
+  color: #ccc;
+  cursor: pointer;
+  transition: color 0.3s;
+}
+
+.star.selected {
+  color: gold;
+}
+
+.comment-container {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 20px;
+}
+
+.comment-container label {
+  margin-bottom: 5px;
+  font-weight: bold;
+}
+
+.comment-container textarea {
+  resize: vertical;
+  min-height: 80px;
+  padding: 10px;
+  font-size: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-family: inherit;
+}
+
+.buttons {
+  text-align: center;
+}
+
+.submit-btn {
+  background-color: #1976d2;
+  color: white;
+  padding: 10px 25px;
+  border: none;
+  border-radius: 6px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.submit-btn:hover {
+  background-color: #125ea5;
+}

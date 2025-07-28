@@ -18,6 +18,7 @@ export class Turn {
   };
 
   Attendant?: {
+    id: string;
     fullName: string;
     userID: string;
     // Podés agregar `Socialwork` también si lo incluís del médico

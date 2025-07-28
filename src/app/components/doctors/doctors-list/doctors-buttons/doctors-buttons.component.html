@@ -5,19 +5,22 @@
 >
   Personal modificado correctamente
 </sky-alert>
-<div class="buttons">
-  <button
-    *ngIf="user?.role === 'admin'"
-    class="appointment-button gestion"
-    (click)="openManageAttendantModal(attendant!)"
-  >
-    Gestionar usuario
-  </button>
-  <button
-    *ngIf="attendant?.role === 'attendant'"
-    class="appointment-button"
-    (click)="openCalendarModal(attendant!)"
-  >
-    Sacar turno
-  </button>
+<div class="containsAll">
+  <app-doctors-reviews [reviews]="reviews"></app-doctors-reviews>
+  <div class="buttons">
+    <button
+      *ngIf="user?.role === 'admin'"
+      class="appointment-button gestion"
+      (click)="openManageAttendantModal(attendant!)"
+    >
+      Gestionar usuario
+    </button>
+    <button
+      *ngIf="attendant?.role === 'attendant'"
+      class="appointment-button"
+      (click)="openCalendarModal(attendant!)"
+    >
+      Sacar turno
+    </button>
+  </div>
 </div>

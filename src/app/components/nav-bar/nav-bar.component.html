@@ -48,10 +48,6 @@
         </sky-dropdown>
       </sky-navbar-item>
 
-      <sky-navbar-item
-        ><a routerLink="/">Ver disponibilidad</a></sky-navbar-item
-      >
-
       <sky-navbar-item><a routerLink="/">Contacto</a></sky-navbar-item>
 
       <sky-navbar-item *ngIf="user"
@@ -63,6 +59,13 @@
           >Iniciar Sesión</a
         >
       </sky-navbar-item>
+
+      <sky-navbar-item *ngIf="openRegister()"
+        ><a routerLink="/register" routerLinkActive="sky-navbar-item-active"
+          >Registrar</a
+        ></sky-navbar-item
+      >
+
       <sky-navbar-item *ngIf="user?.id">
         <a routerLink="/" (click)="logout()">Cerrar sesión</a>
       </sky-navbar-item>

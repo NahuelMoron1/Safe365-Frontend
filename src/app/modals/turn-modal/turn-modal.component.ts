@@ -169,11 +169,13 @@ export class TurnModalComponent implements OnInit {
     }
 
     if (!result || !result.data || result.data !== 'ok') {
+      this.instance.dispose();
       return this.errorService.handleError(
         result?.data,
         'Error creando reseña'
       );
     }
+    this.instance.dispose();
     return UtilsService.openToast(
       this.toastSvc,
       'Reseñada agregada correctamente',

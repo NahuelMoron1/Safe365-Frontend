@@ -1,3 +1,4 @@
+<app-nav-bar (userOutput)="handleUser($event)"></app-nav-bar>
 <div class="settings-container">
   <h2>Modificar datos del usuario</h2>
 
@@ -34,13 +35,12 @@
     </div>
 
     <div class="form-group">
-      <label for="userIDInp">ID</label>
+      <label for="userIDInp">DNI</label>
       <input
         id="userIDInp"
         type="text"
-        [value]="user?.id"
+        [value]="user?.userID"
         class="sky-form-control"
-        disabled
       />
     </div>
 
@@ -80,14 +80,9 @@
       </div>
     </ng-container>
 
-    <div class="form-group">
+    <div>
       <label for="passwordInp">Contraseña</label>
-      <input
-        id="passwordInp"
-        type="password"
-        placeholder="********"
-        class="sky-form-control"
-      />
+      <p class="changePass">Cambiar Contraseña</p>
     </div>
 
     <div class="form-group">
@@ -111,7 +106,7 @@
       <div class="image-preview-container" (click)="triggerFileInput()">
         <img
           *ngIf="imagePreview; else placeholder"
-          [src]="imagePreview"
+          [src]="bffUrl + imagePreview"
           alt="Vista previa de la imagen"
         />
         <ng-template #placeholder>

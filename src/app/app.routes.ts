@@ -8,6 +8,9 @@ import { adminGuard } from './guards/admin.guard';
 import { TurnsComponent } from './components/turns/turns.component';
 import { AccountComponent } from './components/account/account.component';
 import { CalendarModalComponent } from './modals/calendar-modal/calendar-modal.component';
+import { SettingsComponent } from './components/account/settings/settings.component';
+import { ReviewsComponent } from './components/reviews/reviews.component';
+import { notLoggedGuard } from './guards/notLogged.guard';
 
 export const routes: Routes = [
   {
@@ -40,13 +43,21 @@ export const routes: Routes = [
   {
     path: 'turns',
     component: TurnsComponent,
+    canActivate: [notLoggedGuard],
   },
   {
     path: 'account',
     component: AccountComponent,
+    canActivate: [notLoggedGuard],
   },
   {
-    path: 'calendar',
-    component: CalendarModalComponent,
+    path: 'account/settings',
+    component: SettingsComponent,
+    canActivate: [notLoggedGuard],
+  },
+  {
+    path: 'reviews',
+    component: ReviewsComponent,
+    canActivate: [notLoggedGuard],
   },
 ];

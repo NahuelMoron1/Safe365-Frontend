@@ -51,7 +51,9 @@
       <sky-navbar-item><a routerLink="/">Contacto</a></sky-navbar-item>
 
       <sky-navbar-item *ngIf="user"
-        ><a routerLink="/profile">Mi cuenta</a></sky-navbar-item
+        ><a routerLink="/account" routerLinkActive="sky-navbar-item-active"
+          >Mi cuenta</a
+        ></sky-navbar-item
       >
 
       <sky-navbar-item *ngIf="!user?.id">

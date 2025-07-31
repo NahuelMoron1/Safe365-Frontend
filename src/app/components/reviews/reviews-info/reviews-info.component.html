@@ -1,0 +1,41 @@
+<div
+  class="reviews-container"
+  *ngIf="reviews && reviews.length > 0; else noReviews"
+>
+  <h2 class="reviews-title">⭐ Mis Reseñas</h2>
+  <p style="display: flex; justify-content: center">
+    <strong
+      >Esta es la lista de las reseñas que has realizado hasta el
+      momento</strong
+    >
+  </p>
+
+  <div class="review-card" *ngFor="let review of reviews">
+    <div class="review-header">
+      <img
+        class="attendant-image"
+        [src]="bffUrl + review.Attendant?.profileImage"
+        alt="Imagen del profesional"
+      />
+      <div class="review-info">
+        <h3>{{ review.Attendant?.fullName }}</h3>
+        <p class="review-rating">Calificación: {{ review.rating }} / 5</p>
+      </div>
+    </div>
+
+    <div class="review-comment">
+      <p>"{{ review.comment }}"</p>
+    </div>
+
+    <div class="review-date">
+      <p>{{ review.dateCreated | date : "longDate" }}</p>
+    </div>
+  </div>
+</div>
+
+<ng-template #noReviews>
+  <div class="no-reviews">
+    <h3>😕 Aún no has hecho ninguna reseña</h3>
+    <p>Cuando califiques a un profesional, aparecerá aquí.</p>
+  </div>
+</ng-template>

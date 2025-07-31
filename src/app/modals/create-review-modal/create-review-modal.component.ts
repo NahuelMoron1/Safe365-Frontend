@@ -85,13 +85,50 @@ export class CreateReviewModalComponent implements OnInit {
     return false;
   }
 
-  modifyReview() {
-    if (this.isOriginalReview()) {
-      return this.instance.close('ok');
+  async modifyReview() {
+    try {
+      if (this.isOriginalReview()) {
+        return this.instance.close('ok');
+      }
+      if (
+        !this.review ||
+        !this.review.id ||
+        !this.stars ||
+        !this.review.attendantID
+      ) {
+        return this.errorService.handleError(
+          undefined,
+          'No todos los campos contienen un valor'
+        );
+      }
+
+      const newReview: Review = new Review(
+        this.review.userID,
+        this.review.attendantID,
+        this.stars,
+        this.review.dateCreated,
+        this.comments,
+        this.review.id
+      );
+
+      await this.reviewService.modifyReview(newReview).toPromise();
+      this.instance.close('close');
+
+      return UtilsService.openToast(
+        this.toastSvc,
+        'Reseña modificada correctamente',
+        SkyToastType.Success
+      );
+    } catch (error) {
+      return this.errorService.handleError(error, 'No se pudo modificar');
     }
   }
 
   async deleteReview() {
+    const affirm = confirm('Seguro que desea borrar esta reseña?');
+    if (!affirm) {
+      return;
+    }
     if (
       !this.review ||
       !this.user ||

@@ -119,6 +119,26 @@ export class ReviewService {
     return of(undefined);
   }
 
+  ///MODIFY A REVIEW
+
+  modifyReview(review: Review): Observable<void> {
+    if (!review.attendantID || !review.rating || !review.id) {
+      return of(undefined);
+    }
+
+    if (this.cookieService.isLogged) {
+      return this.http.post<void>(
+        `${this.myAppUrl}${this.myApiUrl}modify`,
+        review,
+        {
+          withCredentials: true,
+        }
+      );
+    }
+
+    return of(undefined);
+  }
+
   ///DELETE AN OWN REVIEW FOR AN ATTENDANT
 
   deleteAttendantReview(reviewID: string): Observable<void> {

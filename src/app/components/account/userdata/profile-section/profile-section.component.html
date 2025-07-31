@@ -1,0 +1,77 @@
+<section class="profile-section">
+  <section class="profile-section" *ngIf="user">
+    <div class="profile-header">
+      <img
+        class="profile-img"
+        [src]="bffUrl + user.profileImage || 'https://via.placeholder.com/100'"
+        alt="Foto de perfil"
+      />
+      <div class="profile-info">
+        <h2>{{ user.fullName }}</h2>
+        <p><strong>Email:</strong> {{ user.email }}</p>
+        <p><strong>Teléfono:</strong> {{ user.phone }}</p>
+        <p><strong>DNI:</strong> {{ user.userID }}</p>
+        <p><strong>Domicilio:</strong> {{ user.directions }}</p>
+        <p *ngIf="user.socialworkID">
+          <strong>Obra social:</strong> {{ user.Socialwork?.name }}
+        </p>
+        <p *ngIf="user.role !== 'client'">
+          <strong>Rol:</strong> {{ user.role }}
+        </p>
+        <p *ngIf="user.role === 'attendant'">
+          <strong>Especialidad:</strong> {{ user.speciality }}
+        </p>
+        <p *ngIf="user.role !== 'client'">
+          <strong>Estado:</strong> {{ user.status }}
+        </p>
+        <p class="pstrong" [routerLink]="['/account/settings']">
+          <strong>Click aquí para modificar tu cuenta</strong>
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="profile-section" *ngIf="user">
+    <div class="profile-header">
+      <img
+        class="profile-img"
+        src="https://static.vecteezy.com/system/resources/thumbnails/012/852/501/small_2x/schedule-doctor-appointment-2d-isolated-illustration-healthcare-service-flat-characters-on-cartoon-background-planning-colourful-editable-scene-for-mobile-website-presentation-vector.jpg"
+        alt="Appointments"
+      />
+      <div class="profile-info">
+        <h2><strong>Mis turnos</strong></h2>
+        <p><strong>Cantidad de turnos totales:</strong> {{ turns?.length }}</p>
+        <p><strong>Turnos agendados:</strong> {{ getTurns("scheduled") }}</p>
+        <p><strong>Turnos completados:</strong> {{ getTurns("completed") }}</p>
+        <p><strong>Turnos cancelados:</strong> {{ getTurns("canceled") }}</p>
+        <p class="pstrong" routerLink="/turns">
+          <strong>Click aquí para ver el detalle de tus turnos</strong>
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="profile-section" *ngIf="user">
+    <div class="profile-header">
+      <img
+        class="profile-img"
+        src="https://media.istockphoto.com/id/1857699332/vector/person-in-charge-vector-icon.jpg?s=612x612&w=0&k=20&c=_sDGq1EzW71fkBYC8bIpQ4mC7xL0KrWmwYQu4ASUp-s="
+        alt="Reviews"
+      />
+      <div class="profile-info">
+        <h2><strong>Mis reseñas</strong></h2>
+        <p>
+          <strong>Cantidad de reseñas totales:</strong>
+          {{ reviews?.length || 0 }}
+        </p>
+        <p>
+          <strong>Promedio de calificación por reseña:</strong>
+          {{ getAverageRating() }}
+        </p>
+        <p class="pstrong">
+          <strong>Click aquí para ver el detalle de tus reseñas</strong>
+        </p>
+      </div>
+    </div>
+  </section>
+</section>

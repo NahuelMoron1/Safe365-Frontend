@@ -11,6 +11,11 @@ export class Review {
     profileImage: string;
   };
 
+  Attendant?: {
+    fullName: string;
+    profileImage: string;
+  };
+
   constructor(
     userID: string,
     attendantID: string,

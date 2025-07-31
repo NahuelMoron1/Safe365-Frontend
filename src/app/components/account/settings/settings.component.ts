@@ -10,10 +10,12 @@ import { UserService } from '../../../services/user.service';
 import { ErrorService } from '../../../services/error.service';
 import { NgFor, NgIf } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { NavBarComponent } from '../../nav-bar/nav-bar.component';
+import { environment } from '../../../environments/environment';
 
 @Component({
   selector: 'app-settings',
-  imports: [NgIf, NgFor, FormsModule],
+  imports: [NgIf, NgFor, FormsModule, NavBarComponent],
   templateUrl: './settings.component.html',
   styleUrl: './settings.component.css',
 })
@@ -35,10 +37,17 @@ export class SettingsComponent {
   public imagePreview?: string | null;
   public selectedFile: File | null = null;
   public loggedRole?: string;
+  public bffUrl: string = environment.endpoint;
 
-  async ngOnInit() {
-    await this.getSocialworks();
-    this.loggedRole = this.user?.role;
+  async handleUser(user: any) {
+    this.user = user;
+    this.imagePreview = user.profileImage;
+    try {
+      await this.getSocialworks();
+      this.loggedRole = this.user?.role;
+    } catch (error) {
+      return this.errorService.handleError(error, 'Error leyendo obra social');
+    }
   }
 
   async getSocialworks() {

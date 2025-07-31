@@ -1,0 +1,42 @@
+<div class="user-profile-container">
+  <aside class="sidebar">
+    <ul>
+      <li
+        [class.active]="activeSection === 'Mi cuenta'"
+        (click)="activeSection = 'Mi cuenta'"
+      >
+        Mi cuenta
+      </li>
+      <li
+        [class.active]="activeSection === 'Mis turnos'"
+        (click)="activeSection = 'Mis turnos'"
+      >
+        Mis turnos
+      </li>
+      <li
+        [class.active]="activeSection === 'Mis reseñas'"
+        (click)="activeSection = 'Mis reseñas'"
+      >
+        Mis reseñas
+      </li>
+    </ul>
+  </aside>
+
+  <app-profile-section
+    *ngIf="activeSection === 'Mi cuenta'"
+    [user]="user"
+    [reviews]="reviews"
+    [turns]="turns"
+    class="profile-section"
+  ></app-profile-section>
+  <app-turns-information
+    class="profile-section"
+    *ngIf="activeSection === 'Mis turnos'"
+    [user]="user"
+  ></app-turns-information>
+  <app-reviews-info
+    class="profile-section"
+    *ngIf="activeSection === 'Mis reseñas'"
+    [user]="user"
+  ></app-reviews-info>
+</div>

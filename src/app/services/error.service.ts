@@ -11,10 +11,11 @@ export class ErrorService {
   constructor() {}
 
   public handleError(err: any, message: string) {
-    if (err.status === 404) {
+    let errMessage = `${message}`;
+    if (err && err.status === 404) {
+      errMessage += `- ${UtilsService.errorText(err)}`;
       return;
     }
-    const errMessage = `${message} - ${UtilsService.errorText(err)}`;
     UtilsService.openToast(this.toastSvc, errMessage, SkyToastType.Danger);
   }
 }

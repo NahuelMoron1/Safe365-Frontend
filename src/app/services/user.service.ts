@@ -417,4 +417,18 @@ export class UserService {
     const urlAux = this.myAppUrl + this.myApiUrl + 'logout';
     return this.http.post<void>(urlAux, '', { withCredentials: true });
   }
+
+  /// VALIDATE PASSWORD
+
+  validatePassword(password: string): Observable<boolean> {
+    const urlAux = this.myAppUrl + this.myApiUrl + 'validate/password';
+
+    return this.http.post<boolean>(
+      urlAux,
+      { password },
+      {
+        withCredentials: true, // Esto permite que las cookies se envíen y se reciban
+      }
+    );
+  }
 }

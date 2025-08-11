@@ -10,7 +10,7 @@ export const notLoggedGuard = async () => {
     tokenExist = data;
   });
   if (!tokenExist) {
-    router.navigate(['']);
+    router.navigate(['/login']);
     return false;
   } else {
     return true;

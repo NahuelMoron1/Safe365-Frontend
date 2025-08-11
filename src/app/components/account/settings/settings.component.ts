@@ -1,4 +1,11 @@
-import { Component, ElementRef, inject, Input, ViewChild } from '@angular/core';
+import {
+  Component,
+  ElementRef,
+  inject,
+  Input,
+  OnInit,
+  ViewChild,
+} from '@angular/core';
 import { User } from '../../../models/User';
 import { UserRole } from '../../../models/enums/UserRole';
 import { UserStatus } from '../../../models/enums/UserStatus';
@@ -12,6 +19,8 @@ import { NgFor, NgIf } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { NavBarComponent } from '../../nav-bar/nav-bar.component';
 import { environment } from '../../../environments/environment';
+import { SkyModalService } from '@skyux/modals';
+import { PasswordModalComponent } from '../../../modals/password-modal/password-modal.component';
 
 @Component({
   selector: 'app-settings',
@@ -19,7 +28,7 @@ import { environment } from '../../../environments/environment';
   templateUrl: './settings.component.html',
   styleUrl: './settings.component.css',
 })
-export class SettingsComponent {
+export class SettingsComponent implements OnInit {
   @Input()
   public user?: User;
 
@@ -29,6 +38,7 @@ export class SettingsComponent {
   private socialworkService = inject(SocialworksService);
   private userService = inject(UserService);
   private errorService = inject(ErrorService);
+  private instance = inject(SkyModalService);
 
   public socialWorks?: Socialwork[];
   public socialwork?: string;
@@ -38,6 +48,9 @@ export class SettingsComponent {
   public selectedFile: File | null = null;
   public loggedRole?: string;
   public bffUrl: string = environment.endpoint;
+  private password?: string;
+
+  ngOnInit(): void {}
 
   async handleUser(user: any) {
     this.user = user;
@@ -45,8 +58,40 @@ export class SettingsComponent {
     try {
       await this.getSocialworks();
       this.loggedRole = this.user?.role;
+      await this.openPasswordModal();
     } catch (error) {
       return this.errorService.handleError(error, 'Error leyendo obra social');
+    }
+  }
+
+  async openPasswordModal() {
+    try {
+      const modalRef = this.instance.open(PasswordModalComponent, {
+        providers: [
+          {
+            provide: 'USER',
+            useValue: this.user,
+          },
+        ],
+      });
+
+      const result = await modalRef.closed.toPromise();
+
+      if (!result || !result.data) {
+        return;
+      }
+
+      const valid = result.data;
+
+      if (!valid.status) {
+        return this.errorService.handleError(undefined, valid.message);
+      }
+      this.password = valid.password;
+    } catch (error) {
+      return this.errorService.handleError(
+        error,
+        'Error al verificar contraseña'
+      );
     }
   }
 
@@ -107,9 +152,8 @@ export class SettingsComponent {
     const userRole = this.getString('userRoleInp');
     const speciality = this.getString('specialityInp');
     const status = this.getString('statusInp');
-    const password = this.getString('passwordInp');
 
-    if (!this.validateUserdata(fullName, email, phone, userID, password)) {
+    if (!this.validateUserdata(fullName, email, phone, userID)) {
       return undefined;
     }
 
@@ -119,7 +163,7 @@ export class SettingsComponent {
       phone,
       userID,
       this.socialworkCompleted?.id || '',
-      password
+      this.password!
     );
 
     if (this.selectedFile) {
@@ -161,15 +205,14 @@ export class SettingsComponent {
     fullName: string,
     email: string,
     phone: string,
-    userID: string,
-    password: string
+    userID: string
   ) {
     if (
       !fullName ||
       !email ||
       !phone ||
       !userID ||
-      !password ||
+      !this.password ||
       this.socialworkCompleted?.id === '0'
     ) {
       UtilsService.openToast(

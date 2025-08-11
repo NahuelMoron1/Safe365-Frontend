@@ -39,7 +39,7 @@
             <sky-dropdown-item *ngIf="isAdmin()">
               <a routerLink="/register/doctor">Registrar nuevo médico</a>
             </sky-dropdown-item>
-            <sky-dropdown-item>
+            <sky-dropdown-item *ngIf="user && user.role !== 'client'">
               <a routerLink="/" (click)="onDropdownItemClick('Item 3')"
                 >Completar turno</a
               >

@@ -163,7 +163,10 @@ export class SettingsComponent implements OnInit {
       phone,
       userID,
       this.socialworkCompleted?.id || '',
-      this.password!
+      this.user?.directions!,
+      this.password,
+      this.user?.role,
+      this.user?.id
     );
 
     if (this.selectedFile) {
@@ -212,7 +215,6 @@ export class SettingsComponent implements OnInit {
       !email ||
       !phone ||
       !userID ||
-      !this.password ||
       this.socialworkCompleted?.id === '0'
     ) {
       UtilsService.openToast(

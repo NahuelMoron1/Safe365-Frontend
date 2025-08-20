@@ -12,8 +12,10 @@ export class ErrorService {
 
   public handleError(err: any, message: string) {
     let errMessage = `${message}`;
-    if (err && err.status === 404) {
+    if (err) {
       errMessage += `- ${UtilsService.errorText(err)}`;
+    }
+    if (err && err.status === 404) {
       return;
     }
     UtilsService.openToast(this.toastSvc, errMessage, SkyToastType.Danger);

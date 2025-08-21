@@ -12,6 +12,7 @@ import { ErrorService } from '../../../services/error.service';
 import { Review } from '../../../models/Review';
 import { DatePipe, NgFor, NgIf } from '@angular/common';
 import { environment } from '../../../environments/environment';
+import { UserRole } from '../../../models/enums/UserRole';
 
 @Component({
   selector: 'app-reviews-info',
@@ -43,7 +44,14 @@ export class ReviewsInfoComponent implements OnChanges {
       );
     }
     try {
-      this.reviews = await this.reviewService.getUserReviewsTC(this.user.id);
+      if (this.user.role !== UserRole.ATTENDANT) {
+        this.reviews = await this.reviewService.getUserReviewsTC(this.user.id);
+      } else {
+        this.reviews = await this.reviewService.getAttendantReviewsTC(
+          this.user.id
+        );
+        console.log(this.reviews);
+      }
       return;
     } catch (error) {
       return this.errorService.handleError(error, 'Error leyendo reseñas');

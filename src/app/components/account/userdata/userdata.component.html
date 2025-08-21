@@ -11,7 +11,8 @@
         [class.active]="activeSection === 'Mis turnos'"
         (click)="activeSection = 'Mis turnos'"
       >
-        Mis turnos
+        <span *ngIf="user?.role === 'client'">Mis turnos</span>
+        <span *ngIf="user?.role !== 'client'">Turnos de clientes</span>
       </li>
       <li
         [class.active]="activeSection === 'Mis reseñas'"

@@ -99,9 +99,19 @@ export class RegisterDoctorComponent implements OnInit {
     const userRole = this.getString('userRoleInp');
     const speciality = this.getString('specialityInp');
     const status = this.getString('statusInp');
+    const directions = this.getString('directionsInp');
     const password = this.getString('passwordInp');
 
-    if (!this.validateUserdata(fullName, email, phone, userID, password)) {
+    if (
+      !this.validateUserdata(
+        fullName,
+        email,
+        phone,
+        userID,
+        password,
+        directions
+      )
+    ) {
       return undefined;
     }
 
@@ -111,6 +121,7 @@ export class RegisterDoctorComponent implements OnInit {
       phone,
       userID,
       this.socialworkCompleted?.id || '',
+      directions,
       password
     );
 
@@ -154,7 +165,8 @@ export class RegisterDoctorComponent implements OnInit {
     email: string,
     phone: string,
     userID: string,
-    password: string
+    password: string,
+    directions: string
   ) {
     if (
       !fullName ||
@@ -162,6 +174,7 @@ export class RegisterDoctorComponent implements OnInit {
       !phone ||
       !userID ||
       !password ||
+      !directions ||
       this.socialworkCompleted?.id === '0'
     ) {
       UtilsService.openToast(

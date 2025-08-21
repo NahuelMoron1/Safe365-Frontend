@@ -14,10 +14,17 @@ export class UserService {
   private myAppUrl: string;
   private myApiUrl: string;
   public user?: User;
+
   public activeAttendants?: User[];
   public _activeAttendants: BehaviorSubject<User[]> = new BehaviorSubject<
     User[]
   >([]);
+
+  public allAttendants?: User[];
+  public _allAttendants: BehaviorSubject<User[]> = new BehaviorSubject<User[]>(
+    []
+  );
+
   cookieService = inject(CookieService);
   constructor(private http: HttpClient) {
     this.myAppUrl = environment.endpoint;
@@ -76,6 +83,9 @@ export class UserService {
       if (data) {
         this.activeAttendants = data;
         this._activeAttendants.next(this.activeAttendants);
+
+        this.allAttendants = this.activeAttendants;
+        this._allAttendants.next(this.allAttendants);
       }
       return;
     } catch (error) {
@@ -103,6 +113,9 @@ export class UserService {
       if (data) {
         this.activeAttendants = data;
         this._activeAttendants.next(this.activeAttendants);
+
+        this.allAttendants = this.activeAttendants;
+        this._allAttendants.next(this.allAttendants);
       }
       return;
     } catch (error) {
@@ -134,6 +147,9 @@ export class UserService {
       if (data) {
         this.activeAttendants = data;
         this._activeAttendants.next(this.activeAttendants);
+
+        this.allAttendants = this.activeAttendants;
+        this._allAttendants.next(this.allAttendants);
       }
       return;
     } catch (error) {
@@ -157,6 +173,10 @@ export class UserService {
     return this._activeAttendants.asObservable();
   }
 
+  getBehaviorSubjectForSearch() {
+    return this._allAttendants.asObservable();
+  }
+
   async getUsersSocialworkByAdminTC(
     socialworkID: string,
     userRole: string,
@@ -171,6 +191,9 @@ export class UserService {
       if (data) {
         this.activeAttendants = data;
         this._activeAttendants.next(this.activeAttendants);
+
+        this.allAttendants = this.activeAttendants;
+        this._allAttendants.next(this.allAttendants);
       }
       return;
     } catch (error) {
@@ -205,6 +228,9 @@ export class UserService {
       if (data) {
         this.activeAttendants = data;
         this._activeAttendants.next(this.activeAttendants);
+
+        this.allAttendants = this.activeAttendants;
+        this._allAttendants.next(this.allAttendants);
       }
       return;
     } catch (error) {
@@ -233,6 +259,9 @@ export class UserService {
       if (data) {
         this.activeAttendants = data;
         this._activeAttendants.next(this.activeAttendants);
+
+        this.allAttendants = this.activeAttendants;
+        this._allAttendants.next(this.allAttendants);
       }
       return;
     } catch (error) {
@@ -316,6 +345,8 @@ export class UserService {
   ///CREATE NEW USER
 
   saveUser(newUser: User): Observable<void> {
+    console.log('USER: ', newUser);
+
     const formData = new FormData();
     formData.append('body', JSON.stringify(newUser));
 
@@ -329,6 +360,7 @@ export class UserService {
 
   modifyUser(newUser: User): Observable<void> {
     const formData = new FormData();
+
     formData.append('body', JSON.stringify(newUser));
 
     if (newUser.temporaryFile) {
@@ -430,5 +462,10 @@ export class UserService {
         withCredentials: true, // Esto permite que las cookies se envíen y se reciban
       }
     );
+  }
+
+  selectUserSearched(users: User[]) {
+    this.activeAttendants = users;
+    this._activeAttendants.next(this.activeAttendants);
   }
 }

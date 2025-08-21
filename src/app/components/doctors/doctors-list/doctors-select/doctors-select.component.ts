@@ -6,10 +6,11 @@ import { UserRole } from '../../../../models/enums/UserRole';
 import { ErrorService } from '../../../../services/error.service';
 import { UserService } from '../../../../services/user.service';
 import { Socialwork } from '../../../../models/Socialwork';
+import { SearchDoctorComponent } from '../../search-doctor/search-doctor.component';
 
 @Component({
   selector: 'app-doctors-select',
-  imports: [NgIf, FormsModule, NgFor],
+  imports: [NgIf, FormsModule, NgFor, SearchDoctorComponent],
   templateUrl: './doctors-select.component.html',
   styleUrl: './doctors-select.component.css',
 })

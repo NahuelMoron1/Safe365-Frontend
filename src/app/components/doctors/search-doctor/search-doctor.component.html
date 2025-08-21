@@ -1,1 +1,29 @@
-<p>search-doctor works!</p>
+<div class="search-container">
+  <input
+    type="text"
+    [(ngModel)]="searchTerm"
+    (input)="onInputSearch()"
+    placeholder="Buscar doctor..."
+    class="search-input"
+  />
+
+  <ul class="results-list" *ngIf="filteredUsers && filteredUsers.length > 0">
+    <li
+      *ngFor="let user of filteredUsers"
+      class="result-item"
+      (click)="selectUser(user)"
+    >
+      <img
+        *ngIf="user.profileImage"
+        [src]="user.profileImage"
+        alt="profile"
+        class="avatar"
+      />
+      <span>{{ user.fullName }}</span>
+    </li>
+  </ul>
+
+  <!--<ng-template #noResults>
+    <p class="no-results">No se encontraron resultados</p>
+  </ng-template>-->
+</div>

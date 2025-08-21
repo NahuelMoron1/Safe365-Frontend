@@ -166,6 +166,7 @@ export class SettingsComponent implements OnInit {
       this.user?.directions!,
       this.password,
       this.user?.role,
+      this.user?.profileImage,
       this.user?.id
     );
 

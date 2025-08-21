@@ -7,6 +7,7 @@ import { ErrorService } from '../../services/error.service';
 import { ReviewService } from '../../services/review.service';
 import { TurnService } from '../../services/turn.service';
 import { Turn } from '../../models/Turn';
+import { UserRole } from '../../models/enums/UserRole';
 
 @Component({
   selector: 'app-account',
@@ -28,7 +29,16 @@ export class AccountComponent {
   async handleUser(user: any) {
     this.user = user;
     try {
-      this.reviews = await this.reviewService.getUserReviewsTC(this.user?.id!);
+      if (this.user?.role === UserRole.ATTENDANT) {
+        this.reviews = await this.reviewService.getAttendantReviewsTC(
+          this.user?.id!
+        );
+      } else {
+        this.reviews = await this.reviewService.getUserReviewsTC(
+          this.user?.id!
+        );
+      }
+
       this.turns = await this.turnsService.getAllUserTurnsTC();
     } catch (error) {
       return this.errorService.handleError(

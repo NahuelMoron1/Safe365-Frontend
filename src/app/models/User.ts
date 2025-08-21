@@ -29,6 +29,7 @@ export class User {
     directions: string,
     password?: string,
     role?: UserRole,
+    profileImage?: string,
     id?: string,
     speciality?: string,
     status?: UserStatus
@@ -44,5 +45,6 @@ export class User {
     this.speciality = speciality;
     this.socialworkID = socialworkID;
     this.directions = directions;
+    this.profileImage = profileImage;
   }
 }

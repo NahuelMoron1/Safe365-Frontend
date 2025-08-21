@@ -5,6 +5,8 @@
     "ng": "ng",
     "start": "ng serve",
     "build": "ng build",
+    "build:deploy": "ng build && git add . && git commit -m 'build auto' && git push origin main",
+    "postbuild": "rsync -av --delete dist/managment/browser/ browser/",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
     "serve": "ng serve -o"

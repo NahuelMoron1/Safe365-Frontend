@@ -41,3 +41,17 @@
 .profile-section {
   flex: 1;
 }
+
+@media (max-width: 768px) {
+  .user-profile-container {
+    flex-direction: column;
+  }
+  .sidebar {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    ul {
+      display: flex;
+    }
+  }
+}

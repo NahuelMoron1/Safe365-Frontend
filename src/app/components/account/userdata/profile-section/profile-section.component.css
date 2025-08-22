@@ -45,3 +45,15 @@
 .pstrong:hover {
   transform: scale(1.05);
 }
+@media (max-width: 768px) {
+  .profile-header {
+    flex-direction: column;
+  }
+}
+
+@media (max-width: 338px) {
+  .profile-header {
+    flex-direction: column;
+    width: fit-content;
+  }
+}

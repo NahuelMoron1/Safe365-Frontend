@@ -33,9 +33,10 @@
   display: flex;
   justify-content: space-between;
   align-items: end;
-  img {
-    width: 100px;
-  }
+}
+
+.attendant-card img {
+  width: 100px;
 }
 
 .attendant-card h2 {
@@ -45,4 +46,74 @@
 
 .attendant-card p {
   margin: 0.3rem 0;
+}
+
+@media (max-width: 1024px) {
+  .attendants-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+  }
+
+  .attendant-card {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .attendant-card img {
+    width: 80px;
+    margin-top: 1rem;
+  }
+}
+
+/* Celulares grandes */
+@media (max-width: 768px) {
+  .attendants-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .attendant-card {
+    padding: 1rem;
+  }
+
+  .attendant-card h2 {
+    font-size: 1.1rem;
+  }
+}
+
+/* Celulares chicos */
+@media (max-width: 480px) {
+  :host {
+    padding: 1rem;
+  }
+
+  .attendant-card {
+    padding: 0.8rem;
+    border-radius: 6px;
+  }
+
+  .attendant-card img {
+    width: 70px;
+  }
+
+  .attendant-card h2 {
+    font-size: 1rem;
+  }
+
+  .attendant-card p {
+    font-size: 0.9rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .attendants-grid {
+    display: flex;
+    flex-direction: column;
+  }
+}
+
+@media (max-width: 400px) {
+  .attendant-card {
+    display: flex;
+    flex-direction: column;
+  }
 }

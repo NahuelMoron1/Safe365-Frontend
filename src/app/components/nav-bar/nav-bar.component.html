@@ -9,8 +9,13 @@
       />
     </a>
 
+    <!-- Botón hamburguesa -->
+    <button class="navbar-toggle" (click)="isMenuOpen = !isMenuOpen">
+      &#9776;
+    </button>
+
     <!-- Items -->
-    <div class="navbar-links">
+    <div class="navbar-links" [class.active]="isMenuOpen">
       <sky-navbar-item><a routerLink="/">Inicio</a></sky-navbar-item>
 
       <sky-navbar-item>

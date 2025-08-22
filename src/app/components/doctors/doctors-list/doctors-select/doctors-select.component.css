@@ -8,3 +8,12 @@
   align-items: center;
   gap: 10px;
 }
+
+@media (max-width: 768px) {
+  .selects {
+    flex-direction: column;
+  }
+  .selectDiv {
+    flex-direction: column;
+  }
+}

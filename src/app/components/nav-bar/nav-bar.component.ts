@@ -27,6 +27,12 @@ export class NavBarComponent implements OnInit {
   @Output() userOutput = new EventEmitter<User>(); // Emitimos el valor 'user'
   user?: User;
 
+  isMenuOpen = false; // 👈 agregamos esta propiedad
+
+  toggleMenu() {
+    this.isMenuOpen = !this.isMenuOpen;
+  }
+
   async ngOnInit() {
     this.user = await this.userService.getUserLogged();
     this.userOutput.emit(this.user);

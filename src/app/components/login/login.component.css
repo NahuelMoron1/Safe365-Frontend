@@ -1,6 +1,6 @@
 .sky-container {
   display: flex;
-  justify-content: center;
+  justify-content: space-around;
   align-items: center;
   min-height: 80vh;
 }
@@ -12,4 +12,16 @@
 
 .sky-form-group {
   margin-bottom: 1rem;
+}
+
+@media (max-width: 768px) {
+  .sky-container {
+    flex-direction: column;
+    justify-content: space-evenly;
+  }
+}
+@media (max-width: 300px) {
+  .logo {
+    width: 100%;
+  }
 }

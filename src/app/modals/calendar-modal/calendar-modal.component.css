@@ -1,3 +1,18 @@
+/* --- Modal base --- */
+::ng-deep .custom-modal .sky-modal {
+  max-width: 1000px;
+  width: 100%;
+  margin: 0 auto;
+}
+
+::ng-deep .custom-modal .sky-modal-content {
+  max-width: none;
+  width: 100%;
+  padding: 1rem;
+  box-sizing: border-box;
+}
+
+/* --- Calendar header --- */
 .calendar-header {
   display: flex;
   justify-content: center;
@@ -5,6 +20,7 @@
   margin-bottom: 16px;
   gap: 16px;
   font-family: Arial, sans-serif;
+  flex-wrap: wrap; /* 🔥 permite que los elementos bajen en móviles */
 }
 
 .calendar-header span {
@@ -28,15 +44,7 @@
   background-color: #1259a7;
 }
 
-::ng-deep .custom-modal .sky-modal {
-  max-width: 1000px; /* o el ancho que necesites */
-  width: 100%;
-}
-
-::ng-deep .custom-modal .sky-modal-content {
-  max-width: none;
-}
-
+/* --- Close button --- */
 .close-button {
   position: absolute;
   top: 15px;
@@ -57,4 +65,55 @@
 
 .close-button:hover {
   background-color: #999;
+}
+
+/* --- Responsive --- */
+
+/* Tablets */
+@media (max-width: 992px) {
+  ::ng-deep .custom-modal .sky-modal {
+    max-width: 90%; /* se ajusta al ancho disponible */
+  }
+
+  .calendar-header span {
+    font-size: 1.3rem;
+  }
+}
+
+/* Mobile */
+@media (max-width: 600px) {
+  ::ng-deep .custom-modal .sky-modal {
+    max-width: 100%;
+    margin: 0;
+    border-radius: 0; /* se estira tipo "fullscreen" */
+    height: 100vh; /* ocupa toda la pantalla */
+  }
+
+  ::ng-deep .custom-modal .sky-modal-content {
+    padding: 0.5rem;
+    height: 100%;
+    overflow-y: auto; /* scroll interno si el contenido es largo */
+  }
+
+  .calendar-header {
+    flex-direction: column; /* botones arriba/abajo del mes */
+    gap: 8px;
+  }
+
+  .calendar-header span {
+    font-size: 1.1rem;
+  }
+
+  .calendar-header button {
+    font-size: 0.9rem;
+    padding: 6px 10px;
+  }
+
+  .close-button {
+    top: 10px;
+    right: 10px;
+    width: 28px;
+    height: 28px;
+    font-size: 1rem;
+  }
 }

@@ -55,3 +55,20 @@
     }
   }
 }
+
+@media (max-width: 350px) {
+  .user-profile-container {
+    flex-direction: column;
+  }
+  .sidebar {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    ul {
+      display: flex;
+    }
+  }
+  .profile-section {
+    width: 100%;
+  }
+}

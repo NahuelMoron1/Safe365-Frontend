@@ -91,3 +91,14 @@ select {
   gap: 10px;
   margin-top: 10px;
 }
+@media (max-width: 300px) {
+  .modal-container {
+    word-wrap: break-word; /* Para navegadores viejos */
+    overflow-wrap: break-word; /* Estándar */
+    white-space: normal; /* Asegura que pueda saltar de línea */
+  }
+  .buttons {
+    display: flex;
+    flex-direction: column;
+  }
+}

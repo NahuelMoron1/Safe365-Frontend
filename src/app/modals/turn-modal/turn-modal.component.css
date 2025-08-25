@@ -76,3 +76,13 @@ button.sky-btn {
 .comment:hover {
   background-color: #1767b7;
 }
+
+@media (max-width: 768px) {
+  .buttons {
+    flex-direction: column;
+  }
+  .gestion {
+    display: flex;
+    flex-direction: column;
+  }
+}

@@ -1,0 +1,10 @@
+@media (max-width: 300px) {
+  .buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    button {
+      margin: 0;
+    }
+  }
+}

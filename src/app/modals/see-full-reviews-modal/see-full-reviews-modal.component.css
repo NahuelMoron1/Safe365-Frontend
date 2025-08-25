@@ -74,3 +74,14 @@
 .close-button:hover {
   background-color: #999;
 }
+
+@media (max-width: 300px) {
+  .review-card {
+    word-wrap: break-word; /* Para navegadores viejos */
+    overflow-wrap: break-word; /* Estándar */
+    white-space: normal; /* Asegura que pueda saltar de línea */
+  }
+  .review-header {
+    flex-direction: column;
+  }
+}

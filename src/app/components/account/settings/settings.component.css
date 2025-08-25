@@ -74,3 +74,21 @@
 .changePass:hover {
   transform: scale(1.07);
 }
+
+@media (max-width: 500px) {
+  .form-grid {
+    display: flex;
+    flex-direction: column;
+  }
+}
+
+@media (max-width: 250px) {
+  .form-grid {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .image-preview-container {
+    width: 100%;
+  }
+}

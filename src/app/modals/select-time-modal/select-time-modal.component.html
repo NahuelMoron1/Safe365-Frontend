@@ -16,19 +16,21 @@
     <!-- Acá podés agregar un formulario para más detalles -->
   </sky-modal-content>
   <sky-modal-footer>
-    <button
-      type="button"
-      class="sky-btn sky-btn-default hovButton"
-      (click)="cancel()"
-    >
-      Cancelar
-    </button>
-    <button
-      type="button"
-      class="sky-btn sky-btn-default hovButton"
-      (click)="save()"
-    >
-      Guardar
-    </button>
+    <div class="buttons">
+      <button
+        type="button"
+        class="sky-btn sky-btn-default hovButton"
+        (click)="cancel()"
+      >
+        Cancelar
+      </button>
+      <button
+        type="button"
+        class="sky-btn sky-btn-default hovButton"
+        (click)="save()"
+      >
+        Guardar
+      </button>
+    </div>
   </sky-modal-footer>
 </sky-modal>

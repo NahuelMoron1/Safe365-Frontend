@@ -36,3 +36,18 @@
   color: white;
   background-color: #1976d2;
 }
+@media (max-width: 300px) {
+  .time-selector {
+    word-wrap: break-word; /* Para navegadores viejos */
+    overflow-wrap: break-word; /* Estándar */
+    white-space: normal; /* Asegura que pueda saltar de línea */
+  }
+  .buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    button {
+      margin: 0;
+    }
+  }
+}

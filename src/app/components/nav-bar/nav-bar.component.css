@@ -44,6 +44,13 @@
 
 /* --- Responsive --- */
 @media (max-width: 768px) {
+  .navbar-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: calc(100vi - 2rem);
+  }
+
   .navbar-links {
     display: none;
     flex-direction: column;
@@ -58,9 +65,15 @@
 
   .navbar-links.active {
     display: flex;
+    z-index: 1;
   }
 
   .navbar-toggle {
     display: block;
+  }
+}
+@media (max-width: 200px) {
+  .navbar-logo {
+    width: 100%;
   }
 }

@@ -19,6 +19,7 @@ h2 {
   display: flex;
   justify-content: center;
   gap: 8px;
+  flex-wrap: wrap;
   margin-bottom: 20px;
 }
 
@@ -102,4 +103,21 @@ h2 {
 
 .close-button:hover {
   background-color: #999;
+}
+
+@media (max-width: 400px) {
+  .review-modal-container {
+    word-wrap: break-word; /* Para navegadores viejos */
+    overflow-wrap: break-word; /* Estándar */
+    white-space: normal; /* Asegura que pueda saltar de línea */
+  }
+  .buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  .reviewButtons {
+    flex-direction: column; /* 🔥 esto faltaba */
+    gap: 10px;
+  }
 }

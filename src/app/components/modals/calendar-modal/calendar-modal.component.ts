@@ -3,13 +3,18 @@ import { Component, inject, OnInit } from '@angular/core';
 import { SkyAlertModule } from '@skyux/indicators';
 import { SkyModalModule, SkyModalService } from '@skyux/modals';
 import { CalendarEvent, CalendarModule } from 'angular-calendar';
-import { Availability } from '../../models/Availability';
-import { AvailabilityDays } from '../../models/enums/AvailabilityDays';
-import { Turn } from '../../models/Turn';
-import { AvailabilityService } from '../../services/availability.service';
-import { ErrorService } from '../../services/error.service';
-import { TurnService } from '../../services/turn.service';
-import { ATTENDANT, SELECTED_DATE, TIME_SLOTS, USER } from '../../tokens/token';
+import { Availability } from '../../../models/Availability';
+import { AvailabilityDays } from '../../../models/enums/AvailabilityDays';
+import { Turn } from '../../../models/Turn';
+import { AvailabilityService } from '../../../services/availability.service';
+import { ErrorService } from '../../../services/error.service';
+import { TurnService } from '../../../services/turn.service';
+import {
+  ATTENDANT,
+  SELECTED_DATE,
+  TIME_SLOTS,
+  USER,
+} from '../../../tokens/token';
 import { SelectTimeModalComponent } from '../select-time-modal/select-time-modal.component';
 
 @Component({

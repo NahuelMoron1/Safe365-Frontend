@@ -1,9 +1,9 @@
 import { CommonModule, NgIf } from '@angular/common';
 import { Component, inject, Input, OnInit } from '@angular/core';
 import { SkyModalService } from '@skyux/modals';
-import { SeeFullReviewsModalComponent } from '../../../../modals/see-full-reviews-modal/see-full-reviews-modal.component';
 import { Review } from '../../../../models/Review';
 import { REVIEWS } from '../../../../tokens/token';
+import { SeeFullReviewsModalComponent } from '../../../modals/see-full-reviews-modal/see-full-reviews-modal.component';
 
 @Component({
   selector: 'app-doctors-reviews',

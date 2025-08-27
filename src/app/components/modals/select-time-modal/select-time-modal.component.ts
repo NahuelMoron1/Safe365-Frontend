@@ -2,8 +2,9 @@ import { DatePipe, NgFor } from '@angular/common';
 import { Component, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { SkyModalInstance, SkyModalModule } from '@skyux/modals';
-import { ErrorService } from '../../services/error.service';
-import { SELECTED_DATE, TIME_SLOTS } from '../../tokens/token';
+import { ErrorService } from '../../../services/error.service';
+import { SELECTED_DATE, TIME_SLOTS } from '../../../tokens/token';
+
 @Component({
   selector: 'app-select-time-modal',
   imports: [FormsModule, SkyModalModule, NgFor, DatePipe],

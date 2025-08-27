@@ -1,7 +1,7 @@
 import { Component, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { SkyModalInstance, SkyModalModule } from '@skyux/modals';
-import { EXISTING_COMMENTS } from '../../tokens/token';
+import { EXISTING_COMMENTS } from '../../../tokens/token';
 
 @Component({
   selector: 'app-turn-comments-modal',

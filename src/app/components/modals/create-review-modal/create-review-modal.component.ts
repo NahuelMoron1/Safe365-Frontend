@@ -3,13 +3,13 @@ import { Component, inject, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { SkyModalInstance, SkyModalModule } from '@skyux/modals';
 import { SkyToastService, SkyToastType } from '@skyux/toast';
-import { environment } from '../../environments/environment';
-import { UserRole } from '../../models/enums/UserRole';
-import { Review } from '../../models/Review';
-import { ErrorService } from '../../services/error.service';
-import { ReviewService } from '../../services/review.service';
-import { UtilsService } from '../../services/utils.service';
-import { ATTENDANT, REVIEW, USER } from '../../tokens/token';
+import { environment } from '../../../environments/environment';
+import { UserRole } from '../../../models/enums/UserRole';
+import { Review } from '../../../models/Review';
+import { ErrorService } from '../../../services/error.service';
+import { ReviewService } from '../../../services/review.service';
+import { UtilsService } from '../../../services/utils.service';
+import { ATTENDANT, REVIEW, USER } from '../../../tokens/token';
 
 @Component({
   selector: 'app-create-review-modal',

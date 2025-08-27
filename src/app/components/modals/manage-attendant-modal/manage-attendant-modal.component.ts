@@ -2,10 +2,10 @@ import { NgIf } from '@angular/common';
 import { Component, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { SkyModalInstance, SkyModalModule } from '@skyux/modals';
-import { UserRole } from '../../models/enums/UserRole';
-import { ErrorService } from '../../services/error.service';
-import { UserService } from '../../services/user.service';
-import { ATTENDANT, USER } from '../../tokens/token';
+import { UserRole } from '../../../models/enums/UserRole';
+import { ErrorService } from '../../../services/error.service';
+import { UserService } from '../../../services/user.service';
+import { ATTENDANT, USER } from '../../../tokens/token';
 
 @Component({
   selector: 'app-manage-attendant-modal',

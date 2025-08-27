@@ -4,7 +4,6 @@ import { FormsModule } from '@angular/forms';
 import { SkyModalService } from '@skyux/modals';
 import { SkyToastService, SkyToastType } from '@skyux/toast';
 import { environment } from '../../environments/environment';
-import { PasswordModalComponent } from '../../modals/password-modal/password-modal.component';
 import { UserRole } from '../../models/enums/UserRole';
 import { UserStatus } from '../../models/enums/UserStatus';
 import { Socialwork } from '../../models/Socialwork';
@@ -14,6 +13,7 @@ import { SocialworksService } from '../../services/socialworks.service';
 import { UserService } from '../../services/user.service';
 import { UtilsService } from '../../services/utils.service';
 import { USER } from '../../tokens/token';
+import { PasswordModalComponent } from '../modals/password-modal/password-modal.component';
 import { NavBarComponent } from '../nav-bar/nav-bar.component';
 
 @Component({

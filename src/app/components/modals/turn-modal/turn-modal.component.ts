@@ -6,20 +6,25 @@ import {
   SkyModalService,
 } from '@skyux/modals';
 import { SkyToastService, SkyToastType } from '@skyux/toast';
+import { TurnStatus } from '../../../models/enums/TurnStatus';
+import { UserRole } from '../../../models/enums/UserRole';
+import { Review } from '../../../models/Review';
+import { Turn } from '../../../models/Turn';
+import { User } from '../../../models/User';
+import { ErrorService } from '../../../services/error.service';
+import { ReviewService } from '../../../services/review.service';
+import { TurnService } from '../../../services/turn.service';
+import { UtilsService } from '../../../services/utils.service';
+import {
+  ATTENDANT,
+  EXISTING_COMMENTS,
+  REVIEW,
+  USER,
+} from '../../../tokens/token';
 import {
   TURN_MODAL_DATA,
   USER_MODAL_DATA,
-} from '../../components/turns-information/turns-information.component';
-import { TurnStatus } from '../../models/enums/TurnStatus';
-import { UserRole } from '../../models/enums/UserRole';
-import { Review } from '../../models/Review';
-import { Turn } from '../../models/Turn';
-import { User } from '../../models/User';
-import { ErrorService } from '../../services/error.service';
-import { ReviewService } from '../../services/review.service';
-import { TurnService } from '../../services/turn.service';
-import { UtilsService } from '../../services/utils.service';
-import { ATTENDANT, EXISTING_COMMENTS, REVIEW, USER } from '../../tokens/token';
+} from '../../turns-information/turns-information.component';
 import { CancelTurnModalComponent } from '../cancel-turn-modal/cancel-turn-modal.component';
 import { CompleteTurnModalComponent } from '../complete-turn-modal/complete-turn-modal.component';
 import { CreateReviewModalComponent } from '../create-review-modal/create-review-modal.component';

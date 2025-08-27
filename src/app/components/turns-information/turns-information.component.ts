@@ -1,13 +1,13 @@
 import { DatePipe, NgFor, NgIf } from '@angular/common';
 import { Component, inject, Input, OnInit } from '@angular/core';
 import { SkyModalService } from '@skyux/modals';
-import { TurnModalComponent } from '../../modals/turn-modal/turn-modal.component';
 import { Turn } from '../../models/Turn';
 import { User } from '../../models/User';
 import { UserRole } from '../../models/enums/UserRole';
 import { TurnService } from '../../services/turn.service';
 
 import { InjectionToken } from '@angular/core';
+import { TurnModalComponent } from '../modals/turn-modal/turn-modal.component';
 export const TURN_MODAL_DATA = new InjectionToken<Turn>('TURN_MODAL_DATA');
 export const USER_MODAL_DATA = new InjectionToken<User>('TURN_MODAL_DATA');
 

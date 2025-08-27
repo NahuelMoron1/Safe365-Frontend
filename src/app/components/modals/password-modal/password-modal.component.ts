@@ -2,10 +2,10 @@ import { Component, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { SkyModalInstance, SkyModalModule } from '@skyux/modals';
-import { UserStatus } from '../../models/enums/UserStatus';
-import { ErrorService } from '../../services/error.service';
-import { UserService } from '../../services/user.service';
-import { USER } from '../../tokens/token';
+import { UserStatus } from '../../../models/enums/UserStatus';
+import { ErrorService } from '../../../services/error.service';
+import { UserService } from '../../../services/user.service';
+import { USER } from '../../../tokens/token';
 
 @Component({
   selector: 'app-password-modal',

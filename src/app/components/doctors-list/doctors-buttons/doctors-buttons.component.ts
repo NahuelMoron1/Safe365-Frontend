@@ -2,14 +2,14 @@ import { CommonModule, NgIf } from '@angular/common';
 import { Component, inject, Input, OnInit } from '@angular/core';
 import { SkyAlertModule } from '@skyux/indicators';
 import { SkyModalService } from '@skyux/modals';
-import { CalendarModalComponent } from '../../../modals/calendar-modal/calendar-modal.component';
-import { ManageAttendantModalComponent } from '../../../modals/manage-attendant-modal/manage-attendant-modal.component';
 import { UserRole } from '../../../models/enums/UserRole';
 import { Review } from '../../../models/Review';
 import { User } from '../../../models/User';
 import { ErrorService } from '../../../services/error.service';
 import { ReviewService } from '../../../services/review.service';
 import { ATTENDANT, USER } from '../../../tokens/token';
+import { CalendarModalComponent } from '../../modals/calendar-modal/calendar-modal.component';
+import { ManageAttendantModalComponent } from '../../modals/manage-attendant-modal/manage-attendant-modal.component';
 import { DoctorsReviewsComponent } from './doctors-reviews/doctors-reviews.component';
 
 @Component({

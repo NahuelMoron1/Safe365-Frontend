@@ -12,7 +12,10 @@
         </button>
       </li>
 
-      <li [class.active]="activeSection === 'Mis horarios'">
+      <li
+        [class.active]="activeSection === 'Mis horarios'"
+        *ngIf="user?.role === 'attendant'"
+      >
         <button (click)="activeSection = 'Mis horarios'">Mis horarios</button>
       </li>
 

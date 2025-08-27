@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { UserRole } from '../../models/enums/UserRole';
 import { UserStatus } from '../../models/enums/UserStatus';
 import { User } from '../../models/User';
@@ -7,6 +7,8 @@ import { SkyToastService, SkyToastType } from '@skyux/toast';
 import { UtilsService } from '../../services/utils.service';
 import { NavBarComponent } from '../nav-bar/nav-bar.component';
 import { ErrorService } from '../../services/error.service';
+import { ActivatedRoute } from '@angular/router';
+import { AuthRedirectService } from '../../services/auth-redirect.service';
 
 @Component({
   selector: 'app-login',
@@ -16,10 +18,13 @@ import { ErrorService } from '../../services/error.service';
   styleUrl: './login.component.css',
 })
 export class LoginComponent {
-  userService = inject(UserService);
-  toastSvc = inject(SkyToastService);
-  errorService = inject(ErrorService);
-  user: User = new User('', '', '', '', '', UserRole.CLIENT);
+  private userService = inject(UserService);
+  private toastSvc = inject(SkyToastService);
+  private errorService = inject(ErrorService);
+  private redirectService = inject(AuthRedirectService);
+
+  public user: User = new User('', '', '', '', '', UserRole.CLIENT);
+  private route?: ActivatedRoute;
 
   async login() {
     let emailInp = document.getElementById('emailInp') as HTMLInputElement;
@@ -36,8 +41,7 @@ export class LoginComponent {
           .login(email, password)
           .toPromise();
         if (access) {
-          debugger;
-          window.location.href = '';
+          window.location.href = this.redirectService.getRedirectUrl() || '/';
         }
       } catch (error: any) {
         this.errorService.handleError(error, 'No se pudo iniciar sesión');

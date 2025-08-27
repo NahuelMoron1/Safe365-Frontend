@@ -49,11 +49,11 @@ export class DoctorsButtonsComponent implements OnInit {
     const modalRef = this.instance.open(CalendarModalComponent, {
       providers: [
         {
-          provide: 'ATTENDANT',
+          provide: ATTENDANT,
           useValue: attendantTurn,
         },
         {
-          provide: 'USER',
+          provide: USER,
           useValue: this.user,
         },
       ],

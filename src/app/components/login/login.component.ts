@@ -1,10 +1,8 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { UserRole } from '../../models/enums/UserRole';
-import { UserStatus } from '../../models/enums/UserStatus';
 import { User } from '../../models/User';
 import { UserService } from '../../services/user.service';
-import { SkyToastService, SkyToastType } from '@skyux/toast';
-import { UtilsService } from '../../services/utils.service';
+import { SkyToastService } from '@skyux/toast';
 import { NavBarComponent } from '../nav-bar/nav-bar.component';
 import { ErrorService } from '../../services/error.service';
 import { ActivatedRoute } from '@angular/router';

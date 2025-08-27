@@ -39,4 +39,9 @@
     *ngIf="activeSection === 'Mis reseñas'"
     [user]="user"
   ></app-reviews-info>
+  <app-my-schedule
+    class="profile-section"
+    *ngIf="activeSection === 'Mis horarios'"
+    [user]="user"
+  ></app-my-schedule>
 </div>

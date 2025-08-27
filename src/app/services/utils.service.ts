@@ -52,4 +52,18 @@ export class UtilsService {
       return ex;
     }
   }
+
+  public static generateRandomId(length = 16): string {
+    //Genera un codigo random de 16 caracteres y lo devuelve. Sirve para los ID
+    const characters =
+      'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+    let result = '';
+    const charactersLength = characters.length;
+
+    for (let i = 0; i < length; i++) {
+      result += characters.charAt(Math.floor(Math.random() * charactersLength));
+    }
+
+    return result;
+  }
 }

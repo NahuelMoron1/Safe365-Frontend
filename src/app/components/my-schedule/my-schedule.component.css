@@ -1,0 +1,43 @@
+.schedule-container {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  max-width: 400px;
+  margin: 1rem auto;
+  font-family: Arial, sans-serif;
+}
+
+.day-row {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.day-label {
+  min-width: 90px;
+  font-weight: bold;
+}
+
+.time-selects {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+select {
+  width: 5vw;
+  text-align: center;
+  padding: 0.3rem;
+  border-radius: 4px;
+  border: 1px solid #ccc;
+}
+
+.separator {
+  font-weight: bold;
+}
+
+.selects {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}

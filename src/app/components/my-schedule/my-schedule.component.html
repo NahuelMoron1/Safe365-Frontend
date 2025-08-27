@@ -1,1 +1,33 @@
-<p>my-schedule works!</p>
+<div class="schedule-container">
+  <div class="day-row" *ngFor="let day of weekdays">
+    <!-- Checkbox para habilitar -->
+    <label class="day-label">
+      <input type="checkbox" [(ngModel)]="day.enabled" />
+      {{ day.label }}
+    </label>
+
+    <!-- Selects solo visibles si el día está habilitado -->
+    <div class="time-selects" *ngIf="day.enabled">
+      <div class="selects">
+        <label for="selectStart">Inicio</label>
+        <select [(ngModel)]="day.startTime">
+          <option *ngFor="let time of timeOptions" [value]="time">
+            {{ time }}
+          </option>
+        </select>
+      </div>
+
+      <span class="separator"> - </span>
+
+      <div class="selects">
+        <label for="selectStart">Fin</label>
+        <select [(ngModel)]="day.endTime">
+          <option *ngFor="let time of timeOptions" [value]="time">
+            {{ time }}
+          </option>
+        </select>
+      </div>
+    </div>
+  </div>
+  <button (click)="changeHours()">Confirmar horarios</button>
+</div>

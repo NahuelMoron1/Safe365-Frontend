@@ -55,4 +55,13 @@ export class NavBarComponent implements OnInit {
     }
     return false;
   }
+  getRouteRegister() {
+    if (!this.user) {
+      return '/register';
+    } else if (this.user && this.isAdmin()) {
+      return '/register/doctor';
+    } else {
+      return '/';
+    }
+  }
 }

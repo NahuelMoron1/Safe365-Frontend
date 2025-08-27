@@ -8,7 +8,7 @@
       <li [class.active]="activeSection === 'Mis turnos'">
         <button (click)="activeSection = 'Mis turnos'">
           <span *ngIf="user?.role === 'client'">Mis turnos</span>
-          <span *ngIf="user?.role !== 'client'">Turnos de clientes</span>
+          <span *ngIf="user?.role !== 'client'">Turnos clientes</span>
         </button>
       </li>
 
@@ -40,8 +40,8 @@
     [user]="user"
   ></app-reviews-info>
   <app-my-schedule
-    class="profile-section"
-    *ngIf="activeSection === 'Mis horarios'"
+    class="profile-section schedule"
+    *ngIf="activeSection === 'Mis horarios' && user?.role === 'attendant'"
     [user]="user"
   ></app-my-schedule>
 </div>

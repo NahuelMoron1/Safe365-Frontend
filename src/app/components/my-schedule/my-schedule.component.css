@@ -25,11 +25,15 @@
 }
 
 select {
-  width: 5vw;
+  width: 70px;
   text-align: center;
   padding: 0.3rem;
   border-radius: 4px;
   border: 1px solid #ccc;
+  appearance: none; /* estándar */
+  -webkit-appearance: none; /* Chrome, Safari */
+  -moz-appearance: none; /* Firefox */
+  background: white; /* para evitar que quede transparente */
 }
 
 .separator {
@@ -40,4 +44,31 @@ select {
   display: flex;
   flex-direction: column;
   align-items: center;
+}
+
+.confirm {
+  background-color: #2c3e50;
+  color: white;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  font-style: bold;
+  border: 0;
+  border-radius: 5px;
+  width: fit-content;
+}
+
+@media (max-width: 350px) {
+  .day-row {
+    flex-direction: column;
+  }
+}
+
+@media (max-width: 160px) {
+  .time-selects {
+    display: flex;
+    flex-direction: column;
+  }
+  .confirm {
+    width: 80%;
+    font-size: 5px;
+  }
 }

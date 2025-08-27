@@ -1,0 +1,26 @@
+.icons {
+  display: flex;
+  gap: 20px;
+  align-items: center;
+  justify-content: center;
+}
+a {
+  text-decoration: none;
+  color: inherit;
+}
+@media (max-width: 235px) {
+  .icons {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    justify-content: center;
+  }
+}
+
+@media (max-width: 100px) {
+  .icons {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin-top: 20px;
+  }
+}

@@ -4,11 +4,12 @@ import { User } from '../../models/User';
 import { AuthRedirectService } from '../../services/auth-redirect.service';
 import { ErrorService } from '../../services/error.service';
 import { UserService } from '../../services/user.service';
+import { FooterComponent } from '../footer/footer.component';
 
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [],
+  imports: [FooterComponent],
   templateUrl: './login.component.html',
   styleUrl: './login.component.css',
 })

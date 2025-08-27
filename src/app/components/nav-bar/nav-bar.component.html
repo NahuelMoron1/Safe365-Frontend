@@ -32,24 +32,16 @@
             <sky-dropdown-item>
               <a routerLink="/all/attendants">Ver todos los médicos</a>
             </sky-dropdown-item>
-            <sky-dropdown-item>
-              <a routerLink="/" (click)="onDropdownItemClick('Item 2')"
-                >Buscar médico</a
-              >
-            </sky-dropdown-item>
             <sky-dropdown-item *ngIf="isAdmin()">
               <a routerLink="/register/doctor">Registrar nuevo médico</a>
-            </sky-dropdown-item>
-            <sky-dropdown-item *ngIf="user && user.role !== 'client'">
-              <a routerLink="/" (click)="onDropdownItemClick('Item 3')"
-                >Completar turno</a
-              >
             </sky-dropdown-item>
           </sky-dropdown-menu>
         </sky-dropdown>
       </sky-navbar-item>
 
-      <sky-navbar-item><a routerLink="/">Contacto</a></sky-navbar-item>
+      <sky-navbar-item *ngIf="user"
+        ><a routerLink="/reviews">Mis reseñas</a></sky-navbar-item
+      >
 
       <sky-navbar-item *ngIf="user"
         ><a routerLink="/account" routerLinkActive="sky-navbar-item-active"
@@ -64,7 +56,9 @@
       </sky-navbar-item>
 
       <sky-navbar-item *ngIf="openRegister()"
-        ><a routerLink="/register" routerLinkActive="sky-navbar-item-active"
+        ><a
+          routerLink="{{ getRouteRegister() }}"
+          routerLinkActive="sky-navbar-item-active"
           >Registrar</a
         ></sky-navbar-item
       >

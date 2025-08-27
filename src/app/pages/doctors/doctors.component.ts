@@ -29,6 +29,7 @@ export class DoctorsComponent implements OnInit {
   public socialWorks?: Socialwork[];
   public isSearchPage?: boolean;
   public isRegister?: boolean;
+  public title?: string;
 
   private router = inject(Router);
 
@@ -40,12 +41,15 @@ export class DoctorsComponent implements OnInit {
     if (this.router.url.includes('search')) {
       this.isSearchPage = true;
       this.isRegister = false;
+      this.title = 'Busqueda';
     } else if (this.router.url.includes('register')) {
       this.isRegister = true;
       this.isSearchPage = false;
+      this.title = 'Registro';
     } else {
       this.isSearchPage = false;
       this.isRegister = false;
+      this.title = 'Doctores';
     }
   }
 

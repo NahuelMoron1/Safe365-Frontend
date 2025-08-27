@@ -5,15 +5,13 @@ import { SkyToastService, SkyToastType } from '@skyux/toast';
   providedIn: 'root',
 })
 export class UtilsService {
-  constructor() {}
-
   public static openToast(
     toastService: SkyToastService,
     text: string,
     toastType: SkyToastType
   ) {
     const toastSeconds = 4;
-    let instance = toastService.openMessage(text, { type: toastType });
+    const instance = toastService.openMessage(text, { type: toastType });
 
     // close toast after a few seconds
     setTimeout(() => instance.close(), toastSeconds * 1000);
@@ -51,7 +49,7 @@ export class UtilsService {
     try {
       return JSON.stringify(err);
     } catch (ex) {
-      return err;
+      return ex;
     }
   }
 }

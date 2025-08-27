@@ -12,6 +12,8 @@
       *ngFor="let user of filteredUsers"
       class="result-item"
       (click)="selectUser(user)"
+      (keydown.enter)="selectUser(user)"
+      tabindex="0"
     >
       <img
         *ngIf="user.profileImage"

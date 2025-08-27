@@ -1,13 +1,13 @@
-import { Component, Input, OnInit } from '@angular/core';
-import { NavBarComponent } from '../nav-bar/nav-bar.component';
-import { User } from '../../models/User';
-import { SearchDoctorComponent } from './search-doctor/search-doctor.component';
 import { NgIf } from '@angular/common';
-import { DoctorsListComponent } from './doctors-list/doctors-list.component';
+import { Component, inject, Input, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { Socialwork } from '../../models/Socialwork';
-import { RegisterDoctorComponent } from './register-doctor/register-doctor.component';
 import { UserRole } from '../../models/enums/UserRole';
+import { Socialwork } from '../../models/Socialwork';
+import { User } from '../../models/User';
+import { NavBarComponent } from '../nav-bar/nav-bar.component';
+import { DoctorsListComponent } from './doctors-list/doctors-list.component';
+import { RegisterDoctorComponent } from './register-doctor/register-doctor.component';
+import { SearchDoctorComponent } from './search-doctor/search-doctor.component';
 
 @Component({
   selector: 'app-doctors',
@@ -30,7 +30,7 @@ export class DoctorsComponent implements OnInit {
   public isSearchPage?: boolean;
   public isRegister?: boolean;
 
-  constructor(private router: Router) {}
+  private router = inject(Router);
 
   ngOnInit(): void {
     this.checkRoutes();
@@ -53,8 +53,6 @@ export class DoctorsComponent implements OnInit {
     this.user = user;
   }
   isLogged() {
-    if (this.user) {
-    }
     return true;
   }
   isAdmin() {

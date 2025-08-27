@@ -30,5 +30,5 @@ export class UserdataComponent {
   @Input()
   public reviews?: Review[];
 
-  public activeSection: string = 'Mi cuenta';
+  public activeSection = 'Mi cuenta';
 }

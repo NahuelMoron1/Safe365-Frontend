@@ -1,26 +1,20 @@
-import {
-  Component,
-  ElementRef,
-  inject,
-  Input,
-  OnInit,
-  ViewChild,
-} from '@angular/core';
+import { NgFor, NgIf } from '@angular/common';
+import { Component, ElementRef, inject, Input, ViewChild } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { SkyModalService } from '@skyux/modals';
+import { SkyToastService, SkyToastType } from '@skyux/toast';
+import { environment } from '../../../environments/environment';
+import { PasswordModalComponent } from '../../../modals/password-modal/password-modal.component';
+import { Socialwork } from '../../../models/Socialwork';
 import { User } from '../../../models/User';
 import { UserRole } from '../../../models/enums/UserRole';
 import { UserStatus } from '../../../models/enums/UserStatus';
-import { UtilsService } from '../../../services/utils.service';
-import { SkyToastService, SkyToastType } from '@skyux/toast';
-import { Socialwork } from '../../../models/Socialwork';
+import { ErrorService } from '../../../services/error.service';
 import { SocialworksService } from '../../../services/socialworks.service';
 import { UserService } from '../../../services/user.service';
-import { ErrorService } from '../../../services/error.service';
-import { NgFor, NgIf } from '@angular/common';
-import { FormsModule } from '@angular/forms';
+import { UtilsService } from '../../../services/utils.service';
+import { USER } from '../../../tokens/token';
 import { NavBarComponent } from '../../nav-bar/nav-bar.component';
-import { environment } from '../../../environments/environment';
-import { SkyModalService } from '@skyux/modals';
-import { PasswordModalComponent } from '../../../modals/password-modal/password-modal.component';
 
 @Component({
   selector: 'app-settings',
@@ -28,7 +22,7 @@ import { PasswordModalComponent } from '../../../modals/password-modal/password-
   templateUrl: './settings.component.html',
   styleUrl: './settings.component.css',
 })
-export class SettingsComponent implements OnInit {
+export class SettingsComponent {
   @Input()
   public user?: User;
 
@@ -50,8 +44,6 @@ export class SettingsComponent implements OnInit {
   public bffUrl: string = environment.endpoint;
   private password?: string;
 
-  ngOnInit(): void {}
-
   async handleUser(user: any) {
     this.user = user;
     this.imagePreview = user.profileImage;
@@ -69,7 +61,7 @@ export class SettingsComponent implements OnInit {
       const modalRef = this.instance.open(PasswordModalComponent, {
         providers: [
           {
-            provide: 'USER',
+            provide: USER,
             useValue: this.user,
           },
         ],
@@ -157,13 +149,13 @@ export class SettingsComponent implements OnInit {
       return undefined;
     }
 
-    let userdata: User = new User(
+    const userdata: User = new User(
       fullName,
       email,
       phone,
       userID,
       this.socialworkCompleted?.id || '',
-      this.user?.directions!,
+      this.user?.directions || '',
       this.password,
       this.user?.role,
       this.user?.profileImage,
@@ -229,8 +221,8 @@ export class SettingsComponent implements OnInit {
   }
 
   getString(name: string) {
-    let inpAux = document.getElementById(name) as HTMLInputElement;
-    let input: string = '';
+    const inpAux = document.getElementById(name) as HTMLInputElement;
+    let input = '';
     if (inpAux) {
       input = inpAux.value;
     }
@@ -238,8 +230,8 @@ export class SettingsComponent implements OnInit {
   }
 
   getNumber(name: string) {
-    let inpAux = document.getElementById(name) as HTMLInputElement;
-    let input: number = 0;
+    const inpAux = document.getElementById(name) as HTMLInputElement;
+    let input = 0;
     if (inpAux) {
       input = parseInt(inpAux.value);
     }

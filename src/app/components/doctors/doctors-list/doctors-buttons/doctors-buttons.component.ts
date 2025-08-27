@@ -1,15 +1,16 @@
 import { CommonModule, NgIf } from '@angular/common';
 import { Component, inject, Input, OnInit } from '@angular/core';
-import { User } from '../../../../models/User';
+import { SkyAlertModule } from '@skyux/indicators';
 import { SkyModalService } from '@skyux/modals';
 import { CalendarModalComponent } from '../../../../modals/calendar-modal/calendar-modal.component';
 import { ManageAttendantModalComponent } from '../../../../modals/manage-attendant-modal/manage-attendant-modal.component';
-import { SkyAlertModule } from '@skyux/indicators';
-import { ReviewService } from '../../../../services/review.service';
-import { ErrorService } from '../../../../services/error.service';
-import { Review } from '../../../../models/Review';
-import { DoctorsReviewsComponent } from './doctors-reviews/doctors-reviews.component';
 import { UserRole } from '../../../../models/enums/UserRole';
+import { Review } from '../../../../models/Review';
+import { User } from '../../../../models/User';
+import { ErrorService } from '../../../../services/error.service';
+import { ReviewService } from '../../../../services/review.service';
+import { ATTENDANT, USER } from '../../../../tokens/token';
+import { DoctorsReviewsComponent } from './doctors-reviews/doctors-reviews.component';
 
 @Component({
   selector: 'app-doctors-buttons',
@@ -71,11 +72,11 @@ export class DoctorsButtonsComponent implements OnInit {
     const modalRef = this.instance.open(ManageAttendantModalComponent, {
       providers: [
         {
-          provide: 'ATTENDANT',
+          provide: ATTENDANT,
           useValue: attendantTurn,
         },
         {
-          provide: 'USER',
+          provide: USER,
           useValue: this.user,
         },
       ],

@@ -1,12 +1,12 @@
 import { Component, inject } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+import { SkyToastService } from '@skyux/toast';
 import { UserRole } from '../../models/enums/UserRole';
 import { User } from '../../models/User';
-import { UserService } from '../../services/user.service';
-import { SkyToastService } from '@skyux/toast';
-import { NavBarComponent } from '../nav-bar/nav-bar.component';
-import { ErrorService } from '../../services/error.service';
-import { ActivatedRoute } from '@angular/router';
 import { AuthRedirectService } from '../../services/auth-redirect.service';
+import { ErrorService } from '../../services/error.service';
+import { UserService } from '../../services/user.service';
+import { NavBarComponent } from '../nav-bar/nav-bar.component';
 
 @Component({
   selector: 'app-login',
@@ -25,8 +25,8 @@ export class LoginComponent {
   private route?: ActivatedRoute;
 
   async login() {
-    let emailInp = document.getElementById('emailInp') as HTMLInputElement;
-    let passwordInp = document.getElementById(
+    const emailInp = document.getElementById('emailInp') as HTMLInputElement;
+    const passwordInp = document.getElementById(
       'passwordInp'
     ) as HTMLInputElement;
     let email = '';

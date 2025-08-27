@@ -1,11 +1,11 @@
-import { Component, inject, Inject } from '@angular/core';
-import { User } from '../../models/User';
-import { UserStatus } from '../../models/enums/UserStatus';
-import { UserService } from '../../services/user.service';
-import { SkyModalInstance, SkyModalModule } from '@skyux/modals';
+import { Component, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { ErrorService } from '../../services/error.service';
 import { RouterModule } from '@angular/router';
+import { SkyModalInstance, SkyModalModule } from '@skyux/modals';
+import { UserStatus } from '../../models/enums/UserStatus';
+import { ErrorService } from '../../services/error.service';
+import { UserService } from '../../services/user.service';
+import { USER } from '../../tokens/token';
 
 @Component({
   selector: 'app-password-modal',
@@ -17,6 +17,7 @@ export class PasswordModalComponent {
   private userService = inject(UserService);
   private instance = inject(SkyModalInstance);
   private errorService = inject(ErrorService);
+  public user = inject(USER);
 
   public password?: string;
   public result: {
@@ -24,8 +25,6 @@ export class PasswordModalComponent {
     message: string;
     password?: string;
   } = { status: false, message: '' };
-
-  constructor(@Inject('USER') public user: User) {}
 
   async checkPasswordModal() {
     try {

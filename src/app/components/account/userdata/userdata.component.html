@@ -1,24 +1,19 @@
 <div class="user-profile-container">
   <aside class="sidebar">
     <ul>
-      <li
-        [class.active]="activeSection === 'Mi cuenta'"
-        (click)="activeSection = 'Mi cuenta'"
-      >
-        Mi cuenta
+      <li [class.active]="activeSection === 'Mi cuenta'">
+        <button (click)="activeSection = 'Mi cuenta'">Mi cuenta</button>
       </li>
-      <li
-        [class.active]="activeSection === 'Mis turnos'"
-        (click)="activeSection = 'Mis turnos'"
-      >
-        <span *ngIf="user?.role === 'client'">Mis turnos</span>
-        <span *ngIf="user?.role !== 'client'">Turnos de clientes</span>
+
+      <li [class.active]="activeSection === 'Mis turnos'">
+        <button (click)="activeSection = 'Mis turnos'">
+          <span *ngIf="user?.role === 'client'">Mis turnos</span>
+          <span *ngIf="user?.role !== 'client'">Turnos de clientes</span>
+        </button>
       </li>
-      <li
-        [class.active]="activeSection === 'Mis reseñas'"
-        (click)="activeSection = 'Mis reseñas'"
-      >
-        Mis reseñas
+
+      <li [class.active]="activeSection === 'Mis reseñas'">
+        <button (click)="activeSection = 'Mis reseñas'">Mis reseñas</button>
       </li>
     </ul>
   </aside>

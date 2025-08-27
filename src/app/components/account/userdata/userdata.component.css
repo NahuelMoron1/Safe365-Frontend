@@ -22,9 +22,20 @@
 }
 
 .sidebar li {
-  padding: 0.75rem 1rem;
-  border-radius: 4px;
+  padding: 0; /* sacamos padding al li para que lo maneje el botón */
+}
+
+.sidebar li button {
+  display: block; /* que sea bloque, no inline */
+  width: 100%; /* ocupa todo el ancho */
+  height: 100%; /* ocupa todo el alto */
+  padding: 0.75rem 1rem; /* el padding se lo damos al botón */
+  background: none;
+  color: white;
+  border: 0;
   cursor: pointer;
+  text-align: left;
+  border-radius: 4px;
   transition: background 0.2s;
 }
 

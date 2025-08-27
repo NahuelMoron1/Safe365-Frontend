@@ -1,13 +1,12 @@
+import { NgIf } from '@angular/common';
 import { Component, EventEmitter, inject, OnInit, Output } from '@angular/core';
+import { RouterModule } from '@angular/router';
 import { SkyAlertModule } from '@skyux/indicators';
 import { SkyNavbarModule } from '@skyux/navbar';
+import { SkyDropdownModule } from '@skyux/popovers';
 import { User } from '../../models/User';
 import { UserRole } from '../../models/enums/UserRole';
-import { UserStatus } from '../../models/enums/UserStatus';
-import { NgIf } from '@angular/common';
 import { UserService } from '../../services/user.service';
-import { SkyDropdownModule } from '@skyux/popovers';
-import { RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-nav-bar',

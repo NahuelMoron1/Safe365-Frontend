@@ -17,7 +17,7 @@ export class SearchDoctorComponent implements OnInit {
 
   private userService = inject(UserService);
   public activeAttendants?: User[];
-  public searchTerm: string = '';
+  public searchTerm = '';
   public filteredUsers?: User[];
 
   ngOnInit(): void {

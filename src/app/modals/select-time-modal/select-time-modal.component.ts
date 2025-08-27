@@ -1,8 +1,9 @@
-import { Component, Inject, inject } from '@angular/core';
-import { SkyModalInstance, SkyModalModule } from '@skyux/modals';
-import { FormsModule } from '@angular/forms';
 import { DatePipe, NgFor } from '@angular/common';
+import { Component, inject } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { SkyModalInstance, SkyModalModule } from '@skyux/modals';
 import { ErrorService } from '../../services/error.service';
+import { SELECTED_DATE, TIME_SLOTS } from '../../tokens/token';
 @Component({
   selector: 'app-select-time-modal',
   imports: [FormsModule, SkyModalModule, NgFor, DatePipe],
@@ -10,10 +11,8 @@ import { ErrorService } from '../../services/error.service';
   styleUrl: './select-time-modal.component.css',
 })
 export class SelectTimeModalComponent {
-  constructor(
-    @Inject('TIME_SLOTS') public timeSlots: string[],
-    @Inject('SELECTED_DATE') public selectedDate: Date | null
-  ) {}
+  timeSlots = inject(TIME_SLOTS);
+  selectedDate = inject(SELECTED_DATE);
 
   private modal = inject(SkyModalInstance);
   private errorService = inject(ErrorService);

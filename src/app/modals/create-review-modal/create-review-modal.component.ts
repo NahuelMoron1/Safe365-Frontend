@@ -1,15 +1,15 @@
-import { Component, inject, Inject, OnInit } from '@angular/core';
-import { User } from '../../models/User';
-import { SkyModalInstance, SkyModalModule } from '@skyux/modals';
-import { ErrorService } from '../../services/error.service';
-import { UserRole } from '../../models/enums/UserRole';
-import { ReviewService } from '../../services/review.service';
 import { NgFor, NgIf } from '@angular/common';
+import { Component, inject, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { environment } from '../../environments/environment';
-import { Review } from '../../models/Review';
-import { UtilsService } from '../../services/utils.service';
+import { SkyModalInstance, SkyModalModule } from '@skyux/modals';
 import { SkyToastService, SkyToastType } from '@skyux/toast';
+import { environment } from '../../environments/environment';
+import { UserRole } from '../../models/enums/UserRole';
+import { Review } from '../../models/Review';
+import { ErrorService } from '../../services/error.service';
+import { ReviewService } from '../../services/review.service';
+import { UtilsService } from '../../services/utils.service';
+import { ATTENDANT, REVIEW, USER } from '../../tokens/token';
 
 @Component({
   selector: 'app-create-review-modal',
@@ -22,12 +22,9 @@ export class CreateReviewModalComponent implements OnInit {
   private instance = inject(SkyModalInstance);
   private reviewService = inject(ReviewService);
   private toastSvc = inject(SkyToastService);
-
-  constructor(
-    @Inject('ATTENDANT') public attendant?: User,
-    @Inject('USER') public user?: User,
-    @Inject('REVIEW') public review?: Review
-  ) {}
+  public attendant? = inject(ATTENDANT);
+  public user? = inject(USER);
+  public review? = inject(REVIEW);
 
   public stars?: number;
   public comments?: string;

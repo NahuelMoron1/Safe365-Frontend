@@ -1,9 +1,9 @@
 import { CommonModule, NgIf } from '@angular/common';
 import { Component, inject, Input, OnInit } from '@angular/core';
-import { Review } from '../../../../../models/Review';
 import { SkyModalService } from '@skyux/modals';
-import { ManageAttendantModalComponent } from '../../../../../modals/manage-attendant-modal/manage-attendant-modal.component';
 import { SeeFullReviewsModalComponent } from '../../../../../modals/see-full-reviews-modal/see-full-reviews-modal.component';
+import { Review } from '../../../../../models/Review';
+import { REVIEWS } from '../../../../../tokens/token';
 
 @Component({
   selector: 'app-doctors-reviews',
@@ -40,12 +40,12 @@ export class DoctorsReviewsComponent implements OnInit {
     const modalRef = this.instance.open(SeeFullReviewsModalComponent, {
       providers: [
         {
-          provide: 'REVIEWS',
+          provide: REVIEWS,
           useValue: this.reviews,
         },
       ],
     });
 
-    const result = await modalRef.closed.toPromise();
+    await modalRef.closed.toPromise();
   }
 }

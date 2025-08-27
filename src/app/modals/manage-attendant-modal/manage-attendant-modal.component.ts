@@ -1,15 +1,11 @@
-import { Component, inject, Inject } from '@angular/core';
-import { User } from '../../models/User';
-import {
-  SkyModalInstance,
-  SkyModalModule,
-  SkyModalService,
-} from '@skyux/modals';
+import { NgIf } from '@angular/common';
+import { Component, inject } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { SkyModalInstance, SkyModalModule } from '@skyux/modals';
+import { UserRole } from '../../models/enums/UserRole';
 import { ErrorService } from '../../services/error.service';
 import { UserService } from '../../services/user.service';
-import { NgIf } from '@angular/common';
-import { FormsModule } from '@angular/forms';
-import { UserRole } from '../../models/enums/UserRole';
+import { ATTENDANT, USER } from '../../tokens/token';
 
 @Component({
   selector: 'app-manage-attendant-modal',
@@ -21,11 +17,8 @@ export class ManageAttendantModalComponent {
   private errorService = inject(ErrorService);
   private instance = inject(SkyModalInstance);
   private userService = inject(UserService);
-
-  constructor(
-    @Inject('ATTENDANT') public attendant: User,
-    @Inject('USER') public user: User
-  ) {}
+  public attendant = inject(ATTENDANT);
+  public user = inject(USER);
 
   async modifyAttendant() {
     try {

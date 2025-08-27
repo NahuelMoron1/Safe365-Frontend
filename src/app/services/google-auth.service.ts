@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { loadGapiInsideDOM, gapi } from 'gapi-script';
+import { gapi, loadGapiInsideDOM } from 'gapi-script';
 
 @Injectable({
   providedIn: 'root',
@@ -9,8 +9,6 @@ export class GoogleAuthService {
     '950703538127-5s7j436ici9svrhs73v3g1mtnmfo0mio.apps.googleusercontent.com';
   private API_KEY = 'TU_API_KEY'; // Opcional si vas a hacer llamadas directas
   private SCOPES = 'https://www.googleapis.com/auth/calendar';
-
-  constructor() {}
 
   async initClient(): Promise<void> {
     await loadGapiInsideDOM();

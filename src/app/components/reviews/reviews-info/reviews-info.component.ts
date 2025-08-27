@@ -1,18 +1,17 @@
+import { DatePipe, NgFor, NgIf } from '@angular/common';
 import {
   Component,
   inject,
   Input,
   OnChanges,
-  OnInit,
   SimpleChanges,
 } from '@angular/core';
-import { User } from '../../../models/User';
-import { ReviewService } from '../../../services/review.service';
-import { ErrorService } from '../../../services/error.service';
-import { Review } from '../../../models/Review';
-import { DatePipe, NgFor, NgIf } from '@angular/common';
 import { environment } from '../../../environments/environment';
 import { UserRole } from '../../../models/enums/UserRole';
+import { Review } from '../../../models/Review';
+import { User } from '../../../models/User';
+import { ErrorService } from '../../../services/error.service';
+import { ReviewService } from '../../../services/review.service';
 
 @Component({
   selector: 'app-reviews-info',

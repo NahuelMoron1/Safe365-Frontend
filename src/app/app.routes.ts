@@ -1,15 +1,13 @@
 import { Routes } from '@angular/router';
-import { MainMenuComponent } from './components/main-menu/main-menu.component';
-import { LoginComponent } from './components/login/login.component';
-import { DoctorsComponent } from './components/doctors/doctors.component';
-import { loggedGuard } from './guards/logged.guard';
-import { RegisterDoctorComponent } from './components/doctors/register-doctor/register-doctor.component';
-import { adminGuard } from './guards/admin.guard';
-import { TurnsComponent } from './components/turns/turns.component';
 import { AccountComponent } from './components/account/account.component';
-import { CalendarModalComponent } from './modals/calendar-modal/calendar-modal.component';
 import { SettingsComponent } from './components/account/settings/settings.component';
+import { DoctorsComponent } from './components/doctors/doctors.component';
+import { LoginComponent } from './components/login/login.component';
+import { MainMenuComponent } from './components/main-menu/main-menu.component';
 import { ReviewsComponent } from './components/reviews/reviews.component';
+import { TurnsComponent } from './components/turns/turns.component';
+import { adminGuard } from './guards/admin.guard';
+import { loggedGuard } from './guards/logged.guard';
 import { notLoggedGuard } from './guards/notLogged.guard';
 
 export const routes: Routes = [

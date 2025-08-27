@@ -1,13 +1,13 @@
 import { Component, inject, Input } from '@angular/core';
-import { NavBarComponent } from '../nav-bar/nav-bar.component';
-import { User } from '../../models/User';
-import { UserdataComponent } from './userdata/userdata.component';
 import { Review } from '../../models/Review';
+import { Turn } from '../../models/Turn';
+import { User } from '../../models/User';
+import { UserRole } from '../../models/enums/UserRole';
 import { ErrorService } from '../../services/error.service';
 import { ReviewService } from '../../services/review.service';
 import { TurnService } from '../../services/turn.service';
-import { Turn } from '../../models/Turn';
-import { UserRole } from '../../models/enums/UserRole';
+import { NavBarComponent } from '../nav-bar/nav-bar.component';
+import { UserdataComponent } from './userdata/userdata.component';
 
 @Component({
   selector: 'app-account',
@@ -28,15 +28,20 @@ export class AccountComponent {
 
   async handleUser(user: any) {
     this.user = user;
+    if (!this.user || !this.user.id) {
+      return this.errorService.handleError(
+        undefined,
+        'No hay datos de usuario'
+      );
+    }
+
     try {
       if (this.user?.role === UserRole.ATTENDANT) {
         this.reviews = await this.reviewService.getAttendantReviewsTC(
-          this.user?.id!
+          this.user.id
         );
       } else {
-        this.reviews = await this.reviewService.getUserReviewsTC(
-          this.user?.id!
-        );
+        this.reviews = await this.reviewService.getUserReviewsTC(this.user.id);
       }
 
       this.turns = await this.turnsService.getAllUserTurnsTC();

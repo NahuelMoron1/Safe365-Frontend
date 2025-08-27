@@ -1,8 +1,8 @@
-import { Component, inject, Inject } from '@angular/core';
-import { Review } from '../../models/Review';
 import { CommonModule } from '@angular/common';
+import { Component, inject } from '@angular/core';
 import { SkyModalModule, SkyModalService } from '@skyux/modals';
 import { environment } from '../../environments/environment';
+import { REVIEWS } from '../../tokens/token';
 
 @Component({
   selector: 'app-see-full-reviews-modal',
@@ -13,8 +13,7 @@ import { environment } from '../../environments/environment';
 export class SeeFullReviewsModalComponent {
   public bffUrl?: string = environment.endpoint;
   private instance = inject(SkyModalService);
-
-  constructor(@Inject('REVIEWS') public reviews?: Review[]) {}
+  public reviews? = inject(REVIEWS);
 
   returnProfileImage(src: string) {
     return this.bffUrl + src;

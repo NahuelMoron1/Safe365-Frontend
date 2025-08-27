@@ -1,9 +1,9 @@
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
-import { environment } from '../environments/environment';
-import { CookieService } from './cookie.service';
-import { Review } from '../models/Review';
 import { Observable, of } from 'rxjs';
+import { environment } from '../environments/environment';
+import { Review } from '../models/Review';
+import { CookieService } from './cookie.service';
 
 @Injectable({
   providedIn: 'root',
@@ -11,8 +11,10 @@ import { Observable, of } from 'rxjs';
 export class ReviewService {
   private myAppUrl: string;
   private myApiUrl: string;
+
+  private http = inject(HttpClient);
   cookieService = inject(CookieService);
-  constructor(private http: HttpClient) {
+  constructor() {
     this.myAppUrl = environment.endpoint;
     this.myApiUrl = 'api/reviews/';
   }

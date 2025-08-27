@@ -1,14 +1,12 @@
 import { inject, Injectable } from '@angular/core';
-import { UtilsService } from './utils.service';
 import { SkyToastService, SkyToastType } from '@skyux/toast';
+import { UtilsService } from './utils.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class ErrorService {
   public toastSvc = inject(SkyToastService);
-
-  constructor() {}
 
   public handleError(err: any, message: string) {
     let errMessage = `${message}`;

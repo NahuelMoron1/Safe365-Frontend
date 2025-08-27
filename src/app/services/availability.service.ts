@@ -1,9 +1,9 @@
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
-import { environment } from '../environments/environment';
-import { CookieService } from './cookie.service';
-import { Availability } from '../models/Availability';
 import { Observable, of } from 'rxjs';
+import { environment } from '../environments/environment';
+import { Availability } from '../models/Availability';
+import { CookieService } from './cookie.service';
 
 @Injectable({
   providedIn: 'root',
@@ -11,8 +11,11 @@ import { Observable, of } from 'rxjs';
 export class AvailabilityService {
   private myAppUrl: string;
   private myApiUrl: string;
-  cookieService = inject(CookieService);
-  constructor(private http: HttpClient) {
+
+  private http = inject(HttpClient);
+  private cookieService = inject(CookieService);
+
+  constructor() {
     this.myAppUrl = environment.endpoint;
     this.myApiUrl = 'api/availability/';
   }

@@ -1,11 +1,11 @@
-import { Component, inject, Input, OnChanges, OnInit } from '@angular/core';
-import { User } from '../../../../models/User';
 import { NgFor, NgIf } from '@angular/common';
+import { Component, inject, Input } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { UserRole } from '../../../../models/enums/UserRole';
+import { Socialwork } from '../../../../models/Socialwork';
+import { User } from '../../../../models/User';
 import { ErrorService } from '../../../../services/error.service';
 import { UserService } from '../../../../services/user.service';
-import { Socialwork } from '../../../../models/Socialwork';
 import { SearchDoctorComponent } from '../../search-doctor/search-doctor.component';
 
 @Component({
@@ -27,7 +27,7 @@ export class DoctorsSelectComponent {
   private userService = inject(UserService);
   private errorService = inject(ErrorService);
 
-  public selectedList: string = 'attendant';
+  public selectedList = 'attendant';
   public selectedStatus?: string = 'Todos';
   public showModifiedAlert?: boolean;
   public activeAttendants?: User[];

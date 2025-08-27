@@ -1,12 +1,10 @@
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
 import { environment } from '../environments/environment';
 import { UserRole } from '../models/enums/UserRole';
-import { UserStatus } from '../models/enums/UserStatus';
-import { User } from '../models/User';
-import { CookieService } from './cookie.service';
-import { Observable } from 'rxjs';
 import { Socialwork } from '../models/Socialwork';
+import { User } from '../models/User';
 
 @Injectable({
   providedIn: 'root',
@@ -14,9 +12,11 @@ import { Socialwork } from '../models/Socialwork';
 export class SocialworksService {
   private myAppUrl: string;
   private myApiUrl: string;
-  user: User = new User('', '', '', '', '', UserRole.CLIENT);
-  cookieService = inject(CookieService);
-  constructor(private http: HttpClient) {
+
+  public user: User = new User('', '', '', '', '', UserRole.CLIENT);
+
+  private http = inject(HttpClient);
+  constructor() {
     this.myAppUrl = environment.endpoint;
     this.myApiUrl = 'api/socialworks/';
   }

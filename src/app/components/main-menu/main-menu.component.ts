@@ -1,15 +1,8 @@
-import {
-  Component,
-  Input,
-  OnChanges,
-  OnInit,
-  SimpleChanges,
-} from '@angular/core';
-import { NavBarComponent } from '../nav-bar/nav-bar.component';
-import { WelcomeComponent } from './welcome/welcome.component';
+import { Component, Input } from '@angular/core';
 import { SkyDropdownModule } from '@skyux/popovers';
 import { User } from '../../models/User';
-import { NgIf } from '@angular/common';
+import { NavBarComponent } from '../nav-bar/nav-bar.component';
+import { WelcomeComponent } from './welcome/welcome.component';
 
 @Component({
   selector: 'app-main-menu',

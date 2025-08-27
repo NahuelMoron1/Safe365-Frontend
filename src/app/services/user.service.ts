@@ -1,11 +1,9 @@
-import { inject, Injectable } from '@angular/core';
-import { CookieService } from './cookie.service';
 import { HttpClient } from '@angular/common/http';
-import { environment } from '../environments/environment';
-import { UserRole } from '../models/enums/UserRole';
-import { UserStatus } from '../models/enums/UserStatus';
-import { User } from '../models/User';
+import { inject, Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
+import { environment } from '../environments/environment';
+import { User } from '../models/User';
+import { CookieService } from './cookie.service';
 
 @Injectable({
   providedIn: 'root',
@@ -13,6 +11,7 @@ import { BehaviorSubject, Observable } from 'rxjs';
 export class UserService {
   private myAppUrl: string;
   private myApiUrl: string;
+  private http = inject(HttpClient);
   public user?: User;
 
   public activeAttendants?: User[];
@@ -26,7 +25,7 @@ export class UserService {
   );
 
   cookieService = inject(CookieService);
-  constructor(private http: HttpClient) {
+  constructor() {
     this.myAppUrl = environment.endpoint;
     this.myApiUrl = 'api/users/';
   }
@@ -391,7 +390,7 @@ export class UserService {
   ///LOGIN
 
   async readLogin(email: string, password: string) {
-    let userAux = await this.loginTC(email, password);
+    const userAux = await this.loginTC(email, password);
     if (userAux != null) {
       localStorage.setItem('userLogged', JSON.stringify(userAux)); //Se guarda en local storage una copia del usuario que se loguea, para saber que está logueado en cualquier parte de la pagina
       return true;
@@ -402,7 +401,7 @@ export class UserService {
 
   async loginTC(email: string, password: string) {
     try {
-      let userAux = await this.login(email, password).toPromise();
+      const userAux = await this.login(email, password).toPromise();
       if (userAux) {
         return userAux;
       } else {
@@ -435,7 +434,7 @@ export class UserService {
   async logoutTC() {
     /// TRY CATCH CAllS LOGOUT();
     try {
-      let access = await this.logout().toPromise();
+      const access = await this.logout().toPromise();
       return access;
     } catch (error) {
       if (error instanceof Error) {

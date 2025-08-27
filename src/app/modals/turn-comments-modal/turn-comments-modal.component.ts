@@ -1,6 +1,7 @@
-import { Component, Inject, inject, OnInit } from '@angular/core';
-import { SkyModalInstance, SkyModalModule } from '@skyux/modals';
+import { Component, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { SkyModalInstance, SkyModalModule } from '@skyux/modals';
+import { EXISTING_COMMENTS } from '../../tokens/token';
 
 @Component({
   selector: 'app-turn-comments-modal',
@@ -9,10 +10,9 @@ import { FormsModule } from '@angular/forms';
   styleUrl: './turn-comments-modal.component.css',
 })
 export class TurnCommentsModalComponent {
-  public comment: string = '';
+  public comment = '';
+  public existingComments = inject(EXISTING_COMMENTS);
   private modal = inject(SkyModalInstance);
-
-  constructor(@Inject('EXISTING_COMMENTS') public existingComments: string) {}
 
   save() {
     this.modal.close({ data: this.existingComments });

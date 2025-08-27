@@ -1,6 +1,8 @@
 <!-- Mostrar si hay reviews -->
 <div
   (click)="openReviewsModal()"
+  (keydown.enter)="openReviewsModal()"
+  tabindex="0"
   *ngIf="reviews?.length! > 0; else noReviews"
   class="rating-container"
 >
@@ -22,7 +24,7 @@
       </ng-container>
     </div>
   </div>
-  <div class="rating-count" (click)="openReviewsModal()">
+  <div class="rating-count">
     Basado en {{ reviews?.length }} calificación{{
       reviews?.length === 1 ? "" : "es"
     }}

@@ -1,10 +1,8 @@
-import { Injectable } from '@angular/core';
-import { User } from '../models/User';
-import { UserRole } from '../models/enums/UserRole';
-import { UserStatus } from '../models/enums/UserStatus';
 import { HttpClient } from '@angular/common/http';
+import { inject, Injectable } from '@angular/core';
 import { BehaviorSubject, catchError, Observable, of } from 'rxjs';
 import { environment } from '../environments/environment';
+import { User } from '../models/User';
 
 @Injectable({
   providedIn: 'root',
@@ -12,16 +10,17 @@ import { environment } from '../environments/environment';
 export class CookieService {
   private myAppUrl: string;
   private myApiUrl: string;
+  private http = inject(HttpClient);
   user?: User;
   _user: BehaviorSubject<User | undefined> = new BehaviorSubject<
     User | undefined
   >(this.user);
-  isLogged: boolean = false;
+  isLogged = false;
   _islogged: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(
     this.isLogged
   );
 
-  constructor(private http: HttpClient) {
+  constructor() {
     this.myAppUrl = environment.endpoint;
     this.myApiUrl = 'api/cookie/';
   }
@@ -41,7 +40,7 @@ export class CookieService {
       this.isLogged = data;
     });
     if (this.isLogged) {
-      let userAux = await this.getTokenTC('access_token');
+      const userAux = await this.getTokenTC('access_token');
       if (userAux != null) {
         this.user = userAux;
         this._user.next(this.user);
@@ -51,7 +50,7 @@ export class CookieService {
   }
 
   async tokenExistTC(cookieName: string) {
-    let tokenAux = await this.tokenExist(cookieName).toPromise();
+    const tokenAux = await this.tokenExist(cookieName).toPromise();
     if (tokenAux != undefined) {
       this.isLogged = tokenAux;
       this._islogged.next(this.isLogged);
@@ -69,7 +68,7 @@ export class CookieService {
   }
 
   async getTokenTC(cookieName: string) {
-    let data = await this.getToken(cookieName).toPromise();
+    const data = await this.getToken(cookieName).toPromise();
     if (data) {
       return data;
     } else {

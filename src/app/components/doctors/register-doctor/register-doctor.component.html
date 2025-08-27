@@ -83,7 +83,12 @@
 
     <div *ngIf="!user">
       <label for="image">Foto de perfil *</label>
-      <div class="image-preview-container" (click)="triggerFileInput()">
+      <div
+        class="image-preview-container"
+        (click)="triggerFileInput()"
+        (keydown.enter)="triggerFileInput()"
+        tabindex="0"
+      >
         <img
           *ngIf="imagePreview; else placeholder"
           [src]="imagePreview"

@@ -1,25 +1,24 @@
+import { NgFor, NgIf } from '@angular/common';
 import {
   Component,
   ElementRef,
   inject,
   Input,
-  OnChanges,
   OnInit,
   ViewChild,
 } from '@angular/core';
-import { User } from '../../../models/User';
-import { UserRole } from '../../../models/enums/UserRole';
-import { Socialwork } from '../../../models/Socialwork';
-import { SocialworksService } from '../../../services/socialworks.service';
-import { UserStatus } from '../../../models/enums/UserStatus';
-import { SkyCardModule } from '@skyux/layout';
-import { SkyInputBoxModule } from '@skyux/forms';
-import { NgFor, NgIf } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { UtilsService } from '../../../services/utils.service';
+import { SkyInputBoxModule } from '@skyux/forms';
+import { SkyCardModule } from '@skyux/layout';
 import { SkyToastService, SkyToastType } from '@skyux/toast';
-import { UserService } from '../../../services/user.service';
+import { UserRole } from '../../../models/enums/UserRole';
+import { UserStatus } from '../../../models/enums/UserStatus';
+import { Socialwork } from '../../../models/Socialwork';
+import { User } from '../../../models/User';
 import { ErrorService } from '../../../services/error.service';
+import { SocialworksService } from '../../../services/socialworks.service';
+import { UserService } from '../../../services/user.service';
+import { UtilsService } from '../../../services/utils.service';
 
 @Component({
   selector: 'app-register-doctor',
@@ -115,7 +114,7 @@ export class RegisterDoctorComponent implements OnInit {
       return undefined;
     }
 
-    let userdata: User = new User(
+    const userdata: User = new User(
       fullName,
       email,
       phone,
@@ -188,8 +187,8 @@ export class RegisterDoctorComponent implements OnInit {
   }
 
   getString(name: string) {
-    let inpAux = document.getElementById(name) as HTMLInputElement;
-    let input: string = '';
+    const inpAux = document.getElementById(name) as HTMLInputElement;
+    let input = '';
     if (inpAux) {
       input = inpAux.value;
     }
@@ -197,8 +196,8 @@ export class RegisterDoctorComponent implements OnInit {
   }
 
   getNumber(name: string) {
-    let inpAux = document.getElementById(name) as HTMLInputElement;
-    let input: number = 0;
+    const inpAux = document.getElementById(name) as HTMLInputElement;
+    let input = 0;
     if (inpAux) {
       input = parseInt(inpAux.value);
     }

@@ -1,16 +1,16 @@
 import { CommonModule } from '@angular/common';
-import { Component, Inject, inject, OnInit } from '@angular/core';
-import { CalendarEvent, CalendarModule } from 'angular-calendar';
-import { ErrorService } from '../../services/error.service';
-import { SelectTimeModalComponent } from '../select-time-modal/select-time-modal.component';
-import { SkyModalModule, SkyModalService } from '@skyux/modals';
+import { Component, inject, OnInit } from '@angular/core';
 import { SkyAlertModule } from '@skyux/indicators';
-import { User } from '../../models/User';
+import { SkyModalModule, SkyModalService } from '@skyux/modals';
+import { CalendarEvent, CalendarModule } from 'angular-calendar';
 import { Availability } from '../../models/Availability';
-import { AvailabilityService } from '../../services/availability.service';
 import { AvailabilityDays } from '../../models/enums/AvailabilityDays';
-import { TurnService } from '../../services/turn.service';
 import { Turn } from '../../models/Turn';
+import { AvailabilityService } from '../../services/availability.service';
+import { ErrorService } from '../../services/error.service';
+import { TurnService } from '../../services/turn.service';
+import { ATTENDANT, SELECTED_DATE, TIME_SLOTS, USER } from '../../tokens/token';
+import { SelectTimeModalComponent } from '../select-time-modal/select-time-modal.component';
 
 @Component({
   selector: 'app-calendar-modal',
@@ -23,9 +23,11 @@ export class CalendarModalComponent implements OnInit {
   private instance = inject(SkyModalService);
   private availabilityService = inject(AvailabilityService);
   private turnService = inject(TurnService);
+  public attendant = inject(ATTENDANT);
+  public user = inject(USER);
 
   public showSuccessAlert?: boolean;
-  public redirectCountdown: number = 10;
+  public redirectCountdown = 10;
   public selectedTime?: string;
   public selectedDate?: Date;
   public showTimeSelector?: boolean;
@@ -36,11 +38,6 @@ export class CalendarModalComponent implements OnInit {
   public attendantAvailability?: Availability[];
 
   timeSlots?: string[];
-
-  constructor(
-    @Inject('ATTENDANT') public attendant: User,
-    @Inject('USER') public user: User
-  ) {}
 
   async ngOnInit() {
     await this.getAttendantAvailability();
@@ -54,14 +51,15 @@ export class CalendarModalComponent implements OnInit {
     if (!isValidDate) {
       return;
     }
+
     const modalRef = this.instance.open(SelectTimeModalComponent, {
       providers: [
         {
-          provide: 'TIME_SLOTS',
+          provide: TIME_SLOTS,
           useValue: this.timeSlots || [],
         },
         {
-          provide: 'SELECTED_DATE',
+          provide: SELECTED_DATE,
           useValue: this.selectedDate || null,
         },
       ],

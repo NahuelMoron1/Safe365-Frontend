@@ -6,6 +6,8 @@
     </div>
     <div
       (click)="openTurnModal(turn)"
+      (keydown.enter)="openTurnModal(turn)"
+      tabindex="0"
       class="turn-card scheduled"
       *ngFor="let turn of scheduledTurns"
     >
@@ -28,6 +30,8 @@
     </div>
     <div
       (click)="openTurnModal(turn)"
+      (keydown.enter)="openTurnModal(turn)"
+      tabindex="0"
       class="turn-card completed"
       *ngFor="let turn of completedTurns"
     >
@@ -50,6 +54,8 @@
     </div>
     <div
       (click)="openTurnModal(turn)"
+      (keydown.enter)="openTurnModal(turn)"
+      tabindex="0"
       class="turn-card canceled"
       *ngFor="let turn of canceledTurns"
     >

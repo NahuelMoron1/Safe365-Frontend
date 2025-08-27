@@ -1,14 +1,14 @@
 import { Routes } from '@angular/router';
-import { AccountComponent } from './components/account/account.component';
-import { SettingsComponent } from './components/account/settings/settings.component';
-import { DoctorsComponent } from './components/doctors/doctors.component';
-import { LoginComponent } from './components/login/login.component';
-import { MainMenuComponent } from './components/main-menu/main-menu.component';
-import { ReviewsComponent } from './components/reviews/reviews.component';
-import { TurnsComponent } from './components/turns/turns.component';
+import { SettingsComponent } from './components/settings/settings.component';
 import { adminGuard } from './guards/admin.guard';
 import { loggedGuard } from './guards/logged.guard';
 import { notLoggedGuard } from './guards/notLogged.guard';
+import { AccountComponent } from './pages/account/account.component';
+import { DoctorsComponent } from './pages/doctors/doctors.component';
+import { LoginPageComponent } from './pages/login-page/login-page.component';
+import { MainMenuComponent } from './pages/main-menu/main-menu.component';
+import { ReviewsComponent } from './pages/reviews/reviews.component';
+import { TurnsComponent } from './pages/turns/turns.component';
 
 export const routes: Routes = [
   {
@@ -17,7 +17,7 @@ export const routes: Routes = [
   },
   {
     path: 'login',
-    component: LoginComponent,
+    component: LoginPageComponent,
     canActivate: [loggedGuard],
   },
   {

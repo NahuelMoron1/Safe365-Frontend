@@ -4,12 +4,11 @@ import { User } from '../../models/User';
 import { AuthRedirectService } from '../../services/auth-redirect.service';
 import { ErrorService } from '../../services/error.service';
 import { UserService } from '../../services/user.service';
-import { NavBarComponent } from '../nav-bar/nav-bar.component';
 
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [NavBarComponent],
+  imports: [],
   templateUrl: './login.component.html',
   styleUrl: './login.component.css',
 })

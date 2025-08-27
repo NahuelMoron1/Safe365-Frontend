@@ -1,0 +1,12 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Menú principal | Safe 365</title>
+  </head>
+  <body>
+    <app-nav-bar (userOutput)="handleUser($event)"></app-nav-bar>
+    <app-welcome [user]="user"></app-welcome>
+  </body>
+</html>

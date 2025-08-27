@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{{ title }} | Safe 365</title>
+  </head>
+
+  <body>
+    <app-nav-bar (userOutput)="handleUser($event)"></app-nav-bar>
+
+    <app-search-doctor
+      *ngIf="isSearchPage && !isRegister && isLogged()"
+      [user]="user"
+    ></app-search-doctor>
+
+    <app-doctors-list
+      *ngIf="!isSearchPage && !isRegister && isLogged()"
+      [user]="user"
+    ></app-doctors-list>
+
+    <app-register-doctor
+      *ngIf="isRegister && !isSearchPage && ((user && isAdmin()) || !user)"
+      [user]="user"
+    ></app-register-doctor>
+  </body>
+</html>

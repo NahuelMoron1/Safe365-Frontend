@@ -9,7 +9,7 @@ import { SkyToastService, SkyToastType } from '@skyux/toast';
 import {
   TURN_MODAL_DATA,
   USER_MODAL_DATA,
-} from '../../components/turns/turns-information/turns-information.component';
+} from '../../components/turns-information/turns-information.component';
 import { TurnStatus } from '../../models/enums/TurnStatus';
 import { UserRole } from '../../models/enums/UserRole';
 import { Review } from '../../models/Review';

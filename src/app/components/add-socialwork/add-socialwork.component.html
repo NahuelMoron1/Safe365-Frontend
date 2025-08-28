@@ -1,5 +1,12 @@
 <div class="socialwork-container">
-  <h2 class="title">Coberturas médicas que trabaja la empresa</h2>
+  <h2 class="title">
+    <span *ngIf="user?.role === 'admin'"
+      >Coberturas médicas que trabaja la empresa</span
+    >
+    <span *ngIf="user?.role === 'attendant'"
+      >Coberturas médicas que cubre el médico</span
+    >
+  </h2>
 
   <!-- Listado de obras sociales -->
   <ul class="socialwork-list" *ngIf="returnSocialworks()?.length; else noData">

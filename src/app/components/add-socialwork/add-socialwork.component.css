@@ -1,5 +1,6 @@
 .socialwork-container {
-  width: 100vh;
+  width: calc(100% - 40px); /* ✅ ocupa todo el ancho menos 40px */
+  max-width: 1000px; /* opcional, para que no se estire infinito en pantallas grandes */
   margin: 20px auto;
   padding: 25px;
   background: #ffffff;
@@ -150,4 +151,87 @@
 
 .add-socialwork-form button:hover {
   background: #1e8449;
+}
+
+/* ======= RESPONSIVE ======= */
+
+/* Tablets (pantallas medianas) */
+@media (max-width: 1024px) {
+  .socialwork-container {
+    width: 90%;
+    padding: 20px;
+  }
+
+  .info {
+    min-width: unset;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 6px;
+  }
+
+  .actions button {
+    padding: 6px 10px;
+    font-size: 0.85rem;
+  }
+}
+
+/* Celulares (pantallas chicas) */
+@media (max-width: 768px) {
+  .socialwork-container {
+    width: 95%;
+    padding: 15px;
+  }
+
+  .title {
+    font-size: 1.2rem;
+  }
+
+  .socialwork-item {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+  }
+
+  .info {
+    width: 100%;
+    justify-content: space-between;
+  }
+
+  .actions {
+    width: 100%;
+    justify-content: flex-end;
+    gap: 8px;
+  }
+
+  .add-socialwork-form {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .add-socialwork-form input,
+  .add-socialwork-form select,
+  .add-socialwork-form button {
+    width: 100%;
+  }
+}
+
+/* Muy chicos (menos de 480px) */
+@media (max-width: 480px) {
+  .title {
+    font-size: 1rem;
+  }
+
+  .name {
+    font-size: 0.9rem;
+  }
+
+  .status {
+    font-size: 0.75rem;
+    min-width: 65px;
+  }
+
+  .actions button {
+    flex: 1;
+    min-width: unset;
+  }
 }

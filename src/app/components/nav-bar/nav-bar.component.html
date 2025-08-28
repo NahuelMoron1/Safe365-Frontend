@@ -51,7 +51,7 @@
 
       <sky-navbar-item *ngIf="!user?.id">
         <a routerLink="/login" routerLinkActive="sky-navbar-item-active"
-          >Iniciar Sesión</a
+          >Login</a
         >
       </sky-navbar-item>
 
@@ -64,7 +64,7 @@
       >
 
       <sky-navbar-item *ngIf="user?.id">
-        <a routerLink="/" (click)="logout()">Cerrar sesión</a>
+        <a routerLink="/" (click)="logout()">Logout</a>
       </sky-navbar-item>
     </div>
   </div>

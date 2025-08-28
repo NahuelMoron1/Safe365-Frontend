@@ -122,7 +122,7 @@ export class SocialworksService {
 
   getSocialworkByAttendant(attendantID: string): Observable<Socialwork[]> {
     return this.http.get<Socialwork[]>(
-      this.myAppUrl + this.myApiUrl + `name/${attendantID}`,
+      this.myAppUrl + this.myApiUrl + `name/modify/${attendantID}`,
       {
         withCredentials: true,
       }

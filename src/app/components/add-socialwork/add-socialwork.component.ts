@@ -37,6 +37,8 @@ export class AddSocialworkComponent implements OnInit {
     } else if (this.user?.role === UserRole.ATTENDANT) {
       this.getAttendantSocialworks();
     }
+    console.log('SOCIAL WORKS: ', this.socialworks);
+    console.log('ATTENDANT SOCIAL WORKS: ', this.attendantSocialworks);
   }
 
   async getAttendantSocialworks() {

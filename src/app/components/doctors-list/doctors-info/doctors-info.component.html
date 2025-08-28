@@ -13,8 +13,16 @@
     </p>
     <div id="medical" *ngIf="attendant?.AttendantXSocialworks?.length">
       <p><strong>Coberturas médicas: </strong></p>
-      <div *ngFor="let socialwork of attendant?.AttendantXSocialworks">
-        <p>{{ socialwork.Socialwork.name }} |</p>
+      <div
+        *ngFor="
+          let socialwork of attendant?.AttendantXSocialworks;
+          let i = index
+        "
+      >
+        <p>
+          {{ socialwork.Socialwork.name }}
+          <span *ngIf="checkSpan(i, attendant)">|</span>
+        </p>
       </div>
     </div>
   </div>

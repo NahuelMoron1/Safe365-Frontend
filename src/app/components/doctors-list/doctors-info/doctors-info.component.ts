@@ -24,4 +24,11 @@ export class DoctorsInfoComponent {
     }
     return this.bffUrl + imageUrl;
   }
+
+  checkSpan(index: number, attendant?: User) {
+    if (attendant && attendant.AttendantXSocialworks) {
+      return index < attendant.AttendantXSocialworks.length - 1;
+    }
+    return false;
+  }
 }

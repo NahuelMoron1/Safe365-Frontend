@@ -1,6 +1,6 @@
 <div class="attendant-card">
   <div id="information">
-    <img src="{{ attendant?.profileImage }}" alt="" />
+    <img src="{{ returnProfileImage(attendant?.profileImage) }}" alt="" />
     <h2>{{ attendant?.fullName }}</h2>
     <p><strong>Especialidad:</strong> {{ attendant?.speciality }}</p>
     <p><strong>Teléfono de contacto:</strong> {{ attendant?.phone }}</p>

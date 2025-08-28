@@ -198,4 +198,12 @@ export class MyScheduleComponent implements OnInit {
       this.errorService.handleError(error, 'Error modificando horarios');
     }
   }
+
+  public getEndTimeOptions(startTime: string): string[] {
+    return this.timeOptions.filter((t) => t > startTime);
+  }
+
+  public getStartTimeOptions(): string[] {
+    return this.timeOptions.slice(0, this.timeOptions.length - 1);
+  }
 }

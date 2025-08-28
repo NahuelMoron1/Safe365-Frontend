@@ -11,7 +11,7 @@
       <div class="selects">
         <label for="selectStart">Inicio</label>
         <select [(ngModel)]="day.startTime">
-          <option *ngFor="let time of timeOptions" [value]="time">
+          <option *ngFor="let time of getStartTimeOptions()" [value]="time">
             {{ time }}
           </option>
         </select>
@@ -22,7 +22,10 @@
       <div class="selects">
         <label for="selectStart">Fin</label>
         <select [(ngModel)]="day.endTime">
-          <option *ngFor="let time of timeOptions" [value]="time">
+          <option
+            *ngFor="let time of getEndTimeOptions(day.startTime)"
+            [value]="time"
+          >
             {{ time }}
           </option>
         </select>

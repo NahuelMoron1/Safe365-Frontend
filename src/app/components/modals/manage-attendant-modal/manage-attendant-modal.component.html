@@ -4,7 +4,10 @@
       <h2>Detalles del personal</h2>
 
       <div class="attendant-info">
-        <div class="profile-image" *ngIf="attendant.profileImage; else noImage">
+        <div
+          class="profile-image"
+          *ngIf="returnProfileImage(attendant.profileImage); else noImage"
+        >
           <img [src]="attendant.profileImage" alt="Imagen de perfil" />
         </div>
         <ng-template #noImage>

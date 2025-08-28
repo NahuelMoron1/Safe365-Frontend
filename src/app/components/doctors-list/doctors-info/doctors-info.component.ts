@@ -20,8 +20,6 @@ export class DoctorsInfoComponent {
 
   returnProfileImage(imageUrl?: string) {
     if (!this.bffUrl || !imageUrl) {
-      console.log('aa');
-
       return 'https://static.vecteezy.com/system/resources/previews/009/292/244/non_2x/default-avatar-icon-of-social-media-user-vector.jpg';
     }
     return this.bffUrl + imageUrl;

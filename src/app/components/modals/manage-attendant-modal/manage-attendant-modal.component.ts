@@ -2,6 +2,7 @@ import { NgIf } from '@angular/common';
 import { Component, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { SkyModalInstance, SkyModalModule } from '@skyux/modals';
+import { environment } from '../../../environments/environment';
 import { UserRole } from '../../../models/enums/UserRole';
 import { ErrorService } from '../../../services/error.service';
 import { UserService } from '../../../services/user.service';
@@ -19,6 +20,8 @@ export class ManageAttendantModalComponent {
   private userService = inject(UserService);
   public attendant = inject(ATTENDANT);
   public user = inject(USER);
+
+  private bffUrl?: string = environment.endpoint;
 
   async modifyAttendant() {
     try {
@@ -68,5 +71,12 @@ export class ManageAttendantModalComponent {
 
   closeModal() {
     this.instance.close();
+  }
+
+  returnProfileImage(imageUrl?: string) {
+    if (!this.bffUrl || !imageUrl) {
+      return 'https://static.vecteezy.com/system/resources/previews/009/292/244/non_2x/default-avatar-icon-of-social-media-user-vector.jpg';
+    }
+    return this.bffUrl + imageUrl;
   }
 }

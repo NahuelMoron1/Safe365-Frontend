@@ -1,0 +1,41 @@
+<div class="socialwork-container">
+  <h2 class="title">Coberturas médicas que trabaja la empresa</h2>
+
+  <!-- Listado de obras sociales -->
+  <ul class="socialwork-list" *ngIf="socialworks?.length; else noData">
+    <li *ngFor="let sw of socialworks" class="socialwork-item">
+      <div class="info">
+        <span class="name">{{ sw.name }}</span>
+        <span
+          class="status"
+          [class.active]="sw.active"
+          [class.inactive]="!sw.active"
+        >
+          {{ sw.active ? "Activa" : "Inactiva" }}
+        </span>
+      </div>
+
+      <div class="actions">
+        <button class="toggle" (click)="toggleStatus(sw)">
+          {{ sw.active ? "Inactivar" : "Activar" }}
+        </button>
+        <!--<button class="delete" (click)="deleteSocialwork(sw.id)">
+          Eliminar
+        </button>-->
+      </div>
+    </li>
+  </ul>
+
+  <ng-template #noData>
+    <p class="no-data">No hay obras sociales cargadas.</p>
+  </ng-template>
+
+  <div class="add-socialwork-form">
+    <input
+      type="text"
+      placeholder="Nueva obra social"
+      [(ngModel)]="newSocialworkName"
+    />
+    <button (click)="addSocialwork()">Agregar</button>
+  </div>
+</div>

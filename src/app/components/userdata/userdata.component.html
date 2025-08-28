@@ -19,6 +19,15 @@
         <button (click)="activeSection = 'Mis horarios'">Mis horarios</button>
       </li>
 
+      <li
+        [class.active]="activeSection === 'Coberturas Médicas'"
+        *ngIf="user?.role === 'admin'"
+      >
+        <button (click)="activeSection = 'Coberturas Médicas'">
+          Coberturas Médicas
+        </button>
+      </li>
+
       <li [class.active]="activeSection === 'Mis reseñas'">
         <button (click)="activeSection = 'Mis reseñas'">Mis reseñas</button>
       </li>
@@ -47,4 +56,9 @@
     *ngIf="activeSection === 'Mis horarios' && user?.role === 'attendant'"
     [user]="user"
   ></app-my-schedule>
+  <app-add-socialwork
+    class="profile-section schedule"
+    *ngIf="activeSection === 'Coberturas Médicas' && user?.role === 'admin'"
+    [user]="user"
+  ></app-add-socialwork>
 </div>

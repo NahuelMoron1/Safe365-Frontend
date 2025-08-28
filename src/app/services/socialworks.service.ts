@@ -123,4 +123,12 @@ export class SocialworksService {
       }
     );
   }
+
+  //CREATE Socialwork
+
+  postSocialwork(socialwork: Socialwork): Observable<void> {
+    return this.http.post<void>(this.myAppUrl + this.myApiUrl, socialwork, {
+      withCredentials: true,
+    });
+  }
 }

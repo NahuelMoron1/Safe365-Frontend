@@ -4,6 +4,7 @@ import { RouterModule } from '@angular/router';
 import { Review } from '../../models/Review';
 import { Turn } from '../../models/Turn';
 import { User } from '../../models/User';
+import { AddSocialworkComponent } from '../add-socialwork/add-socialwork.component';
 import { MyScheduleComponent } from '../my-schedule/my-schedule.component';
 import { ReviewsInfoComponent } from '../reviews-info/reviews-info.component';
 import { TurnsInformationComponent } from '../turns-information/turns-information.component';
@@ -18,6 +19,7 @@ import { ProfileSectionComponent } from './profile-section/profile-section.compo
     TurnsInformationComponent,
     ReviewsInfoComponent,
     MyScheduleComponent,
+    AddSocialworkComponent,
   ],
   templateUrl: './userdata.component.html',
   styleUrl: './userdata.component.css',

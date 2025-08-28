@@ -2,8 +2,8 @@
   <h2 class="title">Coberturas médicas que trabaja la empresa</h2>
 
   <!-- Listado de obras sociales -->
-  <ul class="socialwork-list" *ngIf="socialworks?.length; else noData">
-    <li *ngFor="let sw of socialworks" class="socialwork-item">
+  <ul class="socialwork-list" *ngIf="returnSocialworks()?.length; else noData">
+    <li *ngFor="let sw of returnSocialworks()" class="socialwork-item">
       <div class="info">
         <span class="name">{{ sw.name }}</span>
         <span
@@ -16,12 +16,22 @@
       </div>
 
       <div class="actions">
-        <button class="toggle" (click)="toggleStatus(sw)">
+        <button
+          class="toggle"
+          *ngIf="user?.role === 'admin'"
+          (click)="toggleStatus(sw)"
+        >
           {{ sw.active ? "Inactivar" : "Activar" }}
         </button>
-        <!--<button class="delete" (click)="deleteSocialwork(sw.id)">
+
+        <!--DELETE IS ONLY FOR ATTENDANT-->
+        <button
+          class="delete"
+          *ngIf="user?.role === 'attendant'"
+          (click)="deleteAttendantXSocialwork(sw.id)"
+        >
           Eliminar
-        </button>-->
+        </button>
       </div>
     </li>
   </ul>
@@ -30,12 +40,22 @@
     <p class="no-data">No hay obras sociales cargadas.</p>
   </ng-template>
 
-  <div class="add-socialwork-form">
+  <div class="add-socialwork-form" *ngIf="user?.role === 'admin'">
     <input
       type="text"
       placeholder="Nueva obra social"
       [(ngModel)]="newSocialworkName"
     />
     <button (click)="addSocialwork()">Agregar</button>
+  </div>
+
+  <div class="add-socialwork-form" *ngIf="user?.role === 'attendant'">
+    <select [(ngModel)]="selectedSocialwork">
+      <option [ngValue]="null" disabled>Seleccionar obra social</option>
+      <option *ngFor="let sw of socialworks" [value]="sw.id">
+        {{ sw.name }}
+      </option>
+    </select>
+    <button (click)="addAttendantXSocialwork()">Agregar</button>
   </div>
 </div>

@@ -133,6 +133,10 @@
   font-size: 1rem;
 }
 
+.add-socialwork-form select {
+  flex: 1;
+}
+
 .add-socialwork-form button {
   background: #27ae60;
   border: none;

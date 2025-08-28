@@ -5,6 +5,7 @@ import { SkyToastService, SkyToastType } from '@skyux/toast';
 import { UserRole } from '../../models/enums/UserRole';
 import { Socialwork } from '../../models/Socialwork';
 import { User } from '../../models/User';
+import { AttendantXSocialworkService } from '../../services/attendant-xsocialwork.service';
 import { ErrorService } from '../../services/error.service';
 import { SocialworksService } from '../../services/socialworks.service';
 import { UtilsService } from '../../services/utils.service';
@@ -20,16 +21,46 @@ export class AddSocialworkComponent implements OnInit {
   public user?: User;
 
   private socialworkService = inject(SocialworksService);
+  private attendantXSocialworkService = inject(AttendantXSocialworkService);
   private errorService = inject(ErrorService);
   private toastSvc = inject(SkyToastService);
+
   public socialworks?: Socialwork[];
+  public attendantSocialworks?: Socialwork[];
+
   public newSocialworkName = '';
+  public selectedSocialwork: string | null = null;
 
   async ngOnInit() {
-    await this.getSocialworks();
+    if (this.isAdmin()) {
+      await this.getAdminSocialworks();
+    } else if (this.user?.role === UserRole.ATTENDANT) {
+      this.getAttendantSocialworks();
+    }
   }
 
-  async getSocialworks() {
+  async getAttendantSocialworks() {
+    if (!this.user || !this.user.id || this.user.role !== UserRole.ATTENDANT) {
+      return this.errorService.handleError(
+        undefined,
+        'No tiene permisos para ver esta información'
+      );
+    }
+    this.attendantSocialworks =
+      await this.socialworkService.getSocialworkByAttendantTC(this.user.id);
+
+    const allSocialworks = await this.socialworkService.getAllSocialworksTC();
+
+    if (!this.attendantSocialworks) {
+      this.socialworks = allSocialworks;
+      return;
+    }
+
+    const attendantIds = new Set(this.attendantSocialworks.map((sw) => sw.id));
+    this.socialworks = allSocialworks?.filter((sw) => !attendantIds.has(sw.id));
+  }
+
+  async getAdminSocialworks() {
     if (!this.isAdmin()) {
       return this.errorService.handleError(
         undefined,
@@ -83,11 +114,104 @@ export class AddSocialworkComponent implements OnInit {
     }
   }
 
-  //NOT DELETING ANY SOCIAL WORK AT THE MOMENT
-  /*async deleteSocialwork(id: string) {
-    this.socialworks = this.socialworks?.filter((sw) => sw.id !== id);
-    await this.socialworkService.
-  }*/
+  returnSocialworks() {
+    if (this.isAdmin()) {
+      return this.socialworks;
+    } else if (this.user?.role === UserRole.ATTENDANT) {
+      return this.attendantSocialworks;
+    }
+    return [];
+  }
+
+  async deleteAttendantXSocialwork(id: string) {
+    if (!this.user?.id || this.user?.role !== UserRole.ATTENDANT) {
+      return this.errorService.handleError(
+        undefined,
+        'No tiene permiso para realizar esta acción'
+      );
+    }
+
+    try {
+      await this.attendantXSocialworkService
+        .deleteSocialwork(this.user.id, id)
+        .toPromise();
+
+      const socialworkAux = this.attendantSocialworks?.find(
+        (sw) => sw.id === id
+      );
+      if (socialworkAux) {
+        this.socialworks?.push(socialworkAux);
+      }
+      this.attendantSocialworks = this.attendantSocialworks?.filter(
+        (sw) => sw.id !== id
+      );
+
+      UtilsService.openToast(
+        this.toastSvc,
+        'Cobertura médica eliminada exitosamente',
+        SkyToastType.Success
+      );
+    } catch (error) {
+      return this.errorService.handleError(
+        error,
+        'Error eliminando cobertura medica'
+      );
+    }
+  }
+
+  async addAttendantXSocialwork() {
+    if (this.user?.role !== UserRole.ATTENDANT) {
+      return this.errorService.handleError(
+        undefined,
+        'No tiene permiso para realizar esta acción'
+      );
+    }
+
+    if (!this.selectedSocialwork || this.selectedSocialwork === null) {
+      return this.errorService.handleError(
+        undefined,
+        'Debe seleccionar una cobertura médica'
+      );
+    }
+
+    try {
+      const socialwork = this.socialworks?.find(
+        (sw) => sw.id === this.selectedSocialwork
+      );
+      if (!socialwork) {
+        return this.errorService.handleError(
+          undefined,
+          'No se encontró la cobertura médica'
+        );
+      }
+
+      const attendantXSocialwork = {
+        id: crypto.randomUUID(),
+        attendantID: this.user.id,
+        socialworkID: socialwork.id,
+      };
+
+      await this.attendantXSocialworkService
+        .postSocialwork(attendantXSocialwork)
+        .toPromise();
+
+      this.attendantSocialworks?.push(socialwork);
+      this.socialworks = this.socialworks?.filter(
+        (sw) => sw.id !== socialwork.id
+      );
+
+      UtilsService.openToast(
+        this.toastSvc,
+        'Cobertura médica agregada exitosamente',
+        SkyToastType.Success
+      );
+    } catch (error) {
+      return this.errorService.handleError(
+        error,
+        'Error cargando cobertura médica'
+      );
+    }
+  }
 
   isAdmin() {
     if (!this.user) {

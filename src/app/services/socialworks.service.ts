@@ -102,6 +102,33 @@ export class SocialworksService {
     );
   }
 
+  ///GET Socialworks by attendant
+
+  async getSocialworkByAttendantTC(attendantID: string) {
+    try {
+      const data = await this.getSocialworkByAttendant(attendantID).toPromise();
+      if (data) {
+        const allSocialworks: Socialwork[] = data;
+        return allSocialworks;
+      }
+      return undefined;
+    } catch (error) {
+      if (error instanceof Error) {
+        console.error('Error obteniendo datos:', error.message);
+      }
+      throw error; // Puedes manejar el error de acuerdo a tus necesidades
+    }
+  }
+
+  getSocialworkByAttendant(attendantID: string): Observable<Socialwork[]> {
+    return this.http.get<Socialwork[]>(
+      this.myAppUrl + this.myApiUrl + `name/${attendantID}`,
+      {
+        withCredentials: true,
+      }
+    );
+  }
+
   ///SET Socialwork TO ACTIVE
 
   setActiveSocialwork(SocialworkID: string): Observable<string> {

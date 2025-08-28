@@ -21,7 +21,7 @@
 
       <li
         [class.active]="activeSection === 'Coberturas Médicas'"
-        *ngIf="user?.role === 'admin'"
+        *ngIf="user?.role !== 'client'"
       >
         <button (click)="activeSection = 'Coberturas Médicas'">
           Coberturas Médicas
@@ -58,7 +58,7 @@
   ></app-my-schedule>
   <app-add-socialwork
     class="profile-section schedule"
-    *ngIf="activeSection === 'Coberturas Médicas' && user?.role === 'admin'"
+    *ngIf="activeSection === 'Coberturas Médicas' && user?.role !== 'client'"
     [user]="user"
   ></app-add-socialwork>
 </div>

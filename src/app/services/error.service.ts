@@ -13,9 +13,9 @@ export class ErrorService {
     if (err) {
       errMessage += `- ${UtilsService.errorText(err)}`;
     }
-    if (err && err.status === 404) {
+    /*if (err && err.status === 404) {
       return;
-    }
+    }*/
     UtilsService.openToast(this.toastSvc, errMessage, SkyToastType.Danger);
   }
 }

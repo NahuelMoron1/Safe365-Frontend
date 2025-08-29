@@ -2,11 +2,13 @@ import { CommonModule, NgIf } from '@angular/common';
 import { Component, inject, Input, OnInit } from '@angular/core';
 import { SkyAlertModule } from '@skyux/indicators';
 import { SkyModalService } from '@skyux/modals';
+import { SkyToastService, SkyToastType } from '@skyux/toast';
 import { UserRole } from '../../../models/enums/UserRole';
 import { Review } from '../../../models/Review';
 import { User } from '../../../models/User';
 import { ErrorService } from '../../../services/error.service';
 import { ReviewService } from '../../../services/review.service';
+import { UtilsService } from '../../../services/utils.service';
 import { ATTENDANT, USER } from '../../../tokens/token';
 import { CalendarModalComponent } from '../../modals/calendar-modal/calendar-modal.component';
 import { ManageAttendantModalComponent } from '../../modals/manage-attendant-modal/manage-attendant-modal.component';
@@ -29,6 +31,7 @@ export class DoctorsButtonsComponent implements OnInit {
   private instance = inject(SkyModalService);
   private reviewService = inject(ReviewService);
   private errorService = inject(ErrorService);
+  private toastSvc = inject(SkyToastService);
   public reviews: Review[] = [];
 
   async ngOnInit() {
@@ -59,7 +62,21 @@ export class DoctorsButtonsComponent implements OnInit {
       ],
     });
 
-    await modalRef.closed.toPromise();
+    const result = await modalRef.closed.toPromise();
+
+    if (result?.data) {
+      UtilsService.openToast(
+        this.toastSvc,
+        'Turno agendando con exito',
+        SkyToastType.Success
+      );
+    } else {
+      UtilsService.openToast(
+        this.toastSvc,
+        'Hubo un problema al agendar el turno',
+        SkyToastType.Danger
+      );
+    }
   }
 
   async openManageAttendantModal(attendantTurn: User) {

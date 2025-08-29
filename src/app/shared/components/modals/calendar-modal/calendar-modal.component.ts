@@ -1,7 +1,11 @@
 import { CommonModule } from '@angular/common';
 import { Component, inject, OnInit } from '@angular/core';
-import { SkyAlertModule } from '@skyux/indicators';
-import { SkyModalModule, SkyModalService } from '@skyux/modals';
+import { SkyAlertModule, SkyWaitService } from '@skyux/indicators';
+import {
+  SkyModalInstance,
+  SkyModalModule,
+  SkyModalService,
+} from '@skyux/modals';
 import { CalendarEvent, CalendarModule } from 'angular-calendar';
 import { Availability } from '../../../models/Availability';
 import { AvailabilityDays } from '../../../models/enums/AvailabilityDays';
@@ -26,7 +30,9 @@ import { SelectTimeModalComponent } from '../select-time-modal/select-time-modal
 export class CalendarModalComponent implements OnInit {
   private errorService = inject(ErrorService);
   private instance = inject(SkyModalService);
+  private modalInstance = inject(SkyModalInstance);
   private availabilityService = inject(AvailabilityService);
+  private waitService = inject(SkyWaitService);
   private turnService = inject(TurnService);
   public attendant = inject(ATTENDANT);
   public user = inject(USER);
@@ -38,7 +44,7 @@ export class CalendarModalComponent implements OnInit {
   public showTimeSelector?: boolean;
   public viewDate: Date = new Date();
   public events?: CalendarEvent[];
-  private countdownInterval: any;
+  //private countdownInterval: any;
 
   public attendantAvailability?: Availability[];
 
@@ -83,26 +89,11 @@ export class CalendarModalComponent implements OnInit {
     }
 
     const created = await this.createTurn(scheduled);
-    if (!created) {
-      return;
-    }
-    this.showSuccessAlert = true;
-
-    this.redirectCountdown = 10;
-
-    this.countdownInterval = setInterval(() => {
-      this.redirectCountdown--;
-      if (this.redirectCountdown <= 0) {
-        clearInterval(this.countdownInterval);
-      }
-    }, 1000);
-
-    setTimeout(() => {
-      window.location.href = '/turns';
-    }, 10000);
+    return this.modalInstance.close(created);
   }
 
   async createTurn(scheduled: Date) {
+    this.waitService.beginBlockingPageWait();
     try {
       if (
         !this.user ||
@@ -133,9 +124,11 @@ export class CalendarModalComponent implements OnInit {
       );
 
       await this.turnService.createTurn(newTurn).toPromise();
+      this.waitService.endBlockingPageWait();
       return true;
     } catch (error) {
       this.errorService.handleError(error, 'Error al guardar turno');
+      this.waitService.endBlockingPageWait();
       return false;
     }
   }
@@ -229,10 +222,10 @@ export class CalendarModalComponent implements OnInit {
       today.getDate()
     );
 
-    if (selectedDay < todayDay) {
+    if (selectedDay <= todayDay) {
       this.errorService.handleError(
         undefined,
-        'No podes seleccionar un dia que ya pasó'
+        'No podes seleccionar el día de hoy o un dia que ya pasó'
       );
       return false;
     }

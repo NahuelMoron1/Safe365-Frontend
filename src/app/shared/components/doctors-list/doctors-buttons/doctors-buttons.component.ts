@@ -70,12 +70,6 @@ export class DoctorsButtonsComponent implements OnInit {
         'Turno agendando con exito',
         SkyToastType.Success
       );
-    } else {
-      UtilsService.openToast(
-        this.toastSvc,
-        'Hubo un problema al agendar el turno',
-        SkyToastType.Danger
-      );
     }
   }
 

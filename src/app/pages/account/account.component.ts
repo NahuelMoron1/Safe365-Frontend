@@ -1,13 +1,13 @@
 import { Component, inject, Input } from '@angular/core';
-import { NavBarComponent } from '../../components/nav-bar/nav-bar.component';
-import { UserdataComponent } from '../../components/userdata/userdata.component';
-import { Review } from '../../models/Review';
-import { Turn } from '../../models/Turn';
-import { User } from '../../models/User';
-import { UserRole } from '../../models/enums/UserRole';
-import { ErrorService } from '../../services/error.service';
-import { ReviewService } from '../../services/review.service';
-import { TurnService } from '../../services/turn.service';
+import { NavBarComponent } from '../../shared/components/nav-bar/nav-bar.component';
+import { UserdataComponent } from '../../shared/components/userdata/userdata.component';
+import { UserRole } from '../../shared/models/enums/UserRole';
+import { Review } from '../../shared/models/Review';
+import { Turn } from '../../shared/models/Turn';
+import { User } from '../../shared/models/User';
+import { ErrorService } from '../../shared/services/error.service';
+import { ReviewService } from '../../shared/services/review.service';
+import { TurnService } from '../../shared/services/turn.service';
 
 @Component({
   selector: 'app-account',

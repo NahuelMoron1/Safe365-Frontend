@@ -4,7 +4,7 @@ import { SkyCardModule, SkyFluidGridModule } from '@skyux/layout';
 import { NgFor, NgIf } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { SkyAlertModule } from '@skyux/indicators';
-import { environment } from '../../environments/environment';
+import { environment } from '../../../environments/environment';
 import { UserRole } from '../../models/enums/UserRole';
 import { Socialwork } from '../../models/Socialwork';
 import { User } from '../../models/User';

@@ -1,14 +1,14 @@
 import { Routes } from '@angular/router';
-import { SettingsComponent } from './components/settings/settings.component';
-import { adminGuard } from './guards/admin.guard';
-import { loggedGuard } from './guards/logged.guard';
-import { notLoggedGuard } from './guards/notLogged.guard';
 import { AccountComponent } from './pages/account/account.component';
 import { DoctorsComponent } from './pages/doctors/doctors.component';
 import { LoginPageComponent } from './pages/login-page/login-page.component';
 import { MainMenuComponent } from './pages/main-menu/main-menu.component';
 import { ReviewsComponent } from './pages/reviews/reviews.component';
 import { TurnsComponent } from './pages/turns/turns.component';
+import { SettingsComponent } from './shared/components/settings/settings.component';
+import { adminGuard } from './shared/guards/admin.guard';
+import { loggedGuard } from './shared/guards/logged.guard';
+import { notLoggedGuard } from './shared/guards/notLogged.guard';
 
 export const routes: Routes = [
   {

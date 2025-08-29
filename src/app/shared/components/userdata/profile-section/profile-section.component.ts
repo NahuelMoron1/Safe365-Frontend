@@ -1,7 +1,7 @@
 import { NgIf } from '@angular/common';
 import { Component, Input } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { environment } from '../../../environments/environment';
+import { environment } from '../../../../environments/environment';
 import { Review } from '../../../models/Review';
 import { Turn } from '../../../models/Turn';
 import { User } from '../../../models/User';

@@ -2,7 +2,7 @@ import { NgIf } from '@angular/common';
 import { Component, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { SkyModalInstance, SkyModalModule } from '@skyux/modals';
-import { environment } from '../../../environments/environment';
+import { environment } from '../../../../environments/environment';
 import { UserRole } from '../../../models/enums/UserRole';
 import { ErrorService } from '../../../services/error.service';
 import { UserService } from '../../../services/user.service';

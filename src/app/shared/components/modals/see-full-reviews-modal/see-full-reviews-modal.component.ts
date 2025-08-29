@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component, inject } from '@angular/core';
 import { SkyModalModule, SkyModalService } from '@skyux/modals';
-import { environment } from '../../../environments/environment';
+import { environment } from '../../../../environments/environment';
 import { REVIEWS } from '../../../tokens/token';
 
 @Component({

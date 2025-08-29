@@ -3,7 +3,7 @@ import { Component, inject, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { SkyModalInstance, SkyModalModule } from '@skyux/modals';
 import { SkyToastService, SkyToastType } from '@skyux/toast';
-import { environment } from '../../../environments/environment';
+import { environment } from '../../../../environments/environment';
 import { UserRole } from '../../../models/enums/UserRole';
 import { Review } from '../../../models/Review';
 import { ErrorService } from '../../../services/error.service';

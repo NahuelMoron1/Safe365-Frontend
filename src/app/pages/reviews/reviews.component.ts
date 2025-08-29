@@ -1,7 +1,7 @@
 import { Component, Input } from '@angular/core';
-import { NavBarComponent } from '../../components/nav-bar/nav-bar.component';
-import { ReviewsInfoComponent } from '../../components/reviews-info/reviews-info.component';
-import { User } from '../../models/User';
+import { NavBarComponent } from '../../shared/components/nav-bar/nav-bar.component';
+import { ReviewsInfoComponent } from '../../shared/components/reviews-info/reviews-info.component';
+import { User } from '../../shared/models/User';
 
 @Component({
   selector: 'app-reviews',

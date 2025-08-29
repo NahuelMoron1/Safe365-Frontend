@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
-import { LoginComponent } from '../../components/login/login.component';
-import { NavBarComponent } from '../../components/nav-bar/nav-bar.component';
+import { LoginComponent } from '../../shared/components/login/login.component';
+import { NavBarComponent } from '../../shared/components/nav-bar/nav-bar.component';
 
 @Component({
   selector: 'app-login-page',

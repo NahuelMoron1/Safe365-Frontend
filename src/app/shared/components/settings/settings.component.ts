@@ -3,7 +3,7 @@ import { Component, ElementRef, inject, Input, ViewChild } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { SkyModalService } from '@skyux/modals';
 import { SkyToastService, SkyToastType } from '@skyux/toast';
-import { environment } from '../../environments/environment';
+import { environment } from '../../../environments/environment';
 import { UserRole } from '../../models/enums/UserRole';
 import { UserStatus } from '../../models/enums/UserStatus';
 import { Socialwork } from '../../models/Socialwork';

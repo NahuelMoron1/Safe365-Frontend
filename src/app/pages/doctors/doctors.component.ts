@@ -1,13 +1,13 @@
 import { NgIf } from '@angular/common';
 import { Component, inject, Input, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { DoctorsListComponent } from '../../components/doctors-list/doctors-list.component';
-import { NavBarComponent } from '../../components/nav-bar/nav-bar.component';
-import { RegisterDoctorComponent } from '../../components/register-doctor/register-doctor.component';
-import { SearchDoctorComponent } from '../../components/search-doctor/search-doctor.component';
-import { UserRole } from '../../models/enums/UserRole';
-import { Socialwork } from '../../models/Socialwork';
-import { User } from '../../models/User';
+import { DoctorsListComponent } from '../../shared/components/doctors-list/doctors-list.component';
+import { NavBarComponent } from '../../shared/components/nav-bar/nav-bar.component';
+import { RegisterDoctorComponent } from '../../shared/components/register-doctor/register-doctor.component';
+import { SearchDoctorComponent } from '../../shared/components/search-doctor/search-doctor.component';
+import { UserRole } from '../../shared/models/enums/UserRole';
+import { Socialwork } from '../../shared/models/Socialwork';
+import { User } from '../../shared/models/User';
 
 @Component({
   selector: 'app-doctors',

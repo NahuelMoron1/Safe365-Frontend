@@ -1,8 +1,8 @@
 import { Component, Input } from '@angular/core';
 import { SkyDropdownModule } from '@skyux/popovers';
-import { NavBarComponent } from '../../components/nav-bar/nav-bar.component';
-import { WelcomeComponent } from '../../components/welcome/welcome.component';
-import { User } from '../../models/User';
+import { NavBarComponent } from '../../shared/components/nav-bar/nav-bar.component';
+import { WelcomeComponent } from '../../shared/components/welcome/welcome.component';
+import { User } from '../../shared/models/User';
 
 @Component({
   selector: 'app-main-menu',

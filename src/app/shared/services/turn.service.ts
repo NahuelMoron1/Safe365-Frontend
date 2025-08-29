@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
-import { environment } from '../environments/environment';
+import { environment } from '../../environments/environment';
 import { AttendantHours } from '../models/AttendantHours';
 import { Turn } from '../models/Turn';
 import { CookieService } from './cookie.service';

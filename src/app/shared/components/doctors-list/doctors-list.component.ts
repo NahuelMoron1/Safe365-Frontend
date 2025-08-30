@@ -3,11 +3,13 @@ import { SkyCardModule, SkyFluidGridModule } from '@skyux/layout';
 
 import { NgFor, NgIf } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { Router } from '@angular/router';
 import { SkyAlertModule } from '@skyux/indicators';
 import { environment } from '../../../environments/environment';
 import { UserRole } from '../../models/enums/UserRole';
 import { Socialwork } from '../../models/Socialwork';
 import { User } from '../../models/User';
+import { ErrorService } from '../../services/error.service';
 import { SocialworksService } from '../../services/socialworks.service';
 import { UserService } from '../../services/user.service';
 import { DoctorsButtonsComponent } from './doctors-buttons/doctors-buttons.component';
@@ -41,6 +43,8 @@ export class DoctorsListComponent implements OnInit {
 
   private socialworkService = inject(SocialworksService);
   private userService = inject(UserService);
+  private router = inject(Router);
+  private errorService = inject(ErrorService);
 
   public socialWorks?: Socialwork[];
   public activeAttendants?: User[];
@@ -49,7 +53,7 @@ export class DoctorsListComponent implements OnInit {
   public bffurl: string = environment.endpoint;
 
   async ngOnInit() {
-    await this.getSocialworks();
+    //await this.getSocialworks();
     await this.searchAttendants();
   }
 
@@ -69,10 +73,22 @@ export class DoctorsListComponent implements OnInit {
   }
 
   async searchAttendants() {
-    if (this.user?.role === UserRole.ADMIN) {
-      await this.userService.getAllAttendantsTC();
-    } else {
-      await this.userService.getActiveAttendantsTC();
+    try {
+      if (this.user?.role === UserRole.ADMIN) {
+        await this.userService.getAllAttendantsTC();
+      } else {
+        await this.userService.getActiveAttendantsTC();
+      }
+    } catch (error) {
+      const fullUrl = `${window.location.origin}${this.router.url}`;
+      const payload = {
+        err: error,
+        rawMessage: 'Failed to load attendants',
+        userID: this.user?.id,
+        url: fullUrl,
+      };
+
+      this.errorService.handleError(error, 'Error leyendo usuarios', payload);
     }
     this.OnChanges();
   }

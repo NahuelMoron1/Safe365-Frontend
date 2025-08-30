@@ -49,7 +49,7 @@ export class UtilsService {
     try {
       return JSON.stringify(err);
     } catch (ex) {
-      return ex;
+      return JSON.stringify(ex);
     }
   }
 

@@ -2,7 +2,8 @@ import { CommonModule, NgIf } from '@angular/common';
 import { Component, inject, Input, OnInit } from '@angular/core';
 import { SkyModalService } from '@skyux/modals';
 import { Review } from '../../../../models/Review';
-import { REVIEWS } from '../../../../tokens/token';
+import { User } from '../../../../models/User';
+import { ATTENDANT, REVIEWS } from '../../../../tokens/token';
 import { SeeFullReviewsModalComponent } from '../../../modals/see-full-reviews-modal/see-full-reviews-modal.component';
 
 @Component({
@@ -14,6 +15,9 @@ import { SeeFullReviewsModalComponent } from '../../../modals/see-full-reviews-m
 export class DoctorsReviewsComponent implements OnInit {
   @Input()
   public reviews?: Review[];
+
+  @Input()
+  public attendant?: User;
 
   private instance = inject(SkyModalService);
 
@@ -42,6 +46,10 @@ export class DoctorsReviewsComponent implements OnInit {
         {
           provide: REVIEWS,
           useValue: this.reviews,
+        },
+        {
+          provide: ATTENDANT,
+          useValue: this.attendant,
         },
       ],
     });

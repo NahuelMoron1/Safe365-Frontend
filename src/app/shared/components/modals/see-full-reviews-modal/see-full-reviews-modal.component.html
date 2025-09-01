@@ -1,6 +1,9 @@
 <sky-modal>
   <sky-modal-content>
     <button class="close-button" (click)="closeModal()">×</button>
+    <h3 class="modal-title">
+      Reseñas de {{ attendant?.fullName || "Médico" }}
+    </h3>
     <div class="reviews-container" *ngIf="reviews?.length">
       <div class="review-card" *ngFor="let review of reviews">
         <div class="review-header">

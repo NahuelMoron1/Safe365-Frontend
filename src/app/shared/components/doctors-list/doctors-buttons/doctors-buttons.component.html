@@ -6,7 +6,10 @@
   Personal modificado correctamente
 </sky-alert>
 <div class="containsAll">
-  <app-doctors-reviews [reviews]="reviews"></app-doctors-reviews>
+  <app-doctors-reviews
+    [reviews]="reviews"
+    [attendant]="attendant"
+  ></app-doctors-reviews>
   <div class="buttons">
     <button
       *ngIf="user?.role === 'admin'"

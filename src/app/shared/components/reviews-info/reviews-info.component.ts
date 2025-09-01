@@ -51,7 +51,6 @@ export class ReviewsInfoComponent implements OnChanges {
         this.reviews = await this.reviewService.getAttendantReviewsTC(
           this.user.id
         );
-        console.log(this.reviews);
       }
       return;
     } catch (error) {

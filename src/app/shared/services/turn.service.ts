@@ -174,7 +174,6 @@ export class TurnService {
 
   createTurn(newTurn: Turn): Observable<void> {
     const dateFormatted = this.modifyDateForTurn(newTurn.date);
-    console.log(dateFormatted);
 
     const body = {
       attendantID: newTurn.attendantID,

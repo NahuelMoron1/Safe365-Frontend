@@ -344,8 +344,6 @@ export class UserService {
   ///CREATE NEW USER
 
   saveUser(newUser: User): Observable<void> {
-    console.log('USER: ', newUser);
-
     const formData = new FormData();
     formData.append('body', JSON.stringify(newUser));
 

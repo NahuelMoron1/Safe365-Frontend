@@ -21,19 +21,23 @@ export class ErrorService {
 
     UtilsService.openToast(this.toastSvc, errMessage, SkyToastType.Danger);
 
+    if (!payload) {
+      return;
+    }
+
     const postError = ErrorService.postError(err.error.message);
 
     if (postError) {
-      // post error
       // eslint-disable-next-line @typescript-eslint/no-empty-function
       SlackService.postErrorNotification(payload).subscribe(() => {});
-    } else {
-      // don't post error
-      //SlackService.postNotification({ rawMessage: message, token: token });
     }
   }
 
   public static postError(err: any) {
+    if (!err) {
+      return false;
+    }
+
     /*const is403 = err?.status === 403;
     if (is403) {
       return false;

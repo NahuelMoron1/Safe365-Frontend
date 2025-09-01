@@ -53,7 +53,7 @@ export class DoctorsListComponent implements OnInit {
   public bffurl: string = environment.endpoint;
 
   async ngOnInit() {
-    //await this.getSocialworks();
+    await this.getSocialworks();
     await this.searchAttendants();
   }
 
@@ -83,7 +83,7 @@ export class DoctorsListComponent implements OnInit {
       const fullUrl = `${window.location.origin}${this.router.url}`;
       const payload = {
         err: error,
-        rawMessage: 'Failed to load attendants',
+        rawMessage: 'Error leyendo usuarios',
         userID: this.user?.id,
         url: fullUrl,
       };

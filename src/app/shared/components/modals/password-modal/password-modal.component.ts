@@ -1,6 +1,6 @@
 import { Component, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { RouterModule } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 import { SkyModalInstance, SkyModalModule } from '@skyux/modals';
 import { UserStatus } from '../../../models/enums/UserStatus';
 import { ErrorService } from '../../../services/error.service';
@@ -17,6 +17,8 @@ export class PasswordModalComponent {
   private userService = inject(UserService);
   private instance = inject(SkyModalInstance);
   private errorService = inject(ErrorService);
+  private router = inject(Router);
+
   public user = inject(USER);
 
   public password?: string;
@@ -47,7 +49,19 @@ export class PasswordModalComponent {
       this.result.password = this.password;
       this.instance.close(this.result);
     } catch (error) {
-      this.errorService.handleError(error, 'Error verificando contraseña');
+      const fullUrl = `${window.location.origin}${this.router.url}`;
+      const payload = {
+        err: error,
+        rawMessage: 'Error verificando contraseña',
+        userID: this.user?.id,
+        url: fullUrl,
+      };
+
+      this.errorService.handleError(
+        error,
+        'Error verificando contraseña',
+        payload
+      );
     }
   }
 

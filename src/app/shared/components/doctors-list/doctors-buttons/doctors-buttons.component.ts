@@ -1,5 +1,6 @@
 import { CommonModule, NgIf } from '@angular/common';
 import { Component, inject, Input, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { SkyAlertModule } from '@skyux/indicators';
 import { SkyModalService } from '@skyux/modals';
 import { SkyToastService, SkyToastType } from '@skyux/toast';
@@ -27,12 +28,14 @@ export class DoctorsButtonsComponent implements OnInit {
   @Input()
   public attendant?: User;
 
-  public showModifiedAlert?: boolean;
   private instance = inject(SkyModalService);
   private reviewService = inject(ReviewService);
   private errorService = inject(ErrorService);
   private toastSvc = inject(SkyToastService);
+  private router = inject(Router);
+
   public reviews: Review[] = [];
+  public showModifiedAlert?: boolean;
 
   async ngOnInit() {
     await this.getAttendantReviews();
@@ -114,7 +117,19 @@ export class DoctorsButtonsComponent implements OnInit {
         (await this.reviewService.getAttendantReviewsTC(this.attendant?.id)) ||
         [];
     } catch (error) {
-      return this.errorService.handleError(error, 'Error leyendo reseñas');
+      const fullUrl = `${window.location.origin}${this.router.url}`;
+      const payload = {
+        err: error,
+        rawMessage: 'Error leyendo reseñas',
+        userID: this.user?.id,
+        url: fullUrl,
+      };
+
+      return this.errorService.handleError(
+        error,
+        'Error leyendo reseñas',
+        payload
+      );
     }
   }
 }

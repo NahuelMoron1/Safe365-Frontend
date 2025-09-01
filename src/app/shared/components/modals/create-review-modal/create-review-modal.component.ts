@@ -1,6 +1,7 @@
 import { NgFor, NgIf } from '@angular/common';
 import { Component, inject, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { Router } from '@angular/router';
 import { SkyModalInstance, SkyModalModule } from '@skyux/modals';
 import { SkyToastService, SkyToastType } from '@skyux/toast';
 import { environment } from '../../../../environments/environment';
@@ -22,6 +23,8 @@ export class CreateReviewModalComponent implements OnInit {
   private instance = inject(SkyModalInstance);
   private reviewService = inject(ReviewService);
   private toastSvc = inject(SkyToastService);
+  private router = inject(Router);
+
   public attendant? = inject(ATTENDANT);
   public user? = inject(USER);
   public review? = inject(REVIEW);
@@ -117,7 +120,19 @@ export class CreateReviewModalComponent implements OnInit {
         SkyToastType.Success
       );
     } catch (error) {
-      return this.errorService.handleError(error, 'No se pudo modificar');
+      const fullUrl = `${window.location.origin}${this.router.url}`;
+      const payload = {
+        err: error,
+        rawMessage: 'No se pudo modificar',
+        userID: this.user?.id,
+        url: fullUrl,
+      };
+
+      return this.errorService.handleError(
+        error,
+        'No se pudo modificar',
+        payload
+      );
     }
   }
 
@@ -150,7 +165,19 @@ export class CreateReviewModalComponent implements OnInit {
         SkyToastType.Success
       );
     } catch (error) {
-      return this.errorService.handleError(error, 'Error eliminando reseña');
+      const fullUrl = `${window.location.origin}${this.router.url}`;
+      const payload = {
+        err: error,
+        rawMessage: 'Error eliminando reseña',
+        userID: this.user?.id,
+        url: fullUrl,
+      };
+
+      return this.errorService.handleError(
+        error,
+        'Error eliminando reseña',
+        payload
+      );
     }
   }
 

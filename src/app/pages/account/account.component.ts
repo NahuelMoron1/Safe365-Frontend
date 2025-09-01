@@ -1,4 +1,5 @@
 import { Component, inject, Input } from '@angular/core';
+import { Router } from '@angular/router';
 import { NavBarComponent } from '../../shared/components/nav-bar/nav-bar.component';
 import { UserdataComponent } from '../../shared/components/userdata/userdata.component';
 import { UserRole } from '../../shared/models/enums/UserRole';
@@ -22,6 +23,7 @@ export class AccountComponent {
   private errorService = inject(ErrorService);
   private reviewService = inject(ReviewService);
   private turnsService = inject(TurnService);
+  private router = inject(Router);
 
   public reviews?: Review[];
   public turns?: Turn[];
@@ -46,9 +48,18 @@ export class AccountComponent {
 
       this.turns = await this.turnsService.getAllUserTurnsTC();
     } catch (error) {
+      const fullUrl = `${window.location.origin}${this.router.url}`;
+      const payload = {
+        err: error,
+        rawMessage: 'Error leyendo datos de usuario',
+        userID: this.user?.id,
+        url: fullUrl,
+      };
+
       return this.errorService.handleError(
         error,
-        'Error leyendo datos de usuario'
+        'Error leyendo datos de usuario',
+        payload
       );
     }
   }

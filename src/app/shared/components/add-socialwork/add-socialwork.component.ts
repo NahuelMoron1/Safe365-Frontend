@@ -1,6 +1,7 @@
 import { NgFor, NgIf } from '@angular/common';
 import { Component, inject, Input, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { Router } from '@angular/router';
 import { SkyToastService, SkyToastType } from '@skyux/toast';
 import { UserRole } from '../../models/enums/UserRole';
 import { Socialwork } from '../../models/Socialwork';
@@ -24,6 +25,7 @@ export class AddSocialworkComponent implements OnInit {
   private attendantXSocialworkService = inject(AttendantXSocialworkService);
   private errorService = inject(ErrorService);
   private toastSvc = inject(SkyToastService);
+  private router = inject(Router);
 
   public socialworks?: Socialwork[];
   public attendantSocialworks?: Socialwork[];
@@ -37,8 +39,6 @@ export class AddSocialworkComponent implements OnInit {
     } else if (this.user?.role === UserRole.ATTENDANT) {
       this.getAttendantSocialworks();
     }
-    console.log('SOCIAL WORKS: ', this.socialworks);
-    console.log('ATTENDANT SOCIAL WORKS: ', this.attendantSocialworks);
   }
 
   async getAttendantSocialworks() {
@@ -93,9 +93,18 @@ export class AddSocialworkComponent implements OnInit {
         SkyToastType.Success
       );
     } catch (error) {
+      const fullUrl = `${window.location.origin}${this.router.url}`;
+      const payload = {
+        err: error,
+        rawMessage: 'Error agregando cobertura medica',
+        userID: this.user?.id,
+        url: fullUrl,
+      };
+
       return this.errorService.handleError(
         error,
-        'Error agregando cobertura medica'
+        'Error agregando cobertura medica',
+        payload
       );
     }
   }
@@ -109,9 +118,18 @@ export class AddSocialworkComponent implements OnInit {
       }
       sw.active = !sw.active;
     } catch (error) {
+      const fullUrl = `${window.location.origin}${this.router.url}`;
+      const payload = {
+        err: error,
+        rawMessage: 'Error cambiando el estado de la cobertura medica',
+        userID: this.user?.id,
+        url: fullUrl,
+      };
+
       return this.errorService.handleError(
         error,
-        'Error cambiando el estado de la cobertura medica'
+        'Error cambiando el estado de la cobertura medica',
+        payload
       );
     }
   }
@@ -154,9 +172,18 @@ export class AddSocialworkComponent implements OnInit {
         SkyToastType.Success
       );
     } catch (error) {
+      const fullUrl = `${window.location.origin}${this.router.url}`;
+      const payload = {
+        err: error,
+        rawMessage: 'Error eliminando cobertura medica',
+        userID: this.user?.id,
+        url: fullUrl,
+      };
+
       return this.errorService.handleError(
         error,
-        'Error eliminando cobertura medica'
+        'Error eliminando cobertura medica',
+        payload
       );
     }
   }
@@ -208,9 +235,18 @@ export class AddSocialworkComponent implements OnInit {
         SkyToastType.Success
       );
     } catch (error) {
+      const fullUrl = `${window.location.origin}${this.router.url}`;
+      const payload = {
+        err: error,
+        rawMessage: 'Error cargando cobertura médica',
+        userID: this.user?.id,
+        url: fullUrl,
+      };
+
       return this.errorService.handleError(
         error,
-        'Error cargando cobertura médica'
+        'Error cargando cobertura médica',
+        payload
       );
     }
   }

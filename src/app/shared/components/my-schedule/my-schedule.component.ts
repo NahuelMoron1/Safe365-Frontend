@@ -1,6 +1,7 @@
 import { NgFor, NgIf } from '@angular/common';
 import { Component, inject, Input, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { Router } from '@angular/router';
 import { SkyToastService, SkyToastType } from '@skyux/toast';
 import { Availability } from '../../models/Availability';
 import { AvailabilityDays } from '../../models/enums/AvailabilityDays';
@@ -22,6 +23,7 @@ export class MyScheduleComponent implements OnInit {
   private availabilityService = inject(AvailabilityService);
   private errorService = inject(ErrorService);
   private toastSvc = inject(SkyToastService);
+  private router = inject(Router);
 
   public availability?: Availability[];
   public weekdays = [
@@ -86,9 +88,18 @@ export class MyScheduleComponent implements OnInit {
       this.availability =
         await this.availabilityService.getAttendantAvailabilityTC(this.user.id);
     } catch (error) {
+      const fullUrl = `${window.location.origin}${this.router.url}`;
+      const payload = {
+        err: error,
+        rawMessage: 'Error leyendo datos de usuario',
+        userID: this.user?.id,
+        url: fullUrl,
+      };
+
       return this.errorService.handleError(
         error,
-        'Error leyendo datos de usuario'
+        'Error leyendo datos de usuario',
+        payload
       );
     }
   }
@@ -195,7 +206,19 @@ export class MyScheduleComponent implements OnInit {
       );
       //location.reload();
     } catch (error) {
-      this.errorService.handleError(error, 'Error modificando horarios');
+      const fullUrl = `${window.location.origin}${this.router.url}`;
+      const payload = {
+        err: error,
+        rawMessage: 'Error modificando horarios',
+        userID: this.user?.id,
+        url: fullUrl,
+      };
+
+      this.errorService.handleError(
+        error,
+        'Error modificando horarios',
+        payload
+      );
     }
   }
 

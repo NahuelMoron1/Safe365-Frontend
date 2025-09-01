@@ -1,4 +1,5 @@
 import { Component, inject } from '@angular/core';
+import { Router } from '@angular/router';
 import { UserRole } from '../../models/enums/UserRole';
 import { User } from '../../models/User';
 import { AuthRedirectService } from '../../services/auth-redirect.service';
@@ -17,6 +18,7 @@ export class LoginComponent {
   private userService = inject(UserService);
   private errorService = inject(ErrorService);
   private redirectService = inject(AuthRedirectService);
+  private router = inject(Router);
 
   public user: User = new User('', '', '', '', '', UserRole.CLIENT);
 
@@ -41,7 +43,19 @@ export class LoginComponent {
         window.location.href = this.redirectService.getRedirectUrl() || '/';
       }
     } catch (error: any) {
-      this.errorService.handleError(error, 'No se pudo iniciar sesión');
+      const fullUrl = `${window.location.origin}${this.router.url}`;
+      const payload = {
+        err: error,
+        rawMessage: 'No se pudo iniciar sesión',
+        userID: this.user?.id,
+        url: fullUrl,
+      };
+
+      this.errorService.handleError(
+        error,
+        'No se pudo iniciar sesión',
+        payload
+      );
     }
   }
 }

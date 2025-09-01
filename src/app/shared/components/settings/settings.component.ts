@@ -1,6 +1,7 @@
 import { NgFor, NgIf } from '@angular/common';
 import { Component, ElementRef, inject, Input, ViewChild } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { Router } from '@angular/router';
 import { SkyModalService } from '@skyux/modals';
 import { SkyToastService, SkyToastType } from '@skyux/toast';
 import { environment } from '../../../environments/environment';
@@ -33,6 +34,7 @@ export class SettingsComponent {
   private userService = inject(UserService);
   private errorService = inject(ErrorService);
   private instance = inject(SkyModalService);
+  private router = inject(Router);
 
   public socialWorks?: Socialwork[];
   public socialwork?: string;
@@ -52,7 +54,18 @@ export class SettingsComponent {
       this.loggedRole = this.user?.role;
       await this.openPasswordModal();
     } catch (error) {
-      return this.errorService.handleError(error, 'Error leyendo obra social');
+      const fullUrl = `${window.location.origin}${this.router.url}`;
+      const payload = {
+        err: error,
+        rawMessage: 'Error leyendo obra social',
+        userID: this.user?.id,
+        url: fullUrl,
+      };
+      return this.errorService.handleError(
+        error,
+        'Error leyendo obra social',
+        payload
+      );
     }
   }
 
@@ -80,9 +93,18 @@ export class SettingsComponent {
       }
       this.password = valid.password;
     } catch (error) {
+      const fullUrl = `${window.location.origin}${this.router.url}`;
+      const payload = {
+        err: error,
+        rawMessage: 'Error al verificar contraseña',
+        userID: this.user?.id,
+        url: fullUrl,
+      };
+
       return this.errorService.handleError(
         error,
-        'Error al verificar contraseña'
+        'Error al verificar contraseña',
+        payload
       );
     }
   }
@@ -129,9 +151,18 @@ export class SettingsComponent {
         SkyToastType.Success
       );
     } catch (error) {
+      const fullUrl = `${window.location.origin}${this.router.url}`;
+      const payload = {
+        err: error,
+        rawMessage: 'No se pudo modificar los datos del usuario',
+        userID: this.user?.id,
+        url: fullUrl,
+      };
+
       return this.errorService.handleError(
         error,
-        'No se pudo modificar los datos del usuario'
+        'No se pudo modificar los datos del usuario',
+        payload
       );
     }
   }

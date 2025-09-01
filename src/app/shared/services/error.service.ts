@@ -19,11 +19,12 @@ export class ErrorService {
       errMessage += `- ${UtilsService.errorText(err)}`;
     }
 
+    UtilsService.openToast(this.toastSvc, errMessage, SkyToastType.Danger);
+
     const postError = ErrorService.postError(err.error.message);
 
     if (postError) {
       // post error
-      UtilsService.openToast(this.toastSvc, errMessage, SkyToastType.Danger);
       // eslint-disable-next-line @typescript-eslint/no-empty-function
       SlackService.postErrorNotification(payload).subscribe(() => {});
     } else {
@@ -65,8 +66,6 @@ export class ErrorService {
 
   private static suppressErrorMessage(msg: string) {
     // suppress these error messages, they are usually 400s from the server that we can safely ignore
-    console.log('MESSAGE: ', msg);
-
     const ignoreMessages = ['No active attendants at the moment'];
 
     if (ignoreMessages.includes(msg)) {

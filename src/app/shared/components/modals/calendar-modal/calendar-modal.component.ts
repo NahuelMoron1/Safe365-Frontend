@@ -1,5 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component, inject, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { SkyAlertModule, SkyWaitService } from '@skyux/indicators';
 import {
   SkyModalInstance,
@@ -34,6 +35,8 @@ export class CalendarModalComponent implements OnInit {
   private availabilityService = inject(AvailabilityService);
   private waitService = inject(SkyWaitService);
   private turnService = inject(TurnService);
+  private router = inject(Router);
+
   public attendant = inject(ATTENDANT);
   public user = inject(USER);
 
@@ -127,7 +130,15 @@ export class CalendarModalComponent implements OnInit {
       this.waitService.endBlockingPageWait();
       return true;
     } catch (error) {
-      this.errorService.handleError(error, 'Error al guardar turno');
+      const fullUrl = `${window.location.origin}${this.router.url}`;
+      const payload = {
+        err: error,
+        rawMessage: 'Error al guardar turno',
+        userID: this.user?.id,
+        url: fullUrl,
+      };
+
+      this.errorService.handleError(error, 'Error al guardar turno', payload);
       this.waitService.endBlockingPageWait();
       return false;
     }
@@ -247,9 +258,18 @@ export class CalendarModalComponent implements OnInit {
 
       return true;
     } catch (error) {
+      const fullUrl = `${window.location.origin}${this.router.url}`;
+      const payload = {
+        err: error,
+        rawMessage: 'No se pudo obtener la disponibilidad',
+        userID: this.user?.id,
+        url: fullUrl,
+      };
+
       this.errorService.handleError(
         error,
-        'No se pudo obtener la disponibilidad'
+        'No se pudo obtener la disponibilidad',
+        payload
       );
 
       return false;

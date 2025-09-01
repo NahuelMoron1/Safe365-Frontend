@@ -8,6 +8,7 @@ import {
   ViewChild,
 } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { Router } from '@angular/router';
 import { SkyInputBoxModule } from '@skyux/forms';
 import { SkyCardModule } from '@skyux/layout';
 import { SkyToastService, SkyToastType } from '@skyux/toast';
@@ -36,6 +37,7 @@ export class RegisterDoctorComponent implements OnInit {
   private userService = inject(UserService);
   private toastSvc = inject(SkyToastService);
   private errorService = inject(ErrorService);
+  private router = inject(Router);
 
   public socialWorks?: Socialwork[];
   public socialwork?: string;
@@ -83,9 +85,18 @@ export class RegisterDoctorComponent implements OnInit {
         SkyToastType.Success
       );
     } catch (error: any) {
+      const fullUrl = `${window.location.origin}${this.router.url}`;
+      const payload = {
+        err: error,
+        rawMessage: 'No se pudo registrar nuevo usuario',
+        userID: this.user?.id,
+        url: fullUrl,
+      };
+
       return this.errorService.handleError(
         error,
-        'No se pudo registrar nuevo usuario'
+        'No se pudo registrar nuevo usuario',
+        payload
       );
     }
   }

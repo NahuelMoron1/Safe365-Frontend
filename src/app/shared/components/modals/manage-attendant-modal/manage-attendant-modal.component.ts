@@ -1,6 +1,7 @@
 import { NgIf } from '@angular/common';
 import { Component, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { Router } from '@angular/router';
 import { SkyModalInstance, SkyModalModule } from '@skyux/modals';
 import { environment } from '../../../../environments/environment';
 import { UserRole } from '../../../models/enums/UserRole';
@@ -18,6 +19,8 @@ export class ManageAttendantModalComponent {
   private errorService = inject(ErrorService);
   private instance = inject(SkyModalInstance);
   private userService = inject(UserService);
+  private router = inject(Router);
+
   public attendant = inject(ATTENDANT);
   public user = inject(USER);
 
@@ -42,7 +45,19 @@ export class ManageAttendantModalComponent {
       await this.userService.modifyUserByAdmin(this.attendant).toPromise();
       this.instance.close('ok');
     } catch (error) {
-      this.errorService.handleError(error, 'Error modificando personal');
+      const fullUrl = `${window.location.origin}${this.router.url}`;
+      const payload = {
+        err: error,
+        rawMessage: 'Error modificando personal',
+        userID: this.user?.id,
+        url: fullUrl,
+      };
+
+      this.errorService.handleError(
+        error,
+        'Error modificando personal',
+        payload
+      );
       this.instance.close();
     }
   }

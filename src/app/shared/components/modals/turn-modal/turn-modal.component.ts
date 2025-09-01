@@ -1,5 +1,6 @@
 import { DatePipe, NgIf } from '@angular/common';
 import { Component, inject, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import {
   SkyConfirmModule,
   SkyModalInstance,
@@ -43,6 +44,7 @@ export class TurnModalComponent implements OnInit {
   private errorService = inject(ErrorService);
   private toastSvc = inject(SkyToastService);
   private reviewService = inject(ReviewService);
+  private router = inject(Router);
 
   public turn?: Turn = inject(TURN_MODAL_DATA);
   public user?: User = inject(USER_MODAL_DATA);
@@ -78,7 +80,15 @@ export class TurnModalComponent implements OnInit {
         this.modal.close();
         location.reload();
       } catch (error) {
-        this.errorService.handleError(error, 'Error al cancelar');
+        const fullUrl = `${window.location.origin}${this.router.url}`;
+        const payload = {
+          err: error,
+          rawMessage: 'Error al cancelar',
+          userID: this.user?.id,
+          url: fullUrl,
+        };
+
+        this.errorService.handleError(error, 'Error al cancelar', payload);
         this.modal.close();
       }
     }
@@ -97,7 +107,15 @@ export class TurnModalComponent implements OnInit {
         this.modal.close();
         location.reload();
       } catch (error) {
-        this.errorService.handleError(error, 'Error al completar');
+        const fullUrl = `${window.location.origin}${this.router.url}`;
+        const payload = {
+          err: error,
+          rawMessage: 'Error al completar',
+          userID: this.user?.id,
+          url: fullUrl,
+        };
+
+        this.errorService.handleError(error, 'Error al completar', payload);
         this.modal.close();
       }
     }
@@ -135,7 +153,19 @@ export class TurnModalComponent implements OnInit {
         location.reload();
       }, 3000);
     } catch (error) {
-      this.errorService.handleError(error, 'Error agregando comentarios');
+      const fullUrl = `${window.location.origin}${this.router.url}`;
+      const payload = {
+        err: error,
+        rawMessage: 'Error agregando comentarios',
+        userID: this.user?.id,
+        url: fullUrl,
+      };
+
+      this.errorService.handleError(
+        error,
+        'Error agregando comentarios',
+        payload
+      );
       this.modal.close();
     }
   }
@@ -184,9 +214,18 @@ export class TurnModalComponent implements OnInit {
 
     if (!result || !result.data || result.data !== 'ok') {
       this.instance.dispose();
+      const fullUrl = `${window.location.origin}${this.router.url}`;
+      const payload = {
+        err: result?.data,
+        rawMessage: 'Error creando reseña',
+        userID: this.user?.id,
+        url: fullUrl,
+      };
+
       return this.errorService.handleError(
         result?.data,
-        'Error creando reseña'
+        'Error creando reseña',
+        payload
       );
     }
     this.instance.dispose();

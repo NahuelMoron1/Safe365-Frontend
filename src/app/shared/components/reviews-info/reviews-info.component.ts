@@ -6,6 +6,7 @@ import {
   OnChanges,
   SimpleChanges,
 } from '@angular/core';
+import { Router } from '@angular/router';
 import { environment } from '../../../environments/environment';
 import { UserRole } from '../../models/enums/UserRole';
 import { Review } from '../../models/Review';
@@ -25,6 +26,7 @@ export class ReviewsInfoComponent implements OnChanges {
 
   private reviewService = inject(ReviewService);
   private errorService = inject(ErrorService);
+  private router = inject(Router);
 
   public reviews?: Review[];
   public bffUrl: string = environment.endpoint;
@@ -53,7 +55,19 @@ export class ReviewsInfoComponent implements OnChanges {
       }
       return;
     } catch (error) {
-      return this.errorService.handleError(error, 'Error leyendo reseñas');
+      const fullUrl = `${window.location.origin}${this.router.url}`;
+      const payload = {
+        err: error,
+        rawMessage: 'Error leyendo reseñas',
+        userID: this.user?.id,
+        url: fullUrl,
+      };
+
+      return this.errorService.handleError(
+        error,
+        'Error leyendo reseñas',
+        payload
+      );
     }
   }
 }

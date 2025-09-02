@@ -26,9 +26,17 @@
       <input id="directionsInp" type="text" class="form-control" />
     </div>
 
-    <div class="form-group">
+    <div class="form-group pass">
       <label for="passwordInp">Contraseña</label>
-      <input id="passwordInp" type="password" class="form-control" />
+      <input id="passwordInp" type="{{ passwordType }}" class="form-control" />
+      <button (click)="togglePassword()" class="toggleButton">
+        <span *ngIf="passwordType === 'text'"
+          ><i class="fa-solid fa-eye"></i
+        ></span>
+        <span *ngIf="passwordType === 'password'"
+          ><i class="fa-solid fa-eye-low-vision"></i
+        ></span>
+      </button>
     </div>
 
     <div class="form-group">

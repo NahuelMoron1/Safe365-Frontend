@@ -7,6 +7,7 @@ import { environment } from '../../../../environments/environment';
 import { UserRole } from '../../../models/enums/UserRole';
 import { ErrorService } from '../../../services/error.service';
 import { UserService } from '../../../services/user.service';
+import { UtilsService } from '../../../services/utils.service';
 import { ATTENDANT, USER } from '../../../tokens/token';
 
 @Component({
@@ -78,6 +79,14 @@ export class ManageAttendantModalComponent {
       this.errorService.handleError(
         undefined,
         'No todos los campos contienen un valor'
+      );
+      return false;
+    }
+
+    if (!UtilsService.isValidInput(this.attendant.speciality)) {
+      this.errorService.handleError(
+        undefined,
+        'No puede escribir caracteres especiales'
       );
       return false;
     }

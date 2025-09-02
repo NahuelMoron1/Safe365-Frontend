@@ -21,12 +21,23 @@
 
         <div class="sky-form-group">
           <label for="passwordInp">Contraseña</label>
-          <input
-            id="passwordInp"
-            type="password"
-            class="sky-form-control"
-            placeholder="Ingrese su contraseña"
-          />
+          <div style="position: relative">
+            <input
+              id="passwordInp"
+              type="{{ passwordType }}"
+              class="sky-form-control"
+              placeholder="Ingrese su contraseña"
+              style="padding-right: 40px"
+            />
+            <button (click)="togglePassword()" class="toggleButton">
+              <span *ngIf="passwordType === 'text'"
+                ><i class="fa-solid fa-eye"></i
+              ></span>
+              <span *ngIf="passwordType === 'password'"
+                ><i class="fa-solid fa-eye-low-vision"></i
+              ></span>
+            </button>
+          </div>
         </div>
 
         <button

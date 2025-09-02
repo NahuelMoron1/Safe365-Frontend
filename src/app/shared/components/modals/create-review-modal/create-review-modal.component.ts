@@ -50,18 +50,28 @@ export class CreateReviewModalComponent implements OnInit {
           'Faltan datos de usuario'
         );
       }
+
       if (this.user.role !== UserRole.CLIENT) {
         return this.errorService.handleError(
           undefined,
           'No puede agregar una reseña siendo médico o administrador'
         );
       }
+
       if (!this.stars) {
         return this.errorService.handleError(
           undefined,
           'No puede dejar el campo de estrellas vacío'
         );
       }
+
+      if (!UtilsService.isValidInput(this.comments || '')) {
+        return this.errorService.handleError(
+          undefined,
+          'No puede escribir caracteres especiales'
+        );
+      }
+
       const body = {
         attendantID: this.attendant.id,
         rating: this.stars,

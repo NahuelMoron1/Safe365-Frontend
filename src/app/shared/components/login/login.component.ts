@@ -1,3 +1,4 @@
+import { NgIf } from '@angular/common';
 import { Component, inject } from '@angular/core';
 import { Router } from '@angular/router';
 import { UserRole } from '../../models/enums/UserRole';
@@ -10,7 +11,7 @@ import { FooterComponent } from '../footer/footer.component';
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [FooterComponent],
+  imports: [FooterComponent, NgIf],
   templateUrl: './login.component.html',
   styleUrl: './login.component.css',
 })
@@ -21,6 +22,7 @@ export class LoginComponent {
   private router = inject(Router);
 
   public user: User = new User('', '', '', '', '', UserRole.CLIENT);
+  public passwordType = 'password';
 
   async login() {
     const emailInp = document.getElementById('emailInp') as HTMLInputElement;
@@ -56,6 +58,14 @@ export class LoginComponent {
         'No se pudo iniciar sesión',
         payload
       );
+    }
+  }
+
+  togglePassword() {
+    if (this.passwordType === 'password') {
+      this.passwordType = 'text';
+    } else {
+      this.passwordType = 'password';
     }
   }
 }

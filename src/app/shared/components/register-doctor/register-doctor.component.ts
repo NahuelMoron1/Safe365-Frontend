@@ -45,6 +45,7 @@ export class RegisterDoctorComponent implements OnInit {
   public selectedRole?: string;
   public imagePreview?: string | null;
   public selectedFile: File | null = null;
+  public passwordType = 'password';
 
   async ngOnInit() {
     await this.getSocialworks();
@@ -194,6 +195,21 @@ export class RegisterDoctorComponent implements OnInit {
       );
       return false;
     }
+
+    if (
+      !UtilsService.isValidInput(fullName) ||
+      !UtilsService.isValidInput(email) ||
+      !UtilsService.isValidInput(phone) ||
+      !UtilsService.isValidInput(userID) ||
+      !UtilsService.isValidInput(directions) ||
+      !UtilsService.isValidInput(this.socialworkCompleted?.name || '')
+    ) {
+      this.errorService.handleError(
+        undefined,
+        'No puede escribir caracteres especiales'
+      );
+      return false;
+    }
     return true;
   }
 
@@ -282,6 +298,14 @@ export class RegisterDoctorComponent implements OnInit {
         this.imagePreview = reader.result as string;
       };
       reader.readAsDataURL(this.selectedFile);
+    }
+  }
+
+  togglePassword() {
+    if (this.passwordType === 'password') {
+      this.passwordType = 'text';
+    } else {
+      this.passwordType = 'password';
     }
   }
 }

@@ -75,7 +75,21 @@ export class AddSocialworkComponent implements OnInit {
 
   async addSocialwork() {
     try {
+      if (this.user?.role !== UserRole.ADMIN) {
+        return this.errorService.handleError(
+          undefined,
+          'No tiene permiso para realizar esta acción'
+        );
+      }
+
       if (!this.newSocialworkName.trim()) return;
+
+      if (!UtilsService.isValidInput(this.newSocialworkName)) {
+        return this.errorService.handleError(
+          undefined,
+          'No puede escribir caracteres especiales'
+        );
+      }
 
       const newSw = new Socialwork(
         crypto.randomUUID(),

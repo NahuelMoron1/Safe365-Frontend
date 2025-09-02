@@ -248,6 +248,20 @@ export class SettingsComponent {
       );
       return false;
     }
+
+    if (
+      !UtilsService.isValidInput(fullName) ||
+      !UtilsService.isValidInput(email) ||
+      !UtilsService.isValidInput(phone) ||
+      !UtilsService.isValidInput(userID) ||
+      !UtilsService.isValidInput(this.socialworkCompleted?.name || '')
+    ) {
+      this.errorService.handleError(
+        undefined,
+        'No puede escribir caracteres especiales'
+      );
+      return false;
+    }
     return true;
   }
 

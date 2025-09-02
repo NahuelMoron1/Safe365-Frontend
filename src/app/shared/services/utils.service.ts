@@ -66,4 +66,9 @@ export class UtilsService {
 
     return result;
   }
+
+  public static isValidInput(input: string) {
+    const regex = /^[a-zA-Z0-9áéíóúÁÉÍÓÚñÑ\s@]*$/;
+    return regex.test(input);
+  }
 }

@@ -18,6 +18,17 @@
   flex-direction: column;
 }
 
+.toggleButton {
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  font-size: 16px;
+}
+
 @media (max-width: 768px) {
   .sky-container {
     flex-direction: column;

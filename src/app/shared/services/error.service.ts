@@ -70,7 +70,10 @@ export class ErrorService {
 
   private static suppressErrorMessage(msg: string) {
     // suppress these error messages, they are usually 400s from the server that we can safely ignore
-    const ignoreMessages = ['No active attendants at the moment'];
+    const ignoreMessages = [
+      'No active attendants at the moment',
+      'El email o la contraseña es incorrecto',
+    ];
 
     if (ignoreMessages.includes(msg)) {
       return true;

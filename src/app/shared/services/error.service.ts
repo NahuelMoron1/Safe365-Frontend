@@ -79,7 +79,10 @@ export class ErrorService {
       return true;
     }
 
-    const regexIgnorePatterns = [/Product \w+ already exists in the catalog\./];
+    const regexIgnorePatterns = [
+      /No se encontró \w+\./,
+      /No se encontraron \w+\./,
+    ];
 
     // Check for regex pattern match
     return regexIgnorePatterns.some((regex) => regex.test(msg));

@@ -198,7 +198,6 @@ export class RegisterDoctorComponent implements OnInit {
 
     if (
       !UtilsService.isValidInput(fullName) ||
-      !UtilsService.isValidInput(email) ||
       !UtilsService.isValidInput(phone) ||
       !UtilsService.isValidInput(userID) ||
       !UtilsService.isValidInput(directions) ||

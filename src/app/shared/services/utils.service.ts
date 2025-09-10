@@ -69,9 +69,6 @@ export class UtilsService {
 
   public static isValidInput(input: string) {
     const regex = /^[a-zA-Z0-9áéíóúÁÉÍÓÚñÑ\s@]*$/;
-    console.log('INPUT: ', input);
-    console.log('STATUS: ', regex.test(input));
-
     return regex.test(input);
   }
 }
